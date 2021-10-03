@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://demo.cinemaone.ru/",
+    "changeOrigin": true,
+    "secure": false
+  }
+}
