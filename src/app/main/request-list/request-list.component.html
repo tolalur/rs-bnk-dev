@@ -1,0 +1,43 @@
+
+
+<div class="flex flex-col p-5">
+  <div class="flex mb-2 items-center justify-between">
+    <h3>СПИСОК ЗАЯВОК НА РЕЗЕРВИРОВАНИЕ РЕСУРСОВ ЦОД</h3>
+    <button
+      class="self-end mr-1"
+      mat-raised-button
+      routerLink="/request/add"
+    >Создать заявку на резервирование
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mt-5">
+    <ng-container matColumnDef="creationDate">
+      <th mat-header-cell *matHeaderCellDef>Дата создания заявки</th>
+      <td mat-cell *matCellDef="let element"> {{element.creationDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Номер заявки</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endReservationDate">
+      <th mat-header-cell *matHeaderCellDef>Окончание срока резервирования</th>
+      <td mat-cell *matCellDef="let element"> {{element.endReservationDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="projectId">
+      <th mat-header-cell *matHeaderCellDef>Идентификатор проекта</th>
+      <td mat-cell *matCellDef="let element"> {{element.projectId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="statusChangeDate">
+      <th mat-header-cell *matHeaderCellDef>Дата изменения статуса</th>
+      <td mat-cell *matCellDef="let element"> {{element.statusChangeDate}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="[row.id]" ></tr>
+  </table>
+</div>
