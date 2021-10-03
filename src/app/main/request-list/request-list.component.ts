@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-list.component.scss']
 })
 export class RequestListComponent implements OnInit {
-  displayedColumns: string[] = ['creationDate', 'id', 'endReservationDate', 'projectId', 'statusChangeDate'];
+  displayedColumns: string[] = ['creationDate', 'id', 'endReservationDate', 'projectId', 'statusChangeDate', 'status'];
   dataSource = [];
 
   constructor() { }
