@@ -14,7 +14,10 @@
   <table mat-table [dataSource]="dataSource" class="mt-5">
     <ng-container matColumnDef="creationDate">
       <th mat-header-cell *matHeaderCellDef>Дата создания заявки</th>
-      <td mat-cell *matCellDef="let element"> {{element.creationDate | date:'medium'}} </td>
+      <td mat-cell *matCellDef="let element">
+        <span>{{element.creationDate | date:'shortDate':'ru'}}</span>
+        <span class="date-time">{{element.creationDate | date:'mediumTime':'ru'}}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="applicationNumber">
@@ -29,7 +32,10 @@
 
     <ng-container matColumnDef="endReservationDate">
       <th mat-header-cell *matHeaderCellDef>Окончание срока резервирования</th>
-      <td mat-cell *matCellDef="let element"> {{element.endReservationDate | date:'medium'}} </td>
+      <td mat-cell *matCellDef="let element">
+        <span>{{element.endReservationDate | date:'shortDate':'ru'}}</span>
+        <span class="date-time">{{element.endReservationDate | date:'mediumTime':'ru'}}</span>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="projectId">
@@ -39,7 +45,10 @@
 
     <ng-container matColumnDef="statusChangeDate">
       <th mat-header-cell *matHeaderCellDef>Дата изменения статуса</th>
-      <td mat-cell *matCellDef="let element"> {{element.statusChangeDate | date:'medium'}} </td>
+      <td mat-cell *matCellDef="let element">
+        <span>{{element.statusChangeDate | date:'shortDate':'ru'}}</span>
+        <span class="date-time">{{element.statusChangeDate | date:'mediumTime':'ru'}}</span>
+      </td>
     </ng-container>
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Статус</th>
