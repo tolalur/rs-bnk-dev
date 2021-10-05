@@ -6,6 +6,8 @@ import {MaterialModule} from '../material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RequestComponent } from './request/request.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -19,7 +21,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MainRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class MainModule { }

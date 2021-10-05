@@ -11,7 +11,6 @@ export class RequestService {
   constructor(private http: MockRequestListService) { }
 
   getList(): Observable<RequestModel[]> {
-    console.log('toto');
     return this.http.getAll();
   }
 }

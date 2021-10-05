@@ -5,6 +5,7 @@ import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 registerLocaleData(localeRu, 'ru');
 
@@ -14,7 +15,9 @@ registerLocaleData(localeRu, 'ru');
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'ru' },],
   bootstrap: [AppComponent]
