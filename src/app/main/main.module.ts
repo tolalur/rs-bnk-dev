@@ -5,6 +5,7 @@ import {MainRoutingModule} from './main-routing.module';
 import {MaterialModule} from '../material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RequestComponent } from './request/request.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -17,7 +18,8 @@ import { RequestComponent } from './request/request.component';
     CommonModule,
     MainRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class MainModule { }
