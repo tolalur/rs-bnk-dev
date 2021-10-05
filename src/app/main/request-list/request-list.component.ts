@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {RequestService} from "../request.service";
+import {RequestModel} from "../types/request.model";
 
 @Component({
   selector: 'app-request-list',
@@ -6,12 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./request-list.component.scss']
 })
 export class RequestListComponent implements OnInit {
-  displayedColumns: string[] = ['creationDate', 'id', 'endReservationDate', 'projectId', 'statusChangeDate', 'status'];
+  displayedColumns: string[] = [
+    'creationDate',
+    'applicationNumber',
+    'user',
+    'endReservationDate',
+    'projectId',
+    'statusChangeDate',
+    'status'];
   dataSource = [];
 
-  constructor() { }
+  constructor(private service: RequestService) { }
 
   ngOnInit(): void {
+    this.service
+      .getList().subscribe((requestList: RequestModel[]) => {
+        // @ts-ignore
+      this.dataSource = requestList;
+        console.log(requestList);
+      });
   }
 
 }
