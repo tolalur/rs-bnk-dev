@@ -5,6 +5,7 @@ import {untilDestroyed} from "ngx-take-until-destroy";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-request-list',
@@ -22,7 +23,9 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
     'status'];
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
-  isLoadingResults = true;
+  isLoadingResults = false;
+  sortBy = 'creationDate';
+  sortDir = 'asc';
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -34,16 +37,32 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit() {
     // @ts-ignore
-    this.sort?.sortChange.subscribe(() => {
-      this.paginator.pageIndex = 0;
-      console.log('sort');
-    });
+    this.sort?.sortChange
+      .pipe(
+        // @ts-ignore
+
+        switchMap(val => {
+          this.sortBy = val.active === 'active' ? 'isActive' : val.active;
+          this.sortDir = val.direction;
+          this.isLoadingResults = true;
+
+          return this.service.getListRequest(this.sortBy, this.sortDir);
+        }),
+          untilDestroyed(this)
+    )
+      .subscribe(res => {
+        this.paginator.pageIndex = 0;
+
+        // @ts-ignore
+        this.dataSource = res;
+        this.isLoadingResults = false;
+      });
 
   }
 
   ngOnInit(): void {
     this.service
-      .getList()
+      .getListRequest(this.sortBy, this.sortDir)
       .pipe(untilDestroyed(this))
       .subscribe((requestList: RequestModel[]) => {
         this.isLoadingResults = false;
