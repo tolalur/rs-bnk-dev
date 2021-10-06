@@ -24,6 +24,7 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
   isLoadingResults = false;
+  selectedStatus = null;
   sortBy = 'creationDate';
   sortDir = 'asc';
 
