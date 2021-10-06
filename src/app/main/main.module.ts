@@ -5,13 +5,15 @@ import {MainRoutingModule} from './main-routing.module';
 import {MaterialModule} from '../material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RequestComponent } from './request/request.component';
+import { GeneralComponent } from './request/general/general.component';
 
 
 
 @NgModule({
   declarations: [
     RequestListComponent,
-    RequestComponent
+    RequestComponent,
+    GeneralComponent
   ],
   imports: [
     CommonModule,
