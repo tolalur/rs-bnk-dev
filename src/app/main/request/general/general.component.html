@@ -1,1 +1,70 @@
-<p>general works!</p>
+<div class="general">
+  <form class="general--form" [formGroup]="generalForm">
+    <mat-form-field>
+      <input
+        formControlName="idProject"
+        matInput
+        placeholder="Идентификатор проекта"
+        required
+        type="text">
+
+      <mat-error *ngIf="generalForm.controls['idProject'].hasError('required')">
+        Обязательное поле
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="owner"
+        matInput
+        placeholder="Владелец сервиса / оборудования"
+        required
+        type="text">
+
+      <mat-error *ngIf="generalForm.controls['owner'].hasError('required')">
+        Обязательное поле
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="administratorsGroup"
+        matInput
+        placeholder="Группа администраторов оборудования"
+        required
+        type="text">
+
+      <mat-error *ngIf="generalForm.controls['administratorsGroup'].hasError('required')">
+        Обязательное поле
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="mnemonicName"
+        matInput
+        placeholder="Мнемоническое имя устанавливаемого оборудования"
+        required
+        type="text">
+
+      <mat-error *ngIf="generalForm.controls['mnemonicName'].hasError('required')">
+        Обязательное поле
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        formControlName="budgetLinks"
+        matInput
+        placeholder="Ссылки на корректировки бюджета"
+        required
+        type="text">
+
+      <mat-error *ngIf="generalForm.controls['budgetLinks'].hasError('required')">
+        Обязательное поле
+      </mat-error>
+    </mat-form-field>
+
+
+  </form>
+</div>

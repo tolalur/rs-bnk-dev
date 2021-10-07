@@ -1,9 +1,8 @@
-<p>Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+<p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
 
-<mat-tab-group animationDuration="0ms">
+<mat-tab-group animationDuration="0ms" dynamicHeight>
   <mat-tab label="Общее">
-    <p>общее</p>
-    <app-general></app-general>
+    <app-general [isAdd]="isAdd"></app-general>
   </mat-tab>
   <mat-tab label="Позиция 1"> Content 2 </mat-tab>
   <mat-tab label="Комментарии"> Content 3 </mat-tab>
