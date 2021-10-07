@@ -24,7 +24,7 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
   isLoadingResults = false;
-  selectedStatus = null;
+  selectedStatus = '';
   sortBy = 'creationDate';
   sortDir = 'asc';
 
@@ -59,6 +59,8 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
         this.isLoadingResults = false;
       });
 
+
+
   }
 
   ngOnInit(): void {
@@ -74,4 +76,15 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngOnDestroy(): void {}
 
+  StatusChanged() {
+    this.isLoadingResults = true;
+    console.log('selectedStatus: ', this.selectedStatus);
+    this.service.getFilterRequest(this.selectedStatus)
+      .pipe(untilDestroyed(this))
+      .subscribe((requestList: RequestModel[]) => {
+        this.isLoadingResults = false;
+        // @ts-ignore
+        this.dataSource = requestList;
+      });
+  }
 }

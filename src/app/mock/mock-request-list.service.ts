@@ -15,4 +15,8 @@ export class MockRequestListService {
     // @ts-ignore
     return of(requests.list);
   }
+
+  getFilter(status: string) {
+    return of(requests.list.filter( (item: RequestModel) => item.status === status));
+  }
 }

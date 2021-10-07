@@ -21,4 +21,8 @@ export class RequestService {
 
     return this.http.getAll();
   }
+
+  getFilterRequest(status: string): Observable<RequestModel[]> {
+    return this.http.getFilter(status);
+  }
 }

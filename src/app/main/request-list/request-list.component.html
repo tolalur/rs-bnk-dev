@@ -64,7 +64,7 @@
           <form action="">
             <mat-form-field appearance="fill">
               <mat-label>Статус</mat-label>
-              <select matNativeControl [(ngModel)]="selectedStatus" name="status">
+              <select matNativeControl [(ngModel)]="selectedStatus" name="status" (ngModelChange)="StatusChanged()">
                 <option value="Новая">Новая</option>
                 <option value="Зарезервировано">Зарезервировано</option>
                 <option value="В обработке">В обработке</option>
