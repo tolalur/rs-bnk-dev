@@ -1,0 +1,64 @@
+{
+  "list": [
+    {
+      "id": "1",
+      "creationDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Иванов А.И.",
+      "endReservationDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "Новая"
+    },
+    {
+      "id": "1",
+      "creationDate": "Tue Oct 12 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Петров В.П.",
+      "endReservationDate": "Tue Oct 19 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 12 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "Зарезервировано"
+    },
+    {
+      "id": "1",
+      "creationDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Иванов А.И.",
+      "endReservationDate": "Tue Oct 19 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 12 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "В обработке"
+    },
+    {
+      "id": "1",
+      "creationDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Иванов А.И.",
+      "endReservationDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 05 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "Новая"
+    },
+    {
+      "id": "1",
+      "creationDate": "Thu Oct 07 2021 16:05:53 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Петров В.П.",
+      "endReservationDate": "Tue Oct 19 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 12 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "Зарезервировано"
+    },
+    {
+      "id": "1",
+      "creationDate": "Thu Oct 07 2021 16:05:53 GMT+0300 (Москва, стандартное время)",
+      "applicationNumber": "1542865",
+      "user": "Иванов А.И.",
+      "endReservationDate": "Tue Oct 19 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "projectId": "665824456052425",
+      "statusChangeDate": "Tue Oct 12 2021 14:47:58 GMT+0300 (Москва, стандартное время)",
+      "status": "В обработке"
+    }
+  ]
+}
