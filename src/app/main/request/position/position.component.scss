@@ -1,0 +1,20 @@
+.position {
+  padding: 30px 60px 40px;
+
+  &--form {
+    margin-bottom: 20px;
+  }
+
+  &--subtitle {
+    margin-bottom: 10px;
+    &_shift {
+      margin-left: -30px;
+    }
+  }
+
+  &--table {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+  }
+}
