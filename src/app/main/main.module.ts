@@ -6,6 +6,7 @@ import {MaterialModule} from '../material/material.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RequestComponent } from './request/request.component';
 import { GeneralComponent } from './request/general/general.component';
+import { PositionComponent } from './request/position/position.component';
 
 
 
@@ -13,7 +14,8 @@ import { GeneralComponent } from './request/general/general.component';
   declarations: [
     RequestListComponent,
     RequestComponent,
-    GeneralComponent
+    GeneralComponent,
+    PositionComponent
   ],
   imports: [
     CommonModule,
