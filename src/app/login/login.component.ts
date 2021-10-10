@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {UserService} from '../user/user.service';
-import {untilDestroyed} from 'ngx-take-until-destroy';
 import {Router} from '@angular/router';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

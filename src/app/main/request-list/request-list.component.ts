@@ -1,18 +1,20 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {RequestService} from "../request.service";
-import {RequestModel} from "../types/request.model";
-import {untilDestroyed} from "ngx-take-until-destroy";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatTableDataSource} from "@angular/material/table";
 import { switchMap } from 'rxjs/operators';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {RequestListModel} from '../types/request-list.model';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-request-list',
   templateUrl: './request-list.component.html',
   styleUrls: ['./request-list.component.scss']
 })
-export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
+export class RequestListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'creationDate',
     'applicationNumber',
@@ -67,21 +69,19 @@ export class RequestListComponent implements AfterViewInit, OnInit, OnDestroy {
     this.service
       .getListRequest(this.sortBy, this.sortDir)
       .pipe(untilDestroyed(this))
-      .subscribe((requestList: RequestModel[]) => {
+      .subscribe((requestList: RequestListModel[]) => {
         this.isLoadingResults = false;
         // @ts-ignore
         this.dataSource = requestList;
         });
   }
 
-  ngOnDestroy(): void {}
-
   StatusChanged() {
     this.isLoadingResults = true;
     console.log('selectedStatus: ', this.selectedStatus);
     this.service.getFilterRequest(this.selectedStatus)
       .pipe(untilDestroyed(this))
-      .subscribe((requestList: RequestModel[]) => {
+      .subscribe((requestList: RequestListModel[]) => {
         this.isLoadingResults = false;
         // @ts-ignore
         this.dataSource = requestList;

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RequestListComponent} from './request-list/request-list.component';
-import {RequestComponent} from './request/request.component';
+import {RequestComponent} from './request/request/request.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list' },
