@@ -1,0 +1,17 @@
+.comment {
+  padding: 20px 0 10px;
+  display: flex;
+  align-items: flex-start;
+
+  &--info {
+    padding-right: 20px;
+    color: #7B7B7B;
+
+  }
+
+  &--text {
+    padding-left: 12px;
+    border-left: 1px solid #2697FF;
+    max-width: 600px;
+  }
+}

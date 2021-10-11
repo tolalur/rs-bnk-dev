@@ -13,6 +13,8 @@ import {RequestComponent} from './request/request/request.component';
 import { NetworkConnectionComponent } from './request/network-connection/network-connection.component';
 import { RequestWithServiceComponent } from './request/request-with-service/request-with-service.component';
 import { PhysicalLocationComponent } from './request/physical-location/physical-location.component';
+import { CommentsComponent } from './request/comments/comments.component';
+import { CommentComponent } from './request/comments/comment/comment.component';
 
 
 
@@ -24,7 +26,9 @@ import { PhysicalLocationComponent } from './request/physical-location/physical-
     PositionComponent,
     NetworkConnectionComponent,
     RequestWithServiceComponent,
-    PhysicalLocationComponent
+    PhysicalLocationComponent,
+    CommentsComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
