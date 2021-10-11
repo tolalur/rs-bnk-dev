@@ -44,5 +44,5 @@ export interface IRequestModel {
   id?: number;
   general: IRequestGeneral;
   networkConnections: INetworkConnectionModel[];
-  physicalLocation: IPhysicalLocation[];
+  physicalLocation: IPhysicalLocation;
 }
