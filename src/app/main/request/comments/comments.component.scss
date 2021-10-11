@@ -1,0 +1,12 @@
+.comments {
+  padding: 30px;
+
+  &--input-wrap {
+    width: 100%;
+  }
+
+  &--input {
+    width: 50%;
+    max-width: 600px;
+  }
+}

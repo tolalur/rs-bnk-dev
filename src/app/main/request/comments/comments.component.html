@@ -1,0 +1,15 @@
+<div class="comments">
+  <div class="subtitle">Комментарий к заявке</div>
+
+  <div class="comments--input-wrap flex items-start">
+    <mat-form-field appearance="outline" class="comments--input mr-8">
+      <textarea matInput [(ngModel)]="newComment" placeholder="Введите комментарий"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="">Опубликовать</button>
+  </div>
+
+  <div class="subtitle">Список комментариев:</div>
+  <div class="comments--container">
+    <app-comment *ngFor="let item of comments" [comment]="item"></app-comment>
+  </div>
+</div>
