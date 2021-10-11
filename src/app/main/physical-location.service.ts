@@ -11,7 +11,7 @@ export class PhysicalLocationService {
 
   constructor(private requestService: RequestService) { }
 
-  physicalLocation$: Observable<IPhysicalLocation[]> = this.requestService.requestData$.pipe(
+  physicalLocation$: Observable<IPhysicalLocation> = this.requestService.requestData$.pipe(
     filter(val => val != null),
     map(val => val!!.physicalLocation)
   );

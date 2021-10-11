@@ -11,6 +11,7 @@ import {
 import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {NetworkConnectionClass} from './types/network.connection.class';
 import {RequestClass} from './types/request.class';
+import {PhysicalLocationClass} from './types/physical-location.class';
 
 @Injectable({
   providedIn: 'root'
@@ -82,7 +83,7 @@ export class RequestService {
           {segment: 'коммутаторы PDSW', type: 'UTP RJ45', speed: '100/10', quantity: 3},
           {segment: 'коммутаторы DASW', type: 'UTP RJ45', speed: '100/10', quantity: 1}
         ],
-        physicalLocation: []
+        physicalLocation: new PhysicalLocationClass()
       })),
       tap(data => this.requestData = data)
     ).subscribe(data => this.requestData$.next(data));
