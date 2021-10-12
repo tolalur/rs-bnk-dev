@@ -1,4 +1,21 @@
-<p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+<div class="head flex items-center justify-center">
+  <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+  <input
+    type="file"
+    name="file"
+    accept=".csv"
+    id="file-input"
+    class="head--file-input"
+    (change)="changedFile()"
+    [(ngModel)]="file"
+  >
+  <label for="file-input" class="head--file-input-label">
+    <svg class="file-input--icon">
+      <use xlink:href="#upload"/>
+    </svg>
+    Загрузить файл
+  </label>
+</div>
 
 <mat-tab-group animationDuration="0ms" dynamicHeight class="pb-8">
   <mat-tab label="Комментарии">
