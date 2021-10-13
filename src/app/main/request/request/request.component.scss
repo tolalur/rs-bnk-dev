@@ -7,3 +7,22 @@
   font-weight: 700;
   padding: 25px 0 18px;
 }
+
+.head--file-input {
+  display: none;
+}
+
+.file-input--icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.head--file-input-label {
+  padding: 25px 10px 18px 10px;
+  margin-left: 20px;
+  cursor: pointer;
+  color: #2697FF;
+  display: flex;
+  align-items: center;
+}

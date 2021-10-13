@@ -15,6 +15,7 @@ import { RequestWithServiceComponent } from './request/request-with-service/requ
 import { PhysicalLocationComponent } from './request/physical-location/physical-location.component';
 import { CommentsComponent } from './request/comments/comments.component';
 import { CommentComponent } from './request/comments/comment/comment.component';
+import { UploadFileModalComponent } from './request/request/upload-file-modal/upload-file-modal.component';
 
 
 
@@ -28,7 +29,8 @@ import { CommentComponent } from './request/comments/comment/comment.component';
     RequestWithServiceComponent,
     PhysicalLocationComponent,
     CommentsComponent,
-    CommentComponent
+    CommentComponent,
+    UploadFileModalComponent
   ],
   imports: [
     CommonModule,
