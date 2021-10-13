@@ -7,7 +7,7 @@
     id="file-input"
     class="head--file-input"
     (change)="changedFile()"
-    [(ngModel)]="file"
+    #fileInput
   >
   <label for="file-input" class="head--file-input-label">
     <svg class="file-input--icon">

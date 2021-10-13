@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, tap} from 'rxjs/operators';
 import {RequestService} from '../../request.service';
@@ -13,7 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class RequestComponent implements OnInit {
 
   id: null | number = null;
-  file: any;
+  @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
 
   get isAdd(): boolean {
@@ -35,8 +35,9 @@ export class RequestComponent implements OnInit {
   }
 
   changedFile() {
-    console.log('file: ', this.file);
-    var ext = this.file.substr(this.file.lastIndexOf('.') + 1);
+    console.log(this.file?.nativeElement.files);
+    const type = this.file?.nativeElement.files[0].type;
+    const ext = type.substr(type.lastIndexOf('/') + 1);
     if( this.extensionFile.indexOf(ext) === -1  ) {
       const dialogRef = this.dialog.open(UploadFileModalComponent, {
         width: '320px',
