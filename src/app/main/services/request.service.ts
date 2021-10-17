@@ -1,17 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of, timer} from 'rxjs';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {MockRequestListService} from '../../mock/mock-request-list.service';
-import {
-  INetworkConnectionModel,
-  INetworkConnectionModelCatalog,
-  IRequestGeneral,
-  IRequestModel
-} from '../types/request.model';
+import {IRequestModel} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {PhysicalLocationClass} from '../types/physical-location.class';
 import {RequestClass} from '../types/request.class';
-import {NetworkConnectionClass} from '../types/network.connection.class';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +19,6 @@ export class RequestService {
   }
 
   requestData$ = new BehaviorSubject<null | IRequestModel>(null);
-
-  general$: Observable<IRequestGeneral> = this.requestData$.pipe(
-    filter(val => val != null),
-    map(val => val!!.general)
-  );
-
-  networkConnections$: Observable<INetworkConnectionModel[]> = this.requestData$.pipe(
-    filter(val => val != null),
-    map(val => val!!.networkConnections)
-  );
 
   constructor(private http: MockRequestListService) {
   }
