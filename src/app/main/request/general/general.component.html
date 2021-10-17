@@ -1,10 +1,10 @@
 <div class="general p-4">
   <form class="general--form" [formGroup]="generalForm">
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Идентификатор проекта</mat-label>
       <input
         formControlName="idProject"
         matInput
-        placeholder="Идентификатор проекта"
         required
         type="text">
 
@@ -13,11 +13,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Владелец сервиса / оборудования</mat-label>
       <input
         formControlName="owner"
         matInput
-        placeholder="Владелец сервиса / оборудования"
         required
         type="text">
 
@@ -26,11 +26,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Группа администраторов оборудования</mat-label>
       <input
         formControlName="administratorsGroup"
         matInput
-        placeholder="Группа администраторов оборудования"
         required
         type="text">
 
@@ -39,11 +39,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Мнемоническое имя устанавливаемого оборудования</mat-label>
       <input
         formControlName="mnemonicName"
         matInput
-        placeholder="Мнемоническое имя устанавливаемого оборудования"
         required
         type="text">
 
@@ -52,11 +52,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Ссылки на корректировки бюджета</mat-label>
       <input
         formControlName="budgetLinks"
         matInput
-        placeholder="Ссылки на корректировки бюджета"
         required
         type="text">
 

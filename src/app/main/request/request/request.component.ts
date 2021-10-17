@@ -35,10 +35,9 @@ export class RequestComponent implements OnInit {
   }
 
   changedFile() {
-    console.log(this.file?.nativeElement.files);
-    const type = this.file?.nativeElement.files[0].type;
-    const ext = type.substr(type.lastIndexOf('/') + 1);
-    if( this.extensionFile.indexOf(ext) === -1  ) {
+    const fileType = this.file?.nativeElement.files[0].type;
+
+    if( !this.extensionFile.some(ext => fileType.includes(ext)) ) {
       const dialogRef = this.dialog.open(UploadFileModalComponent, {
         width: '320px',
         data: {extends: this.extensionFile}

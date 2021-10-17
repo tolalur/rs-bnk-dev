@@ -1,28 +1,28 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from './request.service';
 import {Observable} from 'rxjs';
+import {IRequestGeneral} from '../types/request.model';
 import {filter, map} from 'rxjs/operators';
-import {IPhysicalLocation} from '../types/request.model';
 import {UserService} from '../../user/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PhysicalLocationService {
+export class GeneralService {
 
   constructor(private requestService: RequestService, private userService: UserService) { }
 
-  physicalLocation$: Observable<IPhysicalLocation> = this.requestService.requestData$.pipe(
+  general$: Observable<IRequestGeneral> = this.requestService.requestData$.pipe(
     filter(val => val != null),
-    map(val => val!!.physicalLocation)
+    map(val => val!!.general)
   );
 
-  update(data: IPhysicalLocation) {
+  update(data: IRequestGeneral) {
     const requestData = this.requestService.requestData;
     if (requestData) {
       this.requestService.changeRequest({
         ...requestData,
-        physicalLocation: data
+        general: data
       })
     }
   }
