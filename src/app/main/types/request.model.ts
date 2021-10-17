@@ -40,8 +40,15 @@ export interface INetworkConnectionModelCatalog {
   speed: IFilterModel[],
 }
 
+export interface IComment {
+  date: string;
+  author: string;
+  text: string;
+}
+
 export interface IRequestModel {
   id?: number;
+  comments: IComment[],
   general: IRequestGeneral;
   networkConnections: INetworkConnectionModel[];
   physicalLocation: IPhysicalLocation;

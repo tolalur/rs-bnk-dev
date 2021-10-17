@@ -4,6 +4,7 @@ import {PhysicalLocationClass} from './physical-location.class';
 
 export class RequestClass implements IRequestModel{
   id = undefined
+  comments = []
   general = new RequestGeneralClass();
   networkConnections = [];
   physicalLocation = new PhysicalLocationClass();

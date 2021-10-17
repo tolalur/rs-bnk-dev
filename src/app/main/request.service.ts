@@ -17,9 +17,12 @@ import {PhysicalLocationClass} from './types/physical-location.class';
   providedIn: 'root'
 })
 export class RequestService {
-  urlList = '';
 
-  private requestData: IRequestModel | null = null;
+  private _requestData: IRequestModel | null = null;
+
+  get requestData() {
+    return this._requestData;
+  }
 
   requestData$ = new BehaviorSubject<null | IRequestModel>(null);
 
@@ -71,6 +74,25 @@ export class RequestService {
     timer(1000).pipe(
       switchMap(() => of({
         id: id,
+        comments: [
+          {
+            date: 'Mon Oct 11 2021 16:56:55 GMT+0300 (Москва, стандартное время)',
+            author: 'Иванов Олег',
+            text: 'Прошу добавить в заявку еще 2 порта UTP RJ45 '
+          },
+          {
+            date: 'Wed Mar 02 2011 00:00:00 GMT+0300 (Москва, стандартное время)',
+            author: 'Администратор',
+            text: 'Для резервирования был изменен номер стойки '
+          },
+          {
+            date: 'Wed Mar 02 2011 00:00:00 GMT+0300 (Москва, стандартное время)',
+            author: 'Администратор',
+            text: 'Для резервирования был изменен номер стойки. Для резервирования \n' +
+              'был изменен номер стойки. Для резервирования был изменен номер\n' +
+              'стойки '
+          }
+        ],
         general: {
           idProject: 'idProject',
           owner: 'owner',
@@ -79,44 +101,55 @@ export class RequestService {
           budgetLinks: 'budgetLinks'
         },
         networkConnections: [
-          {segment: 'коммутаторы DASW', type: 'UTP RJ45', speed: '100/10', quantity: 2},
-          {segment: 'коммутаторы PDSW', type: 'UTP RJ45', speed: '100/10', quantity: 3},
-          {segment: 'коммутаторы DASW', type: 'UTP RJ45', speed: '100/10', quantity: 1}
+          {segment: 'коммутаторы DASW 1', type: 'UTP RJ45', speed: '100/10', quantity: 2},
+          {segment: 'коммутаторы PDSW 2', type: 'UTP RJ45', speed: '100/10', quantity: 3},
+          {segment: 'коммутаторы DASW 3', type: 'UTP RJ45', speed: '100/10', quantity: 1}
         ],
         physicalLocation: new PhysicalLocationClass()
       })),
-      tap(data => this.requestData = data)
+      map(item => ({...item, comments: item.comments != null ? item.comments : []})),
+      tap(data => this._requestData = data)
     ).subscribe(data => this.requestData$.next(data));
   }
 
   addNewRequest() {
-    this.requestData = new RequestClass();
-    this.requestData$.next(this.requestData);
+    this._requestData = new RequestClass();
+    this.requestData$.next(this._requestData);
+  }
+
+  changeRequest(data: IRequestModel) {
+    this._requestData = data;
+    this.requestData$.next(this._requestData);
+  }
+
+  saveRequest() {
+    // todo сохранение запроса на бекенде
+    console.log(this._requestData);
   }
 
   copyNetworkConnection(i: number) {
-    if (this.requestData?.networkConnections) {
-      const networkConnections = this.requestData.networkConnections;
+    if (this._requestData?.networkConnections) {
+      const networkConnections = this._requestData.networkConnections;
       networkConnections.push(networkConnections[i]);
-      this.requestData.networkConnections = networkConnections.slice();
+      this._requestData.networkConnections = networkConnections.slice();
 
-      this.requestData$.next(this.requestData);
+      this.requestData$.next(this._requestData);
     }
   }
 
   deleteNetworkConnection(i: number) {
-    if (this.requestData?.networkConnections) {
-      const networkConnections = this.requestData.networkConnections;
+    if (this._requestData?.networkConnections) {
+      const networkConnections = this._requestData.networkConnections;
       networkConnections.splice(i, 1);
-      this.requestData.networkConnections = networkConnections.slice();
+      this._requestData.networkConnections = networkConnections.slice();
 
-      this.requestData$.next(this.requestData);
+      this.requestData$.next(this._requestData);
     }
   }
 
   editNetworkConnection(i: number) {
-    if (this.requestData?.networkConnections) {
-      this.selectedNetworkConnection = {...this.requestData.networkConnections[i]};
+    if (this._requestData?.networkConnections) {
+      this.selectedNetworkConnection = {...this._requestData.networkConnections[i]};
     }
   }
 
@@ -125,16 +158,16 @@ export class RequestService {
   }
 
   saveNetworkConnection(i?: number) {
-    if (this.requestData?.networkConnections && this.selectedNetworkConnection) {
-      const networkConnections = this.requestData.networkConnections;
+    if (this._requestData?.networkConnections && this.selectedNetworkConnection) {
+      const networkConnections = this._requestData.networkConnections;
       if (i != null) {
         networkConnections[i] = this.selectedNetworkConnection;
       } else {
         networkConnections.push(this.selectedNetworkConnection);
       }
 
-      this.requestData.networkConnections = networkConnections.slice();
-      this.requestData$.next(this.requestData);
+      this._requestData.networkConnections = networkConnections.slice();
+      this.requestData$.next(this._requestData);
       this.selectedNetworkConnection = null;
     }
   }
