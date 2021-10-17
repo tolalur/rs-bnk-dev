@@ -18,6 +18,10 @@ export class RequestService {
     return this._requestData;
   }
 
+  isAdd() {
+    return this._requestData?.id == null
+  }
+
   requestData$ = new BehaviorSubject<null | IRequestModel>(null);
 
   constructor(private http: MockRequestListService) {

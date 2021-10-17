@@ -15,6 +15,7 @@ export class PhysicalLocationComponent implements OnInit {
   isDisabledForm: boolean = false;
   physicalLocation: IPhysicalLocation | undefined;
   catalog: Observable<IPhysicalLocationCatalog>
+  isReadonly = true;
 
   constructor(public service: PhysicalLocationService) {
     this.catalog = this.service.physicalLocationCatalog()

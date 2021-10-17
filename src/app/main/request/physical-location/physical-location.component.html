@@ -1,5 +1,5 @@
 <div class="subtitle position--subtitle mt-7">Физическое размещение</div>
-<div (click)="add()" *ngIf="!isShowForm" class="text-blue-400 cursor-pointer mt-2">
+<div (click)="add()" *ngIf="!isShowForm && !isReadonly" class="text-blue-400 cursor-pointer mt-2">
   &#43; Добавить физическое размещение
 </div>
 
@@ -12,7 +12,7 @@
         matInput
         type="text"
         placeholder="Выбрать тип"
-        [disabled]="isDisabledForm"
+        [disabled]="isDisabledForm  || isReadonly"
         [(ngModel)]="physicalLocation.equipmentModel"
       >
     </mat-form-field>
@@ -20,7 +20,7 @@
     <div class="form--row">
       <mat-form-field appearance="outline" class="dimensions">
         <mat-label>Габариты (Кол-во юнитов)</mat-label>
-        <mat-select [(value)]="physicalLocation.dimensions" [disabled]="isDisabledForm">
+        <mat-select [(value)]="physicalLocation.dimensions" [disabled]="isDisabledForm || isReadonly">
           <mat-option
             *ngFor="let item of catalogData.dimensionsUnits"
             [value]="item.value"
@@ -31,7 +31,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Глубина</mat-label>
-        <input matInput [(ngModel)]="physicalLocation.depth" type="number" [disabled]="isDisabledForm">
+        <input matInput [(ngModel)]="physicalLocation.depth" type="number" [disabled]="isDisabledForm  || isReadonly">
       </mat-form-field>
 
     </div>
@@ -43,7 +43,7 @@
         type="text"
         placeholder="Введите серийный номер"
         [(ngModel)]="physicalLocation.serialNumber"
-        [disabled]="isDisabledForm"
+        [disabled]="isDisabledForm  || isReadonly"
       >
     </mat-form-field>
 
@@ -54,7 +54,7 @@
         type="text"
         placeholder="Введите инвентарный номер"
         [(ngModel)]="physicalLocation.inventoryNumber"
-        [disabled]="isDisabledForm"
+        [disabled]="isDisabledForm  || isReadonly"
       >
     </mat-form-field>
 
@@ -65,7 +65,7 @@
         type="text"
         placeholder="Введите число фаз"
         [(ngModel)]="physicalLocation.numberOfPhases"
-        [disabled]="isDisabledForm"
+        [disabled]="isDisabledForm  || isReadonly"
       >
     </mat-form-field>
 
@@ -75,14 +75,14 @@
         matInput
         type="text"
         placeholder="Введите кол-во"
-        [disabled]="isDisabledForm"
+        [disabled]="isDisabledForm  || isReadonly"
         [(ngModel)]="physicalLocation.numberOfConnections"
       >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Тип разъемов вилок электропитания</mat-label>
-      <mat-select [(value)]="physicalLocation.powerPlugConnectorType" [disabled]="isDisabledForm">
+      <mat-select [(value)]="physicalLocation.powerPlugConnectorType" [disabled]="isDisabledForm  || isReadonly">
         <mat-option
           *ngFor="let item of catalogData.powerPlugConnectorType"
           [value]="item.value"

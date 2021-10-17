@@ -16,6 +16,7 @@ export class NetworkConnectionComponent implements OnInit {
   selectedIndex: number | undefined;
   filters: INetworkConnectionModelCatalog | undefined;
   networkConnections$: Observable<INetworkConnectionModel[]>;
+  isReadonly = true;
 
   constructor(public service: NetworkConnectionService) {
     this.networkConnections$ = this.service.networkConnection$;

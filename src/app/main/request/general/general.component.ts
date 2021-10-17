@@ -24,6 +24,8 @@ export class GeneralComponent implements OnInit {
     budgetLinks: new FormControl(null ),
   } as GeneralControls) as GeneralFormGroup;
 
+  isReadonly = true;
+
   constructor(private service: GeneralService) { }
 
   ngOnInit(): void {
