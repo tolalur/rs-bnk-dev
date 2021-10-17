@@ -2,9 +2,9 @@
 
   <div class="subtitle position--subtitle position--subtitle_shift">Запрос пользователя:</div>
   <form action="" class="position--form flex flex-col">
-    <mat-form-field appearance="fill">
-      <mat-label>Целевой машзал *</mat-label>
-      <mat-select>
+    <mat-form-field appearance="outline">
+      <mat-label>Целевой машзал</mat-label>
+      <mat-select required>
         <mat-option value="one">ЦОД См22 машзал 261</mat-option>
       </mat-select>
     </mat-form-field>
@@ -14,10 +14,8 @@
 
   <app-physical-location class="pt-4"></app-physical-location>
 
-  <div class="subtitle position--subtitle position--subtitle_shift mt-7">Оценка стоимости резервируемых ресурсов:</div>
+  <app-estimating-cost class="pt-4"></app-estimating-cost>
 
-
-  <div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
-
+  <app-search-results class="pt-4"></app-search-results>
 
 </div>

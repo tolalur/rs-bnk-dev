@@ -15,6 +15,8 @@ import { PhysicalLocationComponent } from './request/physical-location/physical-
 import { CommentsComponent } from './request/comments/comments.component';
 import { CommentComponent } from './request/comments/comment/comment.component';
 import { UploadFileModalComponent } from './request/request/upload-file-modal/upload-file-modal.component';
+import { EstimatingCostComponent } from './request/estimating-cost/estimating-cost.component';
+import { SearchResultsComponent } from './request/search-results/search-results.component';
 
 
 
@@ -28,7 +30,9 @@ import { UploadFileModalComponent } from './request/request/upload-file-modal/up
     PhysicalLocationComponent,
     CommentsComponent,
     CommentComponent,
-    UploadFileModalComponent
+    UploadFileModalComponent,
+    EstimatingCostComponent,
+    SearchResultsComponent
   ],
   imports: [
     CommonModule,

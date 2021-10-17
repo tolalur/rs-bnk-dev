@@ -51,10 +51,28 @@ export interface IComment {
   text: string;
 }
 
+export interface ISearchResultsPhysicalLocation {
+  stand: number;
+  engineRoom: number;
+  placeNumber: number;
+}
+
+export interface ISearchResultsNetworkConnections {
+  segment: string;
+  port: string;
+}
+
+export interface ISearchResults {
+  physicalLocation: ISearchResultsPhysicalLocation;
+  networkConnections: ISearchResultsNetworkConnections[];
+}
+
 export interface IRequestModel {
   id?: number;
   comments: IComment[],
   general: IRequestGeneral;
   networkConnections: INetworkConnectionModel[];
   physicalLocation: IPhysicalLocation;
+  searchResults?: ISearchResults;
+  cost?: string
 }

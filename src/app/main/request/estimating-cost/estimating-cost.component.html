@@ -1,0 +1,14 @@
+<div class="subtitle position--subtitle position--subtitle_shift mt-7">Оценка стоимости резервируемых ресурсов:</div>
+<div class="flex">
+  <div>
+    Стоимость установки оборудованиядо конца
+    года в руб. с НДС
+  </div>
+  <div>
+    <span *ngIf="data$ | async as const; else other">{{const}}</span>
+    <ng-template #other>
+      <b>не определено</b>
+    </ng-template>
+
+  </div>
+</div>
