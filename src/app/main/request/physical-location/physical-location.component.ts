@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {IPhysicalLocation} from "../../types/request.model";
-import {Observable} from "rxjs";
+import {IPhysicalLocation, IPhysicalLocationCatalog} from '../../types/request.model';
+import {Observable} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {PhysicalLocationService} from '../../services/physical-location.service';
 
@@ -11,35 +11,20 @@ import {PhysicalLocationService} from '../../services/physical-location.service'
   styleUrls: ['./physical-location.component.scss']
 })
 export class PhysicalLocationComponent implements OnInit {
-
-  constructor(public service: PhysicalLocationService) {
-  }
   isShowForm: boolean = false;
   isDisabledForm: boolean = false;
-  physicalLocation$: Observable<IPhysicalLocation> = this.service.physicalLocation$;
   physicalLocation: IPhysicalLocation | undefined;
+  catalog: Observable<IPhysicalLocationCatalog>
 
-  units = [
-    {
-      label: '1',
-      value: '1'
-    },
-    {
-      label: '2',
-      value: '2'
-    }
-  ];
+  constructor(public service: PhysicalLocationService) {
+    this.catalog = this.service.physicalLocationCatalog()
+  }
 
-  types = [
-    {
-      label: 'type 1',
-      value: 'type 1'
-    }
-  ];
+
   ngOnInit(): void {
-    // console.log(this.physicalLocation$);
-    this.physicalLocation$.pipe(untilDestroyed(this))
+    this.service.physicalLocation$.pipe(untilDestroyed(this))
       .subscribe((val) => this.physicalLocation = val);
+
   }
 
   add() {
@@ -48,5 +33,6 @@ export class PhysicalLocationComponent implements OnInit {
 
   save(): void {
     this.isDisabledForm = !this.isDisabledForm;
+    this.service.update(this.physicalLocation!!);
   }
 }

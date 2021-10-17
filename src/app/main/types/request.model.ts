@@ -34,6 +34,11 @@ export interface IPhysicalLocation {
   powerPlugConnectorType: string,
 }
 
+export interface IPhysicalLocationCatalog {
+  powerPlugConnectorType: IFilterModel[],
+  dimensionsUnits: IFilterModel[],
+}
+
 export interface INetworkConnectionModelCatalog {
   segment: IFilterModel[],
   type: IFilterModel[],
