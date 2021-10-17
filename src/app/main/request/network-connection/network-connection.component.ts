@@ -1,23 +1,24 @@
 import {Component, OnInit} from '@angular/core';
-import {untilDestroyed} from '@ngneat/until-destroy';
-import {INetworkConnectionModelCatalog} from '../../types/request.model';
-import {RequestWithServiceComponent} from '../request-with-service/request-with-service.component';
-import {RequestService} from '../../services/request.service';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {INetworkConnectionModel, INetworkConnectionModelCatalog} from '../../types/request.model';
+import {NetworkConnectionService} from '../../services/network-connection.service';
+import {Observable} from 'rxjs';
 
-
+@UntilDestroy()
 @Component({
   selector: 'app-network-connection',
   templateUrl: './network-connection.component.html',
   styleUrls: ['./network-connection.component.scss']
 })
-export class NetworkConnectionComponent extends RequestWithServiceComponent implements OnInit {
+export class NetworkConnectionComponent implements OnInit {
   displayedColumns: string[] = ['segment', 'type', 'speed', 'quantity', 'edit'];
 
   selectedIndex: number | undefined;
   filters: INetworkConnectionModelCatalog | undefined;
+  networkConnections$: Observable<INetworkConnectionModel[]>;
 
-  constructor(public service: RequestService) {
-    super(service);
+  constructor(public service: NetworkConnectionService) {
+    this.networkConnections$ = this.service.networkConnection$;
   }
 
   ngOnInit(): void {
@@ -32,11 +33,11 @@ export class NetworkConnectionComponent extends RequestWithServiceComponent impl
 
   edit(index: number) {
     this.selectedIndex = index;
-    this.service.editNetworkConnection(index);
+    this.service.onEditNetworkConnection(index);
   }
 
   delete(index: number) {
-    this.service.deleteNetworkConnection(index);
+    this.service.OnDeleteNetworkConnection(index);
   }
 
   save() {
@@ -45,6 +46,6 @@ export class NetworkConnectionComponent extends RequestWithServiceComponent impl
 
   add() {
     this.selectedIndex = undefined;
-    this.service.addNetworkConnection();
+    this.service.onAddNetworkConnection();
   }
 }
