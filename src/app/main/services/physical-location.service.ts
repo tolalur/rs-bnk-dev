@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from './request.service';
 import {Observable} from 'rxjs';
-import {IPhysicalLocation} from './types/request.model';
 import {filter, map} from 'rxjs/operators';
+import {IPhysicalLocation} from '../types/request.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {PhysicalLocationService} from '../../physical-location.service';
 import {IPhysicalLocation} from "../../types/request.model";
 import {Observable} from "rxjs";
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {PhysicalLocationService} from '../../services/physical-location.service';
 
 @UntilDestroy()
 @Component({
@@ -11,16 +11,6 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
   styleUrls: ['./physical-location.component.scss']
 })
 export class PhysicalLocationComponent implements OnInit {
-  displayedColumns: string[] = [
-    'equipmentModel',
-    'dimensions',
-    'depth',
-    'serialNumber',
-    'inventoryNumber',
-    'numberOfPhases',
-    'numberOfConnections',
-    'powerPlugConnectorType'
-  ];
 
   constructor(public service: PhysicalLocationService) {
   }
@@ -54,18 +44,6 @@ export class PhysicalLocationComponent implements OnInit {
 
   add() {
     this.isShowForm = true;
-  }
-
-  delete(i: number) {
-
-  }
-
-  edit(i: number) {
-
-  }
-
-  copy(i: number) {
-
   }
 
   save(): void {

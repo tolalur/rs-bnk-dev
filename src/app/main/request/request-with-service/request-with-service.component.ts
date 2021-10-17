@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {RequestService} from '../../request.service';
 import {UntilDestroy} from '@ngneat/until-destroy';
+import {RequestService} from '../../services/request.service';
 
 @UntilDestroy()
 @Component({

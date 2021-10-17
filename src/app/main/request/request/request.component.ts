@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, tap} from 'rxjs/operators';
-import {RequestService} from '../../request.service';
 import {UploadFileModalComponent} from "./upload-file-modal/upload-file-modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {RequestService} from '../../services/request.service';
 
 @Component({
   selector: 'app-request',

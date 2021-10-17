@@ -1,6 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {INetworkConnectionModel} from '../../types/request.model';
-import {NetworkConnectionClass} from '../../types/network.connection.class';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-position',

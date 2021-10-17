@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {RequestService} from './request.service';
 import {Observable} from 'rxjs';
-import {IComment} from './types/request.model';
 import {filter, map} from 'rxjs/operators';
-import {UserService} from '../user/user.service';
+import {UserService} from '../../user/user.service';
+import {IComment} from '../types/request.model';
 
 @Injectable({
   providedIn: 'root'

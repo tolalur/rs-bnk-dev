@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {RequestService} from '../../request.service';
 import {untilDestroyed} from '@ngneat/until-destroy';
 import {INetworkConnectionModelCatalog} from '../../types/request.model';
 import {RequestWithServiceComponent} from '../request-with-service/request-with-service.component';
+import {RequestService} from '../../services/request.service';
 
 
 @Component({
