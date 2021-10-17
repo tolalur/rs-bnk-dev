@@ -18,6 +18,8 @@ export class PhysicalLocationService {
     map(val => val!!.physicalLocation)
   );
 
+  isReadOnly$ = this.requestService.isReadOnly$
+
   update(data: IPhysicalLocation) {
     const requestData = this.requestService.requestData;
     if (requestData) {

@@ -20,6 +20,7 @@ export class NetworkConnectionComponent implements OnInit {
 
   constructor(public service: NetworkConnectionService) {
     this.networkConnections$ = this.service.networkConnection$;
+    this.service.isReadOnly$.subscribe(res => this.isReadonly = res);
   }
 
   ngOnInit(): void {

@@ -26,6 +26,7 @@ export class PhysicalLocationComponent implements OnInit {
     this.service.physicalLocation$.pipe(untilDestroyed(this))
       .subscribe((val) => this.physicalLocation = val);
 
+    this.service.isReadOnly$.subscribe(res => this.isReadonly = res);
   }
 
   add() {

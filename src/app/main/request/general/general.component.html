@@ -6,7 +6,6 @@
         formControlName="idProject"
         matInput
         required
-        [disabled]="isReadonly"
         type="text">
 
       <mat-error *ngIf="generalForm.controls['idProject'].hasError('required')">
@@ -20,7 +19,6 @@
         formControlName="owner"
         matInput
         required
-        [disabled]="isReadonly"
         type="text">
 
       <mat-error *ngIf="generalForm.controls['owner'].hasError('required')">
@@ -34,7 +32,6 @@
         formControlName="administratorsGroup"
         matInput
         required
-        [disabled]="isReadonly"
         type="text">
 
       <mat-error *ngIf="generalForm.controls['administratorsGroup'].hasError('required')">
@@ -48,7 +45,6 @@
         formControlName="mnemonicName"
         matInput
         required
-        [disabled]="isReadonly"
         type="text">
 
       <mat-error *ngIf="generalForm.controls['mnemonicName'].hasError('required')">
@@ -62,7 +58,6 @@
         formControlName="budgetLinks"
         matInput
         required
-        [disabled]="isReadonly"
         type="text">
 
       <mat-error *ngIf="generalForm.controls['budgetLinks'].hasError('required')">

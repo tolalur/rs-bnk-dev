@@ -21,6 +21,8 @@ export class NetworkConnectionService {
     map(val => val!!.networkConnections)
   );
 
+  isReadOnly$ = this.requestService.isReadOnly$
+
   networkConnectionsCatalog(): Observable<INetworkConnectionModelCatalog> {
     return of({
       segment: [{

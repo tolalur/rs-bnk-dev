@@ -11,6 +11,9 @@ th.mat-sort-header-sorted {
 
   table {
     width: 100%;
+    td {
+      cursor: pointer;
+    }
   }
 
   &--shade {

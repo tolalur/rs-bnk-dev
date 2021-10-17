@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of, timer} from 'rxjs';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {MockRequestListService} from '../../mock/mock-request-list.service';
 import {IRequestModel} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
@@ -19,10 +19,15 @@ export class RequestService {
   }
 
   isAdd() {
-    return this._requestData?.id == null
+    return this._requestData?.id == null;
   }
 
   requestData$ = new BehaviorSubject<null | IRequestModel>(null);
+
+  isReadOnly$ = this.requestData$.pipe(
+    filter(val => val != null),
+    map(val => val!!.id != null),
+  );
 
   constructor(private http: MockRequestListService) {
   }
@@ -82,7 +87,7 @@ export class RequestService {
           },
           networkConnections: [
             {segment: 'DASW', port: 'RJ-45-3'},
-            {segment: 'PDSW', port: 'UTP'},
+            {segment: 'PDSW', port: 'UTP'}
           ]
         }
       })),

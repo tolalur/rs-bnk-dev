@@ -37,6 +37,10 @@ export class GeneralComponent implements OnInit {
         this.generalForm.controls[key].patchValue(generalData[key])
       })
     });
+
+    this.service.isReadOnly$.subscribe(res => {
+      if(res) this.generalForm.disable()
+    });
   }
 
 }
