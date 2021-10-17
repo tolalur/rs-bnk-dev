@@ -1,2 +1,4 @@
-<div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
-<div *ngIf="data$ | async as data">{{data | json}}</div>
+<ng-container *ngIf="data$ | async as data">
+  <div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
+  <div>{{data | json}}</div>
+</ng-container>
