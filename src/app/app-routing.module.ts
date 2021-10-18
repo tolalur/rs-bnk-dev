@@ -13,6 +13,16 @@ const routes: Routes = [
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   },
   {
+    path: 'reports',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./main/reports/reports.module').then(m => m.ReportsModule)
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./main/users/users.module').then(m => m.UsersModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
