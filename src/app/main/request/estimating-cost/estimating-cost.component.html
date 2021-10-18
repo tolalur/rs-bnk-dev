@@ -1,12 +1,13 @@
 <ng-container *ngIf="data$ | async as const">
   <div class="subtitle position--subtitle position--subtitle_shift mt-7">Оценка стоимости резервируемых ресурсов:</div>
-  <div class="flex">
-    <div>
+  <div class="border position--wrap">
+    <div class="position--heading">
       Стоимость установки оборудованиядо конца
-      года в руб. с НДС
+      года в&#160;руб. с&#160;НДС
     </div>
-    <div>
+    <div class="position--value">
       {{const}}
+      руб.
     </div>
   </div>
 </ng-container>

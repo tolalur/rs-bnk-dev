@@ -6,11 +6,60 @@ body {
 
 .subtitle {
   font-weight: bold;
+  margin-bottom: 14px;
 }
 
-tr.mat-header-row .mat-header-cell {
+.border {
+  border: 1px solid #bababa;
+}
+
+tr.mat-header-row .mat-header-cell,
+.table--header {
   font-weight: bold;
   color: #000000;
   font-size: 14px;
   background-color: #F2F2F2;
+}
+
+.table {
+  border: 1px solid #bababa;
+  width: 100%;
+  max-width: 600px;
+  display: table;
+}
+
+.table--header {
+  min-height: 40px;
+  display: table-row;
+}
+
+.table--header-item {
+  padding: 10px 20px;
+  display: table-cell;
+  border-bottom: 1px solid #bababa;
+  text-align: center;
+
+  &:not(&:last-of-type) {
+    border-right: 1px solid #bababa;
+  }
+}
+
+.table--body {
+  display: table-row;
+  font-size: 16px;
+}
+
+.table--body-column {
+  display: table-cell;
+  padding: 10px 20px 16px 20px;
+
+  &:not(&:last-of-type) {
+    border-right: 1px solid #bababa;
+  }
+}
+
+.table--body-column-elem {
+  &:not(&:last-of-type) {
+    margin-bottom: 12px;
+  }
 }

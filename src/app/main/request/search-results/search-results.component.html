@@ -1,4 +1,32 @@
 <ng-container *ngIf="data$ | async as data">
   <div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
-  <div>{{data | json}}</div>
+  <div class="table">
+    <div class="table--header">
+      <div class="table--header-item">
+        Выделено физическое размещение
+      </div>
+      <div class="table--header-item">
+        Выделено сетевые подключения
+      </div>
+    </div>
+    <div class="table--body">
+      <div class="table--body-column">
+        <div class="table--body-column-elem">
+          Машзал {{data.physicalLocation.engineRoom}}
+        </div>
+        <div class="table--body-column-elem">
+          Стойка №{{data.physicalLocation.placeNumber}}
+        </div>
+        <div class="table--body-column-elem">
+          Юниты {{data.physicalLocation.stand}}
+        </div>
+      </div>
+      <div class="table--body-column">
+        <div class="table--body-column-elem" *ngFor="let elem of data.networkConnections">
+          <div class="table--body-column-elem-row">Коммутатор {{elem.segment}}</div>
+          <div class="table--body-column-elem-row">Порт {{elem.port}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-container>
