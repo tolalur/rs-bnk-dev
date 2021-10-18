@@ -3,6 +3,8 @@
   &#43; Добавить физическое размещение
 </div>
 
+<p *ngIf="!isShowForm && physicalLocation">!isShowForm && physicalLocation</p>
+
 <div class="form" *ngIf="isShowForm && physicalLocation">
 
   <ng-container *ngIf="catalog | async as catalogData">
