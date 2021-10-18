@@ -32,7 +32,7 @@ import { SearchResultsComponent } from './request/search-results/search-results.
     CommentComponent,
     UploadFileModalComponent,
     EstimatingCostComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
   ],
   imports: [
     CommonModule,
