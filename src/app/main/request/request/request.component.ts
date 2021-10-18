@@ -4,6 +4,7 @@ import {filter, map, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from "./upload-file-modal/upload-file-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RequestService} from '../../services/request.service';
+import {SearchModalComponent} from "./search-modal/search-modal.component";
 
 @Component({
   selector: 'app-request',
@@ -15,6 +16,7 @@ export class RequestComponent implements OnInit {
   id: null | number = null;
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
+  isSaved = false;
 
   get isAdd(): boolean {
     return this.id == null;
@@ -43,5 +45,15 @@ export class RequestComponent implements OnInit {
         data: {extends: this.extensionFile}
       });
     }
+  }
+
+  save() {
+    this.isSaved = true;
+  }
+
+  search() {
+    const dialogRef = this.dialog.open(SearchModalComponent, {
+      width: '320px',
+    });
   }
 }

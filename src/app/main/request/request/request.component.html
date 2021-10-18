@@ -32,6 +32,9 @@
 <mat-divider class="pb-8"></mat-divider>
 
 <div class="flex justify-center pb-10">
-  <button mat-raised-button color="primary">Сохранить</button>
+  <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+  <button class="search-btn"  *ngIf="isSaved" mat-raised-button color="primary" (click)="search()">
+    Осуществить поиск
+  </button>
 </div>
 
