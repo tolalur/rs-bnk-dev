@@ -17,6 +17,7 @@ import { CommentComponent } from './request/comments/comment/comment.component';
 import { UploadFileModalComponent } from './request/request/upload-file-modal/upload-file-modal.component';
 import { EstimatingCostComponent } from './request/estimating-cost/estimating-cost.component';
 import { SearchResultsComponent } from './request/search-results/search-results.component';
+import { SearchModalComponent } from './request/request/search-modal/search-modal.component';
 
 
 
@@ -33,6 +34,7 @@ import { SearchResultsComponent } from './request/search-results/search-results.
     UploadFileModalComponent,
     EstimatingCostComponent,
     SearchResultsComponent,
+    SearchModalComponent
   ],
   imports: [
     CommonModule,
