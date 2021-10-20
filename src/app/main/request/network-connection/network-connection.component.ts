@@ -40,6 +40,7 @@ export class NetworkConnectionComponent implements OnInit {
 
   delete(index: number) {
     this.service.OnDeleteNetworkConnection(index);
+    this.service.selectedNetworkConnection = null;
   }
 
   save() {

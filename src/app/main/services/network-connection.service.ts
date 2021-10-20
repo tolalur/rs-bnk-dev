@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {INetworkConnectionModel, INetworkConnectionModelCatalog, IRequestModel} from '../types/request.model';
+import {INetworkConnectionModel, INetworkConnectionModelCatalog} from '../types/request.model';
 import {filter, map, tap} from 'rxjs/operators';
 import {RequestService} from './request.service';
 import {NetworkConnectionClass} from '../types/network.connection.class';
@@ -51,6 +51,7 @@ export class NetworkConnectionService {
     if (this.networkConnections) {
       this.networkConnections.splice(i, 1);
       this.update(this.networkConnections.slice());
+      this.selectedNetworkConnection = new NetworkConnectionClass();
     }
   }
 
