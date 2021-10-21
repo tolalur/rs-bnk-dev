@@ -1,5 +1,8 @@
 <div class="subtitle position--subtitle mt-7">Сетевые подключения</div>
-<div (click)="add()" class="text-blue-400 cursor-pointer mt-2" *ngIf="!isReadonly">Добавить сетевое подключение</div>
+<div (click)="add()" class="text-blue-400 cursor-pointer mt-2 mb-2
+" *ngIf="!isReadonly">
+  &#43; Добавить сетевое подключение
+</div>
 
 <ng-container *ngIf="networkConnections$ | async as data">
   <table mat-table [dataSource]="data" class="min-w-full">
