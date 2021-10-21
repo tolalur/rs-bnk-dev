@@ -6,12 +6,14 @@ import { registerLocaleData } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import {AdminMenuComponent} from "./admin-menu/admin-menu.component";
 
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AdminMenuComponent
   ],
   imports: [
     BrowserModule,

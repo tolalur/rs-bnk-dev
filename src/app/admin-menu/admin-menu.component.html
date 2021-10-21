@@ -1,0 +1,10 @@
+<nav class="admin-menu">
+  <a
+    *ngFor="let item of menuItems"
+    routerLinkActive="admin-menu--item_active"
+    class="admin-menu--item"
+    routerLink="/{{item.link}}"
+  >
+    {{item.title}}
+  </a>
+</nav>
