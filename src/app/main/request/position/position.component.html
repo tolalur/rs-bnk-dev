@@ -4,7 +4,10 @@
   <form action="" class="position--form flex flex-col">
     <mat-form-field appearance="outline">
       <mat-label>Целевой машзал</mat-label>
-      <mat-select required>
+      <mat-select
+        [(value)]="targetMachineRoom"
+        required
+        [disabled]="isReadOnly$ | async">
         <mat-option value="one">ЦОД См22 машзал 261</mat-option>
       </mat-select>
     </mat-form-field>

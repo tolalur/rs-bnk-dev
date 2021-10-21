@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {RequestService} from '../../services/request.service';
 
 @Component({
   selector: 'app-position',
@@ -6,7 +7,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnInit {
-  constructor() { }
+  targetMachineRoom = 'one';
+  isReadOnly$;
+  constructor(private service: RequestService) {
+    this.isReadOnly$ = this.service.isReadOnly$
+  }
 
   ngOnInit(): void {
   }
