@@ -4,7 +4,6 @@ import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {MockRequestListService} from '../../mock/mock-request-list.service';
 import {IRequestModel} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
-import {PhysicalLocationClass} from '../types/physical-location.class';
 import {RequestClass} from '../types/request.class';
 
 @Injectable({
@@ -78,7 +77,16 @@ export class RequestService {
           {segment: 'коммутаторы PDSW 2', type: 'UTP RJ45', speed: '100/10', quantity: 3},
           {segment: 'коммутаторы DASW 3', type: 'UTP RJ45', speed: '100/10', quantity: 1}
         ],
-        physicalLocation: new PhysicalLocationClass(),
+        physicalLocation: {
+          equipmentModel: 'Модель',
+          dimensions: '2',
+          depth: 3,
+          serialNumber: '12345',
+          inventoryNumber: '54321',
+          numberOfPhases: '3',
+          numberOfConnections: '2',
+          powerPlugConnectorType: 'UTP RJ45',
+        },
         searchResults: {
           physicalLocation: {
             stand: 3232,

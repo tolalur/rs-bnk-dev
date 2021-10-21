@@ -3,6 +3,7 @@ import {IPhysicalLocation, IPhysicalLocationCatalog} from '../../types/request.m
 import {Observable} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {PhysicalLocationService} from '../../services/physical-location.service';
+import {ActivatedRoute} from "@angular/router";
 
 @UntilDestroy()
 @Component({
@@ -11,13 +12,14 @@ import {PhysicalLocationService} from '../../services/physical-location.service'
   styleUrls: ['./physical-location.component.scss']
 })
 export class PhysicalLocationComponent implements OnInit {
-  isShowForm: boolean = false;
+  isShowBtn = false;
+  isShowForm: boolean = true;
   isDisabledForm: boolean = false;
   physicalLocation: IPhysicalLocation | undefined;
   catalog: Observable<IPhysicalLocationCatalog>
   isReadonly = true;
 
-  constructor(public service: PhysicalLocationService) {
+  constructor(public service: PhysicalLocationService,  private route: ActivatedRoute) {
     this.catalog = this.service.physicalLocationCatalog()
   }
 
@@ -27,6 +29,10 @@ export class PhysicalLocationComponent implements OnInit {
       .subscribe((val) => this.physicalLocation = val);
 
     this.service.isReadOnly$.subscribe(res => this.isReadonly = res);
+    if(this.route.snapshot.paramMap.get('id') === 'add') {
+      this.isShowForm = false;
+      this.isShowBtn = true;
+    }
   }
 
   add() {

@@ -63,3 +63,13 @@ tr.mat-header-row .mat-header-cell,
     margin-bottom: 12px;
   }
 }
+
+input.mat-input-element:disabled,
+.mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after,
+.mat-select-disabled div.mat-select-value {
+  color: rgba(0,0,0,.75);
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled label.mat-form-field-label {
+  color: rgba(0,0,0,.6);
+}
