@@ -11,7 +11,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  email = new FormControl('', [Validators.required, Validators.email]);
+  login = new FormControl('', [Validators.required]);
   password = new FormControl('', Validators.required);
 
 
@@ -29,11 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   getEmailErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'Поле не может быть пустым';
-    }
-
-    return this.email.hasError('email') ? 'Не валидный email' : '';
+    return this.login.hasError('required') ? 'Поле не может быть пустым' : '';
   }
 
   getPasswordErrorMessage() {
@@ -41,9 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
-    if (this.password.valid && this.email.valid) {
+    if (this.password.valid && this.login.valid) {
       this.userService
-        .login({email: this.email.value, password: this.password.value})
+        .login({login: this.login.value, password: this.password.value})
         .pipe(untilDestroyed(this))
         .subscribe(() => this.router.navigate(['/']));
     }

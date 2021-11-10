@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-admin-menu',
   templateUrl: './admin-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./admin-menu.component.scss']
 })
 export class AdminMenuComponent implements OnInit {
@@ -21,7 +23,12 @@ export class AdminMenuComponent implements OnInit {
       title: 'НАСТРОЙКИ'
     }
   ]
-  constructor() { }
+
+  get isUserAdmin() {
+    return this.service.isUserAdmin
+  }
+
+  constructor(private service: UserService) { }
 
   ngOnInit(): void {
   }

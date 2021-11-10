@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
-import {MockUserService} from './mock-user.service';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {UserLogin} from './types/user.model';
+import {isRoleUser, UserLogin} from './types/user.model';
 import {UserLoginResponse} from './types/user.model';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private loginUrl = 'login';
-
-  private logoutUrl = 'logout';
+  private loginUrl = environment.apiPrefix + '/login';
+  private logoutUrl = environment.apiPrefix + '/logout';
 
   private userStoreKey = 'user-store-data';
 
@@ -20,22 +20,30 @@ export class UserService {
     window.sessionStorage.setItem(this.userStoreKey, JSON.stringify(val));
   }
 
-  get user(): UserLoginResponse | undefined {
+  get user(): UserLoginResponse | null {
     const data = window.sessionStorage.getItem(this.userStoreKey);
     return data ? JSON.parse(data) : data;
   }
 
-  constructor(private http: MockUserService, private router: Router) {
+  get isUserAdmin(): boolean {
+    return !this.user?.roles.some(role => isRoleUser(role.name));
+  }
+
+  get token() {
+    return this.user?.token
+  }
+
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   login(data: UserLogin): Observable<UserLoginResponse> {
-    return this.http.post(this.loginUrl, data).pipe(tap((val) => (this.user = val)));
+    return this.http.post<UserLoginResponse>(this.loginUrl, data).pipe(tap((val) => (this.user = val)));
   }
 
   logout(): Observable<any> {
     this.deleteUserData();
     this.router.navigate(['/login']);
-    return this.http.get(this.logoutUrl);
+    return this.http.post(this.logoutUrl, {});
   }
 
   deleteUserData(): void {

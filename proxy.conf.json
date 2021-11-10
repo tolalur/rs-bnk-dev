@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://demo.cinemaone.ru/",
+    "target": "http://rb-cod-front.dev.btn.bz/backend/",
     "changeOrigin": true,
     "secure": false
   }

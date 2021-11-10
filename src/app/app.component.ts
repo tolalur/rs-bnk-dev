@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from './user/user.service';
 
 @Component({
@@ -8,6 +8,14 @@ import {UserService} from './user/user.service';
 })
 export class AppComponent {
   title = 'bank';
-  constructor(public userService: UserService) {
+  constructor(private userService: UserService) {
+  }
+
+  isUserLogin(): boolean {
+    return !!this.userService.user
+  }
+
+  logout() {
+    this.userService.logout()
   }
 }

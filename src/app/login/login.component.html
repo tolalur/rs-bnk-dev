@@ -2,8 +2,8 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Логин</mat-label>
-    <input matInput [formControl]="email" required>
-    <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+    <input matInput [formControl]="login" required>
+    <mat-error *ngIf="login.invalid">{{getEmailErrorMessage()}}</mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">

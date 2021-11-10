@@ -21,7 +21,7 @@ export class CommentsService {
   addComment(data: string) {
     const comment: IComment = {
       text: data,
-      author: this.userService.user?.name || '',
+      author: 'тут должен быть индентификатор автора комментария',
       date: new Date().toJSON()
     };
 

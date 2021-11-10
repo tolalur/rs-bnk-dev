@@ -1,3 +1,12 @@
-<app-admin-menu *ngIf="userService.user"></app-admin-menu>
+<div class="flex justify-between items-center" *ngIf="isUserLogin()">
+  <app-admin-menu></app-admin-menu>
 
+  <button
+    class="self-end mr-1"
+    mat-raised-button
+    color="warn"
+    (click)="logout()"
+  >Выход
+  </button>
+</div>
 <router-outlet></router-outlet>
