@@ -25,7 +25,7 @@ export class RequestService {
 
   isReadOnly$ = this.requestData$.pipe(
     filter(val => val != null),
-    map(val => val!!.id != null),
+    map(val => val!!.id != null)
   );
 
   constructor(private http: MockRequestListService) {
@@ -85,23 +85,20 @@ export class RequestService {
           inventoryNumber: '54321',
           numberOfPhases: '3',
           numberOfConnections: '2',
-          powerPlugConnectorType: 'UTP RJ45',
+          powerPlugConnectorType: 'UTP RJ45'
         },
         cost: {
           capex: '115097',
           opex: '49900'
         },
-        searchResults: {
+        searchResults: Array(15).fill(null).map(val => ({
           physicalLocation: {
             stand: 3232,
             engineRoom: 261,
             placeNumber: 8989
           },
-          networkConnections: [
-            {segment: 'DASW', port: 'RJ-45-3'},
-            {segment: 'PDSW', port: 'UTP'}
-          ]
-        }
+          networkConnections: {segment: 'DASW', port: 'RJ-45-3'}
+        }))
       })),
       map(item => ({...item, comments: item.comments != null ? item.comments : []})),
       tap(data => this._requestData = data)

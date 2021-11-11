@@ -64,7 +64,7 @@ export interface ISearchResultsNetworkConnections {
 
 export interface ISearchResults {
   physicalLocation: ISearchResultsPhysicalLocation;
-  networkConnections: ISearchResultsNetworkConnections[];
+  networkConnections: ISearchResultsNetworkConnections;
 }
 
 export interface Cost {
@@ -78,6 +78,6 @@ export interface IRequestModel {
   general: IRequestGeneral;
   networkConnections: INetworkConnectionModel[];
   physicalLocation: IPhysicalLocation;
-  searchResults?: ISearchResults;
+  searchResults?: ISearchResults[];
   cost?: Cost
 }

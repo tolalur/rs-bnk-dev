@@ -24,24 +24,22 @@ tr.mat-header-row .mat-header-cell,
 .table {
   border: 1px solid #bababa;
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   display: table;
 }
 
 .table--header {
   min-height: 40px;
-  display: table-row;
+  width: 100%;
+  max-width: 900px;
+  border-left: 1px solid #bababa;
+  border-right: 1px solid #bababa;
+  border-top: 1px solid #bababa;
 }
 
 .table--header-item {
   padding: 10px 20px;
-  display: table-cell;
-  border-bottom: 1px solid #bababa;
   text-align: center;
-
-  &:not(&:last-of-type) {
-    border-right: 1px solid #bababa;
-  }
 }
 
 .table--body {
