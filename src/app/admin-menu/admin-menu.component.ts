@@ -8,27 +8,24 @@ import {UserService} from '../user/user.service';
   styleUrls: ['./admin-menu.component.scss']
 })
 export class AdminMenuComponent implements OnInit {
-  menuItems = [
-    {
-      link: 'request',
-      title: 'ЗАЯВКИ'
-    },{
-      link: 'users',
-      title: 'ПОЛЬЗОВАТЕЛИ'
-    },{
-      link: 'reports',
-      title: 'ОТЧЁТЫ'
-    },{
-      link: 'settings',
-      title: 'НАСТРОЙКИ'
-    }
-  ]
+  menuItems: { link: string, title: string }[];
 
-  get isUserAdmin() {
-    return this.service.isUserAdmin
+  constructor(private service: UserService) {
+    this.menuItems = [
+      {
+        link: 'request',
+        title: 'ЗАЯВКИ'
+      },
+    ]
+      .concat(this.service.isUserNetAdmin
+        ? [{link: 'reports', title: 'ОТЧЁТЫ'}]
+        : []
+      )
+      .concat(this.service.isUserAdmin
+        ? [{link: 'reports', title: 'ОТЧЁТЫ'}, {link: 'settings', title: 'НАСТРОЙКИ'}, {link: 'users', title: 'ПОЛЬЗОВАТЕЛИ'}]
+        : []
+      );
   }
-
-  constructor(private service: UserService) { }
 
   ngOnInit(): void {
   }

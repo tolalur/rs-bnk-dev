@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {isRoleUser, UserLogin} from './types/user.model';
+import {isRoleUser, UserLogin, UserRolesEnum} from './types/user.model';
 import {UserLoginResponse} from './types/user.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -25,8 +25,16 @@ export class UserService {
     return data ? JSON.parse(data) : data;
   }
 
+  get isUserNotAdmin(): boolean {
+    return !!this.user?.roles.some(role => isRoleUser(role.name));
+  }
+
+  get isUserNetAdmin(): boolean {
+    return !!this.user?.roles.some(role => role.name == UserRolesEnum.NET_ADMIN);
+  }
+
   get isUserAdmin(): boolean {
-    return !this.user?.roles.some(role => isRoleUser(role.name));
+    return !!this.user?.roles.some(role => role.name == UserRolesEnum.ADMIN);
   }
 
   get token() {
