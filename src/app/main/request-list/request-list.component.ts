@@ -6,6 +6,7 @@ import {switchMap} from 'rxjs/operators';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestService} from '../services/request.service';
+import {UserService} from '../../user/user.service';
 
 
 @UntilDestroy()
@@ -35,8 +36,11 @@ export class RequestListComponent implements AfterViewInit, OnInit {
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
+  get showLoadFile(): boolean {
+    return this.userService.isUserNotAdmin;
+  }
 
-  constructor(private service: RequestService) { }
+  constructor(private service: RequestService, private userService: UserService,) { }
 
   ngAfterViewInit() {
     // @ts-ignore

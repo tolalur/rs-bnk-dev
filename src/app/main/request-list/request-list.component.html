@@ -2,6 +2,7 @@
   <div class="flex mb-2 items-center justify-between">
     <h3>СПИСОК ЗАЯВОК НА РЕЗЕРВИРОВАНИЕ РЕСУРСОВ ЦОД</h3>
     <button
+      *ngIf="showLoadFile"
       class="self-end mr-1"
       mat-raised-button
       color="primary"
