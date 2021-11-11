@@ -60,6 +60,7 @@ export interface ISearchResultsPhysicalLocation {
 export interface ISearchResultsNetworkConnections {
   segment: string;
   port: string;
+  quantity: string;
 }
 
 export interface ISearchResults {

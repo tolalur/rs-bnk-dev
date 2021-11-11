@@ -97,7 +97,7 @@ export class RequestService {
             engineRoom: 261,
             placeNumber: 8989
           },
-          networkConnections: {segment: 'DASW', port: 'RJ-45-3'}
+          networkConnections: {segment: 'DASW', port: 'RJ-45-3', quantity: '3'}
         }))
       })),
       map(item => ({...item, comments: item.comments != null ? item.comments : []})),
