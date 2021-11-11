@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {filter, map, tap} from 'rxjs/operators';
-import {UploadFileModalComponent} from "./upload-file-modal/upload-file-modal.component";
-import {MatDialog} from "@angular/material/dialog";
+import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
+import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
-import {SearchModalComponent} from "./search-modal/search-modal.component";
+import {SearchModalComponent} from './search-modal/search-modal.component';
+import {UserService} from '../../../user/user.service';
 
 @Component({
   selector: 'app-request',
@@ -22,7 +23,15 @@ export class RequestComponent implements OnInit {
     return this.id == null;
   }
 
-  constructor(private route: ActivatedRoute, private service: RequestService, public dialog: MatDialog) {
+  get showLoadFile(): boolean {
+    return this.userService.isUserNotAdmin;
+  }
+
+  constructor(
+    private route: ActivatedRoute,
+    private service: RequestService,
+    private userService: UserService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -31,7 +40,7 @@ export class RequestComponent implements OnInit {
         map(({id}) => Number(id)),
         tap(id => isNaN(id) && this.service.addNewRequest()),
         filter(id => !isNaN(id)),
-        tap(id => this.id = id),
+        tap(id => this.id = id)
       )
       .subscribe(id => this.service.getRequestData(id));
   }
@@ -39,7 +48,7 @@ export class RequestComponent implements OnInit {
   changedFile() {
     const fileType = this.file?.nativeElement.files[0].type;
 
-    if( !this.extensionFile.some(ext => fileType.includes(ext)) ) {
+    if (!this.extensionFile.some(ext => fileType.includes(ext))) {
       const dialogRef = this.dialog.open(UploadFileModalComponent, {
         width: '320px',
         data: {extends: this.extensionFile}
@@ -53,7 +62,7 @@ export class RequestComponent implements OnInit {
 
   search() {
     const dialogRef = this.dialog.open(SearchModalComponent, {
-      width: '320px',
+      width: '320px'
     });
   }
 }

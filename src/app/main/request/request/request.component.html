@@ -1,20 +1,22 @@
 <div class="head flex items-center justify-center">
   <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
-  <input
-    type="file"
-    name="file"
-    accept=".csv"
-    id="file-input"
-    class="head--file-input"
-    (change)="changedFile()"
-    #fileInput
-  >
-  <label for="file-input" class="head--file-input-label">
-    <svg class="file-input--icon">
-      <use xlink:href="#upload"/>
-    </svg>
-    Загрузить файл
-  </label>
+  <ng-container *ngIf="showLoadFile">
+    <input
+      type="file"
+      name="file"
+      accept=".csv"
+      id="file-input"
+      class="head--file-input"
+      (change)="changedFile()"
+      #fileInput
+    >
+    <label for="file-input" class="head--file-input-label">
+      <svg class="file-input--icon">
+        <use xlink:href="#upload"/>
+      </svg>
+      Загрузить файл
+    </label>
+  </ng-container>
 </div>
 
 <mat-tab-group animationDuration="0ms" dynamicHeight class="pb-8">
@@ -33,7 +35,7 @@
 
 <div class="flex justify-center pb-10">
   <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
-  <button class="search-btn"  *ngIf="isSaved" mat-raised-button color="primary" (click)="search()">
+  <button class="search-btn" *ngIf="isSaved" mat-raised-button color="primary" (click)="search()">
     Осуществить поиск
   </button>
 </div>
