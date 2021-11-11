@@ -67,6 +67,11 @@ export interface ISearchResults {
   networkConnections: ISearchResultsNetworkConnections[];
 }
 
+export interface Cost {
+  capex: string,
+  opex: string
+}
+
 export interface IRequestModel {
   id?: number;
   comments: IComment[],
@@ -74,5 +79,5 @@ export interface IRequestModel {
   networkConnections: INetworkConnectionModel[];
   physicalLocation: IPhysicalLocation;
   searchResults?: ISearchResults;
-  cost?: string
+  cost?: Cost
 }

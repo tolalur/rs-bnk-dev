@@ -44,7 +44,7 @@ export class RequestService {
 
   getRequestData(id: number): void {
     timer(1000).pipe(
-      switchMap(() => of({
+      switchMap(() => of<IRequestModel>({
         id: id,
         comments: [
           {
@@ -86,6 +86,10 @@ export class RequestService {
           numberOfPhases: '3',
           numberOfConnections: '2',
           powerPlugConnectorType: 'UTP RJ45',
+        },
+        cost: {
+          capex: '115097',
+          opex: '49900'
         },
         searchResults: {
           physicalLocation: {
