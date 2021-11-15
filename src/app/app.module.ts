@@ -7,8 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
 import {AdminMenuComponent} from "./admin-menu/admin-menu.component";
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from './material/material.module';
+import {AuthInterceptor} from '../_interceptors/auth-interceptor';
+import {ErrorInterceptor} from '../_interceptors/error-interceptor';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -25,7 +27,19 @@ registerLocaleData(localeRu, 'ru');
     NoopAnimationsModule,
     MaterialModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'ru' },],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    { provide: LOCALE_ID, useValue: 'ru' },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
