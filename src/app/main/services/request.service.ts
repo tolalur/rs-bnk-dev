@@ -5,6 +5,7 @@ import {MockRequestListService} from '../../mock/mock-request-list.service';
 import {IRequestModel} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,18 +29,19 @@ export class RequestService {
     map(val => val!!.id != null)
   );
 
-  constructor(private http: MockRequestListService) {
+  constructor(private http: HttpClient) {
   }
 
   getListRequest(sortBy: string, sortDir: string): Observable<RequestListModel[]> {
 
     console.log('sortBy: ' + sortBy + '; sortDir: ' + sortDir);
 
-    return this.http.getAll();
+    return this.http.get<RequestListModel[]>('/api/request/list');
   }
 
-  getFilterRequest(status: string): Observable<RequestListModel[]> {
-    return this.http.getFilter(status);
+  getFilterRequest(status: string): Observable<any> {
+    return of([]);
+    // return this.http.getFilter(status);
   }
 
   getRequestData(id: number): void {
