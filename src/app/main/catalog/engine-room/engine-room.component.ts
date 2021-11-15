@@ -42,16 +42,11 @@ export class EngineRoomComponent implements OnInit {
     });
   }
 
-  delete(id: string) {
-    console.log('delete', id);
-  }
-
   edit(id: string, name: string) {
     this.dialog.open(AddToCatalogModalComponent, {
       width: '320px',
       data: {name: name, edit: true}
     });
-
   }
 
   getData() {

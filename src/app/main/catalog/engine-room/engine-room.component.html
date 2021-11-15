@@ -1,16 +1,12 @@
-<div class="flex flex-col pt-5">
+<div class="flex flex-col pt-5 middle-container">
   <div class="flex mb-2 items-center justify-between">
-
     <div class="subtitle position--subtitle mt-7">Машзалы</div>
     <div (click)="add()" class="text-blue-400 cursor-pointer mt-2 mb-2">
       &#43; Добавить значение
     </div>
   </div>
 
-  <table mat-table
-         [dataSource]="dataSource"
-         class="mt-5 table-container--table"
-  >
+  <table mat-table [dataSource]="dataSource" class="mt-5 table-container--table">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef >id</th>
       <td mat-cell *matCellDef="let row">
@@ -23,13 +19,10 @@
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="edit">
-      <th mat-header-cell *matHeaderCellDef></th>
+    <ng-container matColumnDef="edit" >
+      <th mat-header-cell *matHeaderCellDef style="width: 60px"></th>
       <td mat-cell *matCellDef="let row;">
         <div class="flex gap-4">
-          <button mat-icon-button color="warn" (click)="delete(row.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
           <button mat-icon-button color="primary" (click)="edit(row.id, row.name)">
             <mat-icon>edit</mat-icon>
           </button>

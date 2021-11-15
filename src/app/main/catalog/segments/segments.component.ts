@@ -42,16 +42,11 @@ export class SegmentsComponent implements OnInit {
     });
   }
 
-  delete(id: string) {
-    console.log('delete', id);
-  }
-
   edit(id: string, name: string) {
     this.dialog.open(AddSegmentToCatalogModalComponent, {
       width: '320px',
       data: {name: name, edit: true}
     });
-
   }
 
   getData() {
@@ -64,5 +59,4 @@ export class SegmentsComponent implements OnInit {
         this.dataSource = catalogList;
       });
   }
-
 }
