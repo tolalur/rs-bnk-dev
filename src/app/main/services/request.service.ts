@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of, timer} from 'rxjs';
 import {filter, map, switchMap, tap} from 'rxjs/operators';
-import {MockRequestListService} from '../../mock/mock-request-list.service';
 import {IRequestModel} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
@@ -33,9 +32,6 @@ export class RequestService {
   }
 
   getListRequest(sortBy: string, sortDir: string): Observable<RequestListModel[]> {
-
-    console.log('sortBy: ' + sortBy + '; sortDir: ' + sortDir);
-
     return this.http.get<RequestListModel[]>('/api/request/list');
   }
 
