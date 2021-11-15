@@ -5,4 +5,5 @@ export interface CatalogListModel {
 
 export interface Response {
   mashzals: CatalogListModel[];
+  segments: CatalogListModel[];
 }

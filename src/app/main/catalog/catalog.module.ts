@@ -8,12 +8,18 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MaterialModule} from "../../material/material.module";
 import {FormsModule} from "@angular/forms";
+import { EngineRoomComponent } from './engine-room/engine-room.component';
+import { SegmentsComponent } from './segments/segments.component';
+import { AddSegmentToCatalogModalComponent } from './add-segment-to-catalog-modal/add-segment-to-catalog-modal.component';
 
 
 @NgModule({
   declarations: [
     CatalogComponent,
-    AddToCatalogModalComponent
+    AddToCatalogModalComponent,
+    EngineRoomComponent,
+    SegmentsComponent,
+    AddSegmentToCatalogModalComponent
   ],
   imports: [
     CommonModule,
