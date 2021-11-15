@@ -1,1 +1,55 @@
-<p>settings works!</p>
+<div class="settings">
+  <div class="subtitle mt-12">НАСТРОЙКИ СИСТЕМЫ</div>
+  <div class="settings--items">
+    <div class="settings--item">
+      <div class="settings--item-text mr-3">Подтверждение резервируемых ресурсов вручную</div>
+      <mat-checkbox color="primary" class="example-margin" [(ngModel)]="isManualConfirmation"></mat-checkbox>
+    </div>
+
+    <div class="settings--item">
+      <div class="settings--item-text">Время обработки заявки: </div>
+
+      <ng-container *ngIf="!isEditedTime">
+        <div class="settings--item-value">40</div>
+        <button mat-icon-button color="accent" (click)="isEditedTime = true">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="isEditedTime">
+        <mat-form-field class="ml-2 mr-2">
+          <input type="text" matInput [(ngModel)]="time">
+        </mat-form-field>
+        <button color="primary" mat-icon-button (click)="isEditedTime = false">
+          <mat-icon>check</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+
+    <div class="settings--item">
+      <div class="settings--item-text">Сетевой администратор: </div>
+
+      <ng-container *ngIf="!isEditedAdmin">
+        <div class="settings--item-value">Иванов Иван Иванович, iiivanov@mail.ru</div>
+        <button mat-icon-button color="accent" (click)="isEditedAdmin = true">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="isEditedAdmin">
+        <mat-form-field class="ml-2 mr-2">
+          <mat-label>ФИО</mat-label>
+          <input  type="email" matInput [(ngModel)]="name">
+        </mat-form-field>
+        <mat-form-field class="ml-2 mr-2">
+          <mat-label>email</mat-label>
+          <input  type="text" matInput [(ngModel)]="email">
+        </mat-form-field>
+        <button color="primary" mat-icon-button (click)="isEditedAdmin = false">
+          <mat-icon>check</mat-icon>
+        </button>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

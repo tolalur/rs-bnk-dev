@@ -1,0 +1,17 @@
+.settings {
+  &--items {
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+
+  &--item {
+    display: flex;
+    align-items: center;
+    height: 58px;
+  }
+
+  &--item-value {
+    font-weight: 700;
+    margin-left: 10px;
+  }
+}
