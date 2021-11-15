@@ -64,6 +64,9 @@ export class RequestListComponent implements AfterViewInit, OnInit {
         this.dataSource = res;
         this.isLoadingResults = false;
       });
+
+
+
   }
 
   ngOnInit(): void {

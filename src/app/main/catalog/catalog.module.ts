@@ -7,6 +7,7 @@ import { AddToCatalogModalComponent } from './add-to-catalog-modal/add-to-catalo
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MaterialModule} from "../../material/material.module";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MaterialModule} from "../../material/material.module";
     CatalogRoutingModule,
     MatTableModule,
     MatSortModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ]
 })
 export class CatalogModule { }

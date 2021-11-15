@@ -1,2 +1,11 @@
-<p>add-to-catalog-modal works!</p>
-<p>Добавить значение в справчоник “Машзал”</p>
+<p class="subtitle">Добавить значение в справчоник “Машзал”</p>
+
+<mat-form-field appearance="outline">
+  <mat-label>Введите значение</mat-label>
+  <input matInput type="text" [(ngModel)]="name">
+</mat-form-field>
+
+<div class="flex">
+  <button class="mr-1" mat-raised-button color="primary" (click)="save()">Сохранить</button>
+  <button class="mr-1" mat-raised-button color="primary" (click)="cancel()">Отмена</button>
+</div>

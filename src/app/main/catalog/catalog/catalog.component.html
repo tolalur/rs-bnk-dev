@@ -10,14 +10,10 @@
 
   <table mat-table
          [dataSource]="dataSource"
-         matSort
-         matSortDisableClear
-         matSortActive="creationDate"
-         matSortDirection="asc"
          class="mt-5 table-container--table"
   >
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>id</th>
+      <th mat-header-cell *matHeaderCellDef >id</th>
       <td mat-cell *matCellDef="let row">
         {{row.id}}
       </td>
@@ -35,7 +31,7 @@
           <button mat-icon-button color="warn" (click)="delete(row.id)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button color="primary" (click)="edit(row.id)">
+          <button mat-icon-button color="primary" (click)="edit(row.id, row.name)">
             <mat-icon>edit</mat-icon>
           </button>
         </div>

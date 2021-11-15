@@ -19,11 +19,9 @@ export class CatalogComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'name',
+    'edit'
   ];
   isLoadingResults = false;
-  sortBy = 'id';
-  sortDir = 'asc';
-
   // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
 
@@ -34,13 +32,10 @@ export class CatalogComponent implements OnInit {
     this.sort?.sortChange
       .pipe(
         // @ts-ignore
-
-        switchMap(val => {
-          this.sortBy = val.active === 'active' ? 'isActive' : val.active;
-          this.sortDir = val.direction;
+        switchMap(() => {
           this.isLoadingResults = true;
 
-          return this.service.getListCatalog(this.sortBy, this.sortDir);
+          return this.service.getListCatalogMashzals();
         }),
         untilDestroyed(this)
       )
@@ -53,7 +48,7 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {
     this.service
-      .getListCatalog(this.sortBy, this.sortDir)
+      .getListCatalogMashzals()
       .pipe(untilDestroyed(this))
       .subscribe((catalogList: CatalogListModel[]) => {
         this.isLoadingResults = false;
@@ -69,10 +64,14 @@ export class CatalogComponent implements OnInit {
   }
 
   delete(id: string) {
-
+    console.log('delete', id)
   }
 
-  edit(id: string) {
+  edit(id: string, name: string) {
+    this.dialog.open(AddToCatalogModalComponent, {
+      width: '320px',
+      data: {name: name, edit: true}
+    });
 
   }
 }

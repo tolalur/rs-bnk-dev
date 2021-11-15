@@ -1,25 +1,33 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
+import {CatalogListModel, Response} from "../types/catalog.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CatalogService {
   private catalogUrl = environment.apiPrefix + '/dictionary';
+  private catalogMashzalsUrl = environment.apiPrefix + '/dictionary/mashzals';
   constructor(private http: HttpClient) { }
 
-  // getListRequest(sortBy: string, sortDir: string): Observable<CatalogListModel[]> {
-  //
-  //   console.log('sortBy: ' + sortBy + '; sortDir: ' + sortDir);
-  //   return this.http.post<CatalogListModel[]>(this.catalogUrl);
-  //
-  //   // return this.http.getAll();
-  // }
 
-  getListCatalog(sortBy: string, sortDir: string): any {
+  getListCatalogMashzals(): Observable<CatalogListModel[]> {
 
-    console.log('sortBy: ' + sortBy + '; sortDir: ' + sortDir);
-    return this.http.get(this.catalogUrl);
+    return this.http.get<Response>(this.catalogUrl).pipe(map(value => {
+      return value.mashzals;
+    }));
+  }
+
+  addListCatalogMashzals(name: string): Observable<object> {
+
+    return this.http.post<object>(this.catalogMashzalsUrl, {name: name});
+  }
+
+  editListCatalogMashzals(id: string, name: string): Observable<object> {
+
+    return this.http.post<object>(this.catalogMashzalsUrl, {name: name});
   }
 }
