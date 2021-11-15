@@ -22,7 +22,7 @@ export class AdminMenuComponent implements OnInit {
         : []
       )
       .concat(this.service.isUserAdmin
-        ? [{link: 'reports', title: 'ОТЧЁТЫ'}, {link: 'settings', title: 'НАСТРОЙКИ'}, {link: 'users', title: 'ПОЛЬЗОВАТЕЛИ'}]
+        ? [{link: 'reports', title: 'ОТЧЁТЫ'}, {link: 'settings', title: 'НАСТРОЙКИ'}, {link: 'catalog', title: 'СПРАВОЧНИКИ'}]
         : []
       );
   }
