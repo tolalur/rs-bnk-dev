@@ -5,7 +5,6 @@
     "ng": "ng",
     "start": "ng serve --open --port 4203 --proxy-config proxy.conf.json --host 0.0.0.0 --disable-host-check",
     "build": "ng build --prod",
-    "build:netlify": "ng build -c netlify",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
