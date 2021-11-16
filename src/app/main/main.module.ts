@@ -20,6 +20,7 @@ import { SearchResultsComponent } from './request/search-results/search-results.
 import { SearchModalComponent } from './request/request/search-modal/search-modal.component';
 import { SearchResultsEditComponent } from './request/search-results-edit/search-results-edit.component';
 import { TransferRequestModalComponent } from './request/transfer-request-modal/transfer-request-modal.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 
@@ -48,7 +49,8 @@ import { TransferRequestModalComponent } from './request/transfer-request-modal/
     MatProgressSpinnerModule,
     MatSortModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule
   ]
 })
 export class MainModule { }
