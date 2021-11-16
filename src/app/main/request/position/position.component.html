@@ -1,6 +1,14 @@
 <div class="position p-4">
 
   <div class="subtitle position--subtitle position--subtitle_shift">Запрос пользователя:</div>
+
+  <mat-radio-group class="mb-8" [(ngModel)]="typePosition" aria-label="Select an option">
+    <mat-radio-button color="primary" [checked]="typePosition === 'set'" value="set" class="mr-4">
+      Установка
+    </mat-radio-button>
+    <mat-radio-button color="primary" value="change">Замена</mat-radio-button>
+  </mat-radio-group>
+
   <form action="" class="position--form flex flex-col">
     <mat-form-field appearance="outline">
       <mat-label>Целевой машзал</mat-label>
