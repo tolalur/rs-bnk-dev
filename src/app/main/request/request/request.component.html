@@ -1,6 +1,14 @@
-<div class="head flex items-center justify-center">
-  <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
-  <ng-container *ngIf="showLoadFile">
+<div class="head middle-container">
+  <div class="flex flex-col items-start">
+    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+    <div *ngIf="isAdmin" class="head-person">
+      <div class="mr-2">Ответственный: </div>
+      <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
+      <button color="primary" mat-button (click)="transfer()">Передать</button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isAdmin">
     <input
       type="file"
       name="file"
