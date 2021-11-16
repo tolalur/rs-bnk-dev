@@ -67,7 +67,7 @@
     <mat-label>Тип</mat-label>
     <mat-select
       [disabled]="isReadonly"
-      [(value)]="service.selectedNetworkConnection.type">
+      [(value)]="service.selectedNetworkConnection.connType">
       <mat-option
         *ngFor="let item of filters.type"
         [value]="item.value"
@@ -80,7 +80,7 @@
     <mat-label>Скорость</mat-label>
     <mat-select
       [disabled]="isReadonly"
-      [(value)]="service.selectedNetworkConnection.speed">
+      [(value)]="service.selectedNetworkConnection.connSpeed">
       <mat-option
         *ngFor="let item of filters.speed"
         [value]="item.value"
@@ -94,7 +94,7 @@
       <mat-label>Количество</mat-label>
       <input matInput
              [disabled]="isReadonly"
-             [(ngModel)]="service.selectedNetworkConnection.quantity">
+             [(ngModel)]="service.selectedNetworkConnection.amountPort">
     </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="save()">Сохранить</button>

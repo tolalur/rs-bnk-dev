@@ -17,8 +17,14 @@ export class NetworkConnectionService {
 
   networkConnection$: Observable<INetworkConnectionModel[]> = this.requestService.requestData$.pipe(
     filter(val => val != null),
-    tap(val => this.networkConnections = val!!.networkConnections),
-    map(val => val!!.networkConnections)
+    filter(val => !!val?.positions),
+    map(val => val!!.positions),
+    map(val => val.map(i => i.networkConnections)),
+    tap(val => this.networkConnections = val.reduce((acc, curr) => {
+      // @ts-ignore
+      acc.push(curr);
+      return acc
+    }, [])),
   );
 
   isReadOnly$ = this.requestService.isReadOnly$

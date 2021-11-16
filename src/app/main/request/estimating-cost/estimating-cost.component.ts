@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Cost, ISearchResults} from '../../types/request.model';
+import {ICost, ISearchResults} from '../../types/request.model';
 import {RequestService} from '../../services/request.service';
 import {filter, map} from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import {filter, map} from 'rxjs/operators';
 })
 export class EstimatingCostComponent implements OnInit {
 
-  data$: Observable<Cost | undefined>;
+  data$: Observable<ICost | undefined>;
 
   constructor(private service: RequestService) {
     this.data$ = this.service.requestData$.pipe(

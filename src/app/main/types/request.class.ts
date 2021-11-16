@@ -1,11 +1,20 @@
-import {IRequestModel} from './request.model';
-import {RequestGeneralClass} from './requestGeneral.class';
+import {IRequestDTO, RequestModelStatusEnum} from './request.model';
 import {PhysicalLocationClass} from './physical-location.class';
 
-export class RequestClass implements IRequestModel{
+
+export class RequestClass implements IRequestDTO{
   id = undefined
   comments = []
-  general = new RequestGeneralClass();
+  projectNumber = '';
+  serviceOwner = '';
+  adminGroup = '';
+  mnemonicMachineName = '';
+  correctionBudgetLink = '';
   networkConnections = [];
   physicalLocation = new PhysicalLocationClass();
+  createdAt = '';
+  positions = [];
+  status = RequestModelStatusEnum.NEW;
+  updatedAt = '';
+  user = '';
 }

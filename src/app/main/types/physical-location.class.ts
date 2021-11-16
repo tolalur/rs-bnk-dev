@@ -9,4 +9,5 @@ export class PhysicalLocationClass implements IPhysicalLocation {
   numberOfPhases = ''
   numberOfConnections = ''
   powerPlugConnectorType = ''
+
 }

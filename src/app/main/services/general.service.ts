@@ -3,6 +3,7 @@ import {RequestService} from './request.service';
 import {Observable} from 'rxjs';
 import {IRequestGeneral} from '../types/request.model';
 import {filter, map} from 'rxjs/operators';
+import {toRequestGeneralMapper} from '../mappers';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class GeneralService {
 
   general$: Observable<IRequestGeneral> = this.requestService.requestData$.pipe(
     filter(val => val != null),
-    map(val => val!!.general)
+    map(val => toRequestGeneralMapper(val!!))
   );
 
   isReadOnly$ = this.requestService.isReadOnly$
@@ -23,7 +24,7 @@ export class GeneralService {
     if (requestData) {
       this.requestService.changeRequest({
         ...requestData,
-        general: data
+        ...data
       })
     }
   }

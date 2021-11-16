@@ -6,6 +6,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
 import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
+import {BehaviorSubject} from 'rxjs';
+import {IRequestDTO} from '../../types/request.model';
 
 @Component({
   selector: 'app-request',
@@ -18,6 +20,7 @@ export class RequestComponent implements OnInit {
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
   isSaved = false;
+  requestData$: BehaviorSubject<IRequestDTO | null>;
 
   get isAdd(): boolean {
     return this.id == null;
@@ -43,6 +46,8 @@ export class RequestComponent implements OnInit {
         tap(id => this.id = id)
       )
       .subscribe(id => this.service.getRequestData(id));
+
+    this.requestData$ = this.service.requestData$
   }
 
   changedFile() {

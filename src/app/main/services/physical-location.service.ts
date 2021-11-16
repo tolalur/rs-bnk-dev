@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {IPhysicalLocation, IPhysicalLocationCatalog} from '../types/request.model';
 import {UserService} from '../../user/user.service';
+import {toPhysicalLocationMapper} from '../mappers';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,25 @@ export class PhysicalLocationService {
   constructor(private requestService: RequestService, private userService: UserService) {
   }
 
-  physicalLocation$: Observable<IPhysicalLocation> = this.requestService.requestData$.pipe(
+  physicalLocation$: Observable<IPhysicalLocation[]> = this.requestService.requestData$.pipe(
     filter(val => val != null),
-    map(val => val!!.physicalLocation)
+    map(val => val!!.positions.map(i => toPhysicalLocationMapper(i)))
   );
 
   isReadOnly$ = this.requestService.isReadOnly$
 
-  update(data: IPhysicalLocation) {
+  update(data: IPhysicalLocation, index: number) {
     const requestData = this.requestService.requestData;
     if (requestData) {
+
+      const position = requestData.positions[index]
+      requestData.positions.splice(index, 1, {
+        ...position,
+        ...data
+      });
+
       this.requestService.changeRequest({
         ...requestData,
-        physicalLocation: data
       });
     }
   }

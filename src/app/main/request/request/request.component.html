@@ -23,9 +23,13 @@
   <mat-tab label="Общее">
     <app-general></app-general>
   </mat-tab>
-  <mat-tab label="Позиция 1">
-    <app-position></app-position>
-  </mat-tab>
+
+  <ng-container>
+    <mat-tab label="Позиция 1">
+      <app-position></app-position>
+    </mat-tab>
+  </ng-container>
+
   <mat-tab label="Комментарии">
     <app-comments></app-comments>
   </mat-tab>

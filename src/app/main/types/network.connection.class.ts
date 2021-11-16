@@ -2,7 +2,7 @@ import {INetworkConnectionModel} from './request.model';
 
 export class NetworkConnectionClass implements INetworkConnectionModel {
   segment = ''
-  type = ''
-  speed = ''
-  quantity = 1
+  connType = ''
+  connSpeed = ''
+  amountPort = 1
 }

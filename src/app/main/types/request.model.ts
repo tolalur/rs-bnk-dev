@@ -1,18 +1,19 @@
 import {IFilterModel} from './filter.model';
 
 export interface IRequestGeneral {
-  idProject: string;
-  owner: string;
-  administratorsGroup: string;
-  mnemonicName: string;
-  budgetLinks: string;
+  projectNumber: string,
+  serviceOwner: string,
+  adminGroup: string,
+  mnemonicMachineName: string,
+  correctionBudgetLink: string,
 }
 
 export interface INetworkConnectionModel {
+  id?: number,
   segment: string,
-  type: string,
-  speed: string,
-  quantity: number,
+  connType: string,
+  connSpeed: string,
+  amountPort: number,
 }
 
 // Физическое размещение
@@ -24,14 +25,17 @@ export interface INetworkConnectionModel {
 // Кол-во подключений
 // Тип разъемов вилок электропитания
 export interface IPhysicalLocation {
-  equipmentModel: string,
-  dimensions: string,
+  machineModel: string,
+  amountUnit: number,
   depth: number,
   serialNumber: string,
   inventoryNumber: string,
-  numberOfPhases: string,
-  numberOfConnections: string,
-  powerPlugConnectorType: string,
+  amountPhases: number,
+  amountConnection: number,
+  type: string,
+  mashzal: string,
+  placementId: number,
+  electricityConnectorType: string,
 }
 
 export interface IPhysicalLocationCatalog {
@@ -48,7 +52,7 @@ export interface INetworkConnectionModelCatalog {
 export interface IComment {
   date: string;
   author: string;
-  text: string;
+  body: string;
 }
 
 export interface ISearchResultsPhysicalLocation {
@@ -68,17 +72,43 @@ export interface ISearchResults {
   networkConnections: ISearchResultsNetworkConnections;
 }
 
-export interface Cost {
-  capex: string,
-  opex: string
+export interface ICost {
+  priceKapex: string,
+  priceOpex: string
 }
 
-export interface IRequestModel {
+export enum RequestModelStatusEnum {
+  NEW = 'NEW'
+}
+
+export interface IRequestPosition {
+  id?: number,
+  mashzal: string,
+  placementId: number,
+  electricityConnectorType: string,
+  networkConnections: INetworkConnectionModel[],
+  machineModel: string,
+  amountUnit: number,
+  depth: number,
+  serialNumber: string,
+  inventoryNumber: string,
+  amountPhases: number,
+  amountConnection: number,
+  type: string
+}
+
+export interface IRequestDTO extends IRequestGeneral {
   id?: number;
   comments: IComment[],
-  general: IRequestGeneral;
-  networkConnections: INetworkConnectionModel[];
-  physicalLocation: IPhysicalLocation;
-  searchResults?: ISearchResults[];
-  cost?: Cost
+  priceOpex?: string,
+  priceKapex?: string,
+  createdAt: string,
+  updatedAt: string,
+  maxResponseTime?: string,
+  status: RequestModelStatusEnum,
+  user: string,
+  positions: IRequestPosition[],
+  respUserId?: number,
+  respUserFio?: string,
+  respUserEmail?: string,
 }
