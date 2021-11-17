@@ -93,7 +93,11 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Тип подключения электропитания</mat-label>
-      <mat-select [(value)]="physicalLocation.electricityConnectorType" [disabled]="isDisabledForm  || isReadonly">
+      <mat-select
+        [(value)]="physicalLocation.electricityConnectorType"
+        [disabled]="isDisabledForm  || isReadonly"
+        (valueChange)="service.validateData()"
+      >
         <ng-container *ngIf="dictionaryService.dictionary$ | async as data">
           <mat-option
             *ngFor="let item of data.electricityConnectorTypes"

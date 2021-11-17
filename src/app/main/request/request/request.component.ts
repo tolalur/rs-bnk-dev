@@ -8,6 +8,7 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
+import {WarningModalComponent} from '../warning-modal/warning-modal.component';
 
 @Component({
   selector: 'app-request',
@@ -32,15 +33,15 @@ export class RequestComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: RequestService,
+    public service: RequestService,
     private userService: UserService,
     private dictionaryService: DictionariesService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    if(this.dictionaryService.dictionary$.getValue() == null) {
-      this.dictionaryService.getData()
+    if (this.dictionaryService.dictionary$.getValue() == null) {
+      this.dictionaryService.getData();
     }
 
     this.route.params
@@ -67,7 +68,7 @@ export class RequestComponent implements OnInit {
   save() {
     this.service.saveRequest().subscribe(data => {
       this.isSaved = true;
-    })
+    });
   }
 
   search() {
