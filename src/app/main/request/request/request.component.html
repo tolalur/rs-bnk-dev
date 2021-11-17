@@ -31,9 +31,15 @@
   <mat-tab label="Общее">
     <app-general></app-general>
   </mat-tab>
-  <mat-tab label="Позиция 1">
-    <app-position></app-position>
-  </mat-tab>
+
+  <ng-container *ngIf="requestData$ | async as data">
+    <mat-tab [label]="'Позиция ' + (i + 1)" *ngFor="let item of data.positions; let i = index">
+      <app-position
+        [position]="item"
+      ></app-position>
+    </mat-tab>
+  </ng-container>
+
   <mat-tab label="Комментарии">
     <app-comments></app-comments>
   </mat-tab>

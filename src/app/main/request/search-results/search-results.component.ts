@@ -29,7 +29,7 @@ export class SearchResultsComponent implements OnInit {
 
   constructor(private service: RequestService, public dialog: MatDialog) {
     this.data$ = this.service.requestData$.pipe(
-      map(val => val?.searchResults),
+      map(val => []),
       filter(val => val != null),
       // @ts-ignore
       tap(val => (this.dataSource = val ?? []) )

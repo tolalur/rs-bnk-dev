@@ -6,7 +6,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
 import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
-import {TransferRequestModalComponent} from "../transfer-request-modal/transfer-request-modal.component";
+import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
+import {DictionariesService} from '../../services/dictionaries.service';
 
 @Component({
   selector: 'app-request',
@@ -19,6 +20,7 @@ export class RequestComponent implements OnInit {
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
   isSaved = false;
+  requestData$ = this.service.requestData$;
 
   get isAdd(): boolean {
     return this.id == null;
@@ -32,10 +34,15 @@ export class RequestComponent implements OnInit {
     private route: ActivatedRoute,
     private service: RequestService,
     private userService: UserService,
+    private dictionaryService: DictionariesService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    if(this.dictionaryService.dictionary$.getValue() == null) {
+      this.dictionaryService.getData()
+    }
+
     this.route.params
       .pipe(
         map(({id}) => Number(id)),
@@ -58,7 +65,9 @@ export class RequestComponent implements OnInit {
   }
 
   save() {
-    this.isSaved = true;
+    this.service.saveRequest().subscribe(data => {
+      this.isSaved = true;
+    })
   }
 
   search() {

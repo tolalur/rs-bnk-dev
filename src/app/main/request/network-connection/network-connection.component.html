@@ -1,11 +1,14 @@
 <div class="subtitle position--subtitle mt-7">Сетевые подключения</div>
-<div (click)="add()" class="text-blue-400 cursor-pointer mt-2 mb-2
-" *ngIf="!isReadonly">
+<div
+  class="text-blue-400 cursor-pointer mt-2 mb-2"
+  (click)="add()"
+  *ngIf="!isReadonly"
+>
   &#43; Добавить сетевое подключение
 </div>
 
-<ng-container *ngIf="networkConnections$ | async as data">
-  <table mat-table [dataSource]="data" class="min-w-full">
+<ng-container *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource" class="min-w-full">
 
     <ng-container matColumnDef="segment">
       <th mat-header-cell *matHeaderCellDef>Сегмент</th>
@@ -14,17 +17,17 @@
 
     <ng-container matColumnDef="type">
       <th mat-header-cell *matHeaderCellDef>Тип</th>
-      <td mat-cell *matCellDef="let element"> {{element?.type}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.connType}} </td>
     </ng-container>
 
     <ng-container matColumnDef="speed">
       <th mat-header-cell *matHeaderCellDef>Скорость</th>
-      <td mat-cell *matCellDef="let element"> {{element?.speed}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.connSpeed}} </td>
     </ng-container>
 
     <ng-container matColumnDef="quantity">
       <th mat-header-cell *matHeaderCellDef>Количество</th>
-      <td mat-cell *matCellDef="let element"> {{element?.quantity}} </td>
+      <td mat-cell *matCellDef="let element"> {{element?.amountPort}} </td>
     </ng-container>
 
     <ng-container matColumnDef="edit">
@@ -49,54 +52,62 @@
   </table>
 </ng-container>
 
-<div *ngIf="service.selectedNetworkConnection && filters" class="flex flex-col mt-6 p-6">
-  <mat-form-field appearance="outline">
-    <mat-label>Сегмент</mat-label>
-    <mat-select
-      [disabled]="isReadonly"
-      [(value)]="service.selectedNetworkConnection.segment">
-      <mat-option
-        *ngFor="let item of filters.segment"
-        [value]="item.value"
-      >{{item.label}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Тип</mat-label>
-    <mat-select
-      [disabled]="isReadonly"
-      [(value)]="service.selectedNetworkConnection.type">
-      <mat-option
-        *ngFor="let item of filters.type"
-        [value]="item.value"
-      >{{item.label}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Скорость</mat-label>
-    <mat-select
-      [disabled]="isReadonly"
-      [(value)]="service.selectedNetworkConnection.speed">
-      <mat-option
-        *ngFor="let item of filters.speed"
-        [value]="item.value"
-      >{{item.label}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <div>
-    <mat-form-field appearance="outline" class="mr-8">
-      <mat-label>Количество</mat-label>
-      <input matInput
-             [disabled]="isReadonly"
-             [(ngModel)]="service.selectedNetworkConnection.quantity">
+<ng-container *ngIf="dictionaryService.dictionary$ | async as filters">
+  <div
+    *ngIf="selectedNetworkConnection != null"
+    class="flex flex-col mt-6 p-6"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Сегмент</mat-label>
+      <mat-select
+        [disabled]="isReadonly"
+        [(value)]="selectedNetworkConnection.segment">
+        <mat-option
+          *ngFor="let item of filters.segments"
+          [value]="item.id"
+        >{{item.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Тип</mat-label>
+      <mat-select
+        [disabled]="isReadonly"
+        [(value)]="selectedNetworkConnection.connType">
+        <mat-option
+          *ngFor="let item of filters.connTypes"
+          [value]="item.id"
+        >{{item.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Скорость</mat-label>
+      <mat-select
+        [disabled]="isReadonly"
+        [(value)]="selectedNetworkConnection.connSpeed">
+        <mat-option
+          *ngFor="let item of filters.connSpeeds"
+          [value]="item.id"
+        >{{item.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <mat-form-field appearance="outline" class="mr-8">
+        <mat-label>Количество</mat-label>
+        <input matInput
+               [disabled]="isReadonly"
+               type="number"
+               [(ngModel)]="selectedNetworkConnection.amountPort">
+      </mat-form-field>
+
+
+      <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+    </div>
   </div>
-</div>
+</ng-container>
