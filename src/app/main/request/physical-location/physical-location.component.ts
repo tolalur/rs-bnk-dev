@@ -18,7 +18,8 @@ export class PhysicalLocationComponent implements OnInit {
   isShowForm: boolean = true;
   isDisabledForm: boolean = false;
   isReadonly = true;
-  amountPhases = [1, 2, 4, 6];
+  amountPhases = [1, 2, 4, 6]; // уточнить
+  amountConnection = [1, 2, 4, 6];
   amountUnit = Array(28).fill(null).map((item, index) => index + 1)
 
   @Input() physicalLocation: IPhysicalLocation | undefined;
