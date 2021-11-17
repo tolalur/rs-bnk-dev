@@ -1,10 +1,11 @@
 export interface RequestListModel {
   id: string;
-  creationDate: string;
-  applicationNumber: number;
-  user: string;
-  endReservationDate: string;
-  projectId: string;
-  statusChangeDate: string;
   status: string;
+  createdAt: string;
+  projectNumber: string;
+  reservedTo: string;
+  respUserEmail: string;
+  respUserFio: string
+  respUserId: number;
+  updatedAt:  string;
 }

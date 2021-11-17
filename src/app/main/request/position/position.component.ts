@@ -9,6 +9,8 @@ import {RequestService} from '../../services/request.service';
 export class PositionComponent implements OnInit {
   targetMachineRoom = 'one';
   isReadOnly$;
+  typePosition = 'set';
+
   constructor(private service: RequestService) {
     this.isReadOnly$ = this.service.isReadOnly$
   }

@@ -19,6 +19,8 @@ import { EstimatingCostComponent } from './request/estimating-cost/estimating-co
 import { SearchResultsComponent } from './request/search-results/search-results.component';
 import { SearchModalComponent } from './request/request/search-modal/search-modal.component';
 import { SearchResultsEditComponent } from './request/search-results-edit/search-results-edit.component';
+import { TransferRequestModalComponent } from './request/transfer-request-modal/transfer-request-modal.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 
@@ -36,7 +38,8 @@ import { SearchResultsEditComponent } from './request/search-results-edit/search
     EstimatingCostComponent,
     SearchResultsComponent,
     SearchModalComponent,
-    SearchResultsEditComponent
+    SearchResultsEditComponent,
+    TransferRequestModalComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,8 @@ import { SearchResultsEditComponent } from './request/search-results-edit/search
     MatProgressSpinnerModule,
     MatSortModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    MatRadioModule
   ]
 })
 export class MainModule { }
