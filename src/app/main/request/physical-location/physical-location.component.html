@@ -33,9 +33,11 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Глубина</mat-label>
+        <mat-label>Глубина, мм</mat-label>
         <input
           matInput
+          min="1"
+          max="1670"
           name="depth"
           type="number"
           [(ngModel)]="physicalLocation.depth"
