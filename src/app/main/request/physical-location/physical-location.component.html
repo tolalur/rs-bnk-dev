@@ -69,31 +69,35 @@
       >
     </mat-form-field>
 
-<!--    <mat-form-field appearance="outline">-->
-<!--      <mat-label>Число фаз</mat-label>-->
-<!--      <mat-select [(value)]="physicalLocation.amountPhases" [disabled]="isDisabledForm || isReadonly">-->
-<!--        <mat-option-->
-<!--          *ngFor="let item of amountPhases"-->
-<!--          [value]="item"-->
-<!--        >{{item}}-->
-<!--        </mat-option>-->
-<!--      </mat-select>-->
-<!--    </mat-form-field>-->
+    <!--    <mat-form-field appearance="outline">-->
+    <!--      <mat-label>Число фаз</mat-label>-->
+    <!--      <mat-select [(value)]="physicalLocation.amountPhases" [disabled]="isDisabledForm || isReadonly">-->
+    <!--        <mat-option-->
+    <!--          *ngFor="let item of amountPhases"-->
+    <!--          [value]="item"-->
+    <!--        >{{item}}-->
+    <!--        </mat-option>-->
+    <!--      </mat-select>-->
+    <!--    </mat-form-field>-->
 
     <mat-form-field appearance="outline">
       <mat-label>Кол-во подключений</mat-label>
-      <input
-        matInput
-        type="number"
-        placeholder="Введите кол-во"
-        [disabled]="isDisabledForm  || isReadonly"
-        [(ngModel)]="physicalLocation.amountConnection"
-      >
+      <mat-select [(value)]="physicalLocation.amountConnection" [disabled]="isDisabledForm || isReadonly">
+        <mat-option
+          *ngFor="let item of amountConnection"
+          [value]="item"
+        >{{item}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Тип подключения электропитания</mat-label>
-      <mat-select [(value)]="physicalLocation.electricityConnectorType" [disabled]="isDisabledForm  || isReadonly">
+      <mat-select
+        [(value)]="physicalLocation.electricityConnectorType"
+        [disabled]="isDisabledForm  || isReadonly"
+        (valueChange)="service.validateData()"
+      >
         <ng-container *ngIf="dictionaryService.dictionary$ | async as data">
           <mat-option
             *ngFor="let item of data.electricityConnectorTypes"

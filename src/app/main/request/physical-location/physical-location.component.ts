@@ -4,6 +4,8 @@ import {UntilDestroy} from '@ngneat/until-destroy';
 import {ActivatedRoute} from '@angular/router';
 import {DictionariesService} from '../../services/dictionaries.service';
 import {RequestService} from '../../services/request.service';
+import {WarningModalComponent} from '../warning-modal/warning-modal.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @UntilDestroy()
 @Component({
@@ -16,12 +18,16 @@ export class PhysicalLocationComponent implements OnInit {
   isShowForm: boolean = true;
   isDisabledForm: boolean = false;
   isReadonly = true;
-  amountPhases = [1, 2, 4, 6];
+  amountPhases = [1, 2, 4, 6]; // уточнить
+  amountConnection = [1, 2, 4, 6];
   amountUnit = Array(28).fill(null).map((item, index) => index + 1)
 
   @Input() physicalLocation: IPhysicalLocation | undefined;
 
-  constructor(public service: RequestService, private route: ActivatedRoute, public dictionaryService: DictionariesService) {
+  constructor(public service: RequestService,
+              private route: ActivatedRoute,
+              public dictionaryService: DictionariesService,
+              public dialog: MatDialog) {
   }
 
 
@@ -39,6 +45,5 @@ export class PhysicalLocationComponent implements OnInit {
 
   save(): void {
     this.isDisabledForm = !this.isDisabledForm;
-    console.log('save')
   }
 }
