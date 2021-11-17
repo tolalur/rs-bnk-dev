@@ -1,5 +1,21 @@
 <ng-container *ngIf="data$ | async as data">
-  <div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
+  <div class="search-result--header">
+    <div class="subtitle search-result--subtitle">Результат поиска:</div>
+    <div class="search-result--menu">
+      <div class="search-result--menu-item">
+        <span class="material-icons">add_circle_outline</span>
+        Добавить
+      </div>
+      <div class="search-result--menu-item">
+        <span class="material-icons">edit</span>
+        Редактировать
+      </div>
+      <div class="search-result--menu-item search-result--menu-item_red">
+        <span class="material-icons">highlight_off</span>
+        Отклонить
+      </div>
+    </div>
+  </div>
   <div class="table--header flex justify-center">
     <div class="table--header-item flex-grow">
       Выделено физическое размещение

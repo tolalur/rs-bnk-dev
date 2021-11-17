@@ -1,3 +1,42 @@
+.search-result {
+  &--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 100%;
+    padding-top: 20px;
+  }
+
+  &--subtitle {
+    margin-bottom: 0;
+  }
+
+
+  &--menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &--menu-item {
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color:#2697FF;
+    padding: 0 8px;
+
+    .material-icons {
+      margin-right: 2px;
+    }
+
+    &_red {
+      color: red;
+    }
+  }
+}
+
 table {
   width: 100%;
   td {
