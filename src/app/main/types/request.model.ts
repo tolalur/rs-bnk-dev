@@ -1,10 +1,7 @@
-import {IFilterModel} from './filter.model';
-
 export interface IRequestGeneral {
   projectNumber: string,
   serviceOwner: string,
   adminGroup: string,
-  mnemonicMachineName: string,
   correctionBudgetLink: string,
 }
 
@@ -16,42 +13,10 @@ export interface INetworkConnectionModel {
   amountPort: number,
 }
 
-// Физическое размещение
-// Габариты
-// Глубина
-// серийный номер
-// Инвентарный номер
-// Число фаз
-// Кол-во подключений
-// Тип разъемов вилок электропитания
-export interface IPhysicalLocation {
-  machineModel: string,
-  amountUnit: number,
-  depth: number,
-  serialNumber: string,
-  inventoryNumber: string,
-  amountPhases: number,
-  amountConnection: number,
-  type: string,
-  mashzal: string,
-  placementId: number,
-  electricityConnectorType: string,
-}
-
-export interface IPhysicalLocationCatalog {
-  powerPlugConnectorType: IFilterModel[],
-  dimensionsUnits: IFilterModel[],
-}
-
-export interface INetworkConnectionModelCatalog {
-  segment: IFilterModel[],
-  type: IFilterModel[],
-  speed: IFilterModel[],
-}
-
 export interface IComment {
-  date: string;
-  author: string;
+  id?: number,
+  createdAt: string;
+  user: string;
   body: string;
 }
 
@@ -72,14 +37,17 @@ export interface ISearchResults {
   networkConnections: ISearchResultsNetworkConnections;
 }
 
-export interface ICost {
-  priceKapex: string,
-  priceOpex: string
-}
+export type ICost = Pick<IRequestDTO, 'priceOpex' | 'priceKapex'>
 
 export enum RequestModelStatusEnum {
   NEW = 'NEW'
 }
+
+export enum RequestPositionTypeEnum {
+  NEW_SETUP = 'NEW_SETUP', NEW_REPLACE = 'NEW_REPLACE'
+}
+
+export type IPhysicalLocation = Omit<IRequestPosition, 'networkConnections'>
 
 export interface IRequestPosition {
   id?: number,
@@ -94,7 +62,8 @@ export interface IRequestPosition {
   inventoryNumber: string,
   amountPhases: number,
   amountConnection: number,
-  type: string
+  type: RequestPositionTypeEnum
+  mnemonicMachineName: string
 }
 
 export interface IRequestDTO extends IRequestGeneral {
@@ -102,13 +71,33 @@ export interface IRequestDTO extends IRequestGeneral {
   comments: IComment[],
   priceOpex?: string,
   priceKapex?: string,
-  createdAt: string,
-  updatedAt: string,
+  createdAt?: string,
+  updatedAt?: string,
   maxResponseTime?: string,
   status: RequestModelStatusEnum,
-  user: string,
   positions: IRequestPosition[],
+  user?: string,
   respUserId?: number,
   respUserFio?: string,
   respUserEmail?: string,
+}
+
+export interface IDictionary {
+  id: number,
+  name: string,
+}
+
+export interface IDictionaryNetBox extends IDictionary {
+  netbox_name: string;
+}
+
+export interface IDictionaries {
+  connSpeeds: IDictionaryNetBox[],
+  connTypes: IDictionaryNetBox[],
+  electricityConnectorTypes: IDictionaryNetBox[],
+  mashzals: IDictionaryNetBox[],
+  resultPositionStatuses: IDictionary[],
+  resultRequestStatuses: IDictionary[],
+  segments: IDictionaryNetBox[],
+  statuses: IDictionary[],
 }

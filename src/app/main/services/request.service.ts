@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of, timer} from 'rxjs';
-import {filter, map, switchMap, take, tap} from 'rxjs/operators';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {map, take, tap} from 'rxjs/operators';
 import {IRequestDTO} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {UserService} from '../../user/user.service';
 
 const baseUrl = environment.apiPrefix + '/request';
+const editUrl = (id: number) => `${baseUrl}/${id}`
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
 
@@ -28,12 +30,10 @@ export class RequestService {
 
   requestData$ = new BehaviorSubject<null | IRequestDTO>(null);
 
-  isReadOnly$ = this.requestData$.pipe(
-    filter(val => val != null),
-    map(val => val!!.id != null)
-  );
+  isReadOnly$: Observable<boolean> = new BehaviorSubject<boolean>(!this.userService.isUserNotAdmin)
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.isReadOnly$.subscribe(console.log)
   }
 
 
@@ -66,7 +66,13 @@ export class RequestService {
   }
 
   saveRequest() {
-    // todo сохранение запроса на бекенде
-    console.log(this._requestData);
+    console.log(JSON.stringify(this.requestData$.getValue()))
+    const id = this.requestData$.getValue()?.id
+
+    if (id != null) {
+      return this.http.put(editUrl(id), this.requestData$.getValue())
+    }
+
+    return this.http.post(baseUrl, this.requestData$.getValue())
   }
 }

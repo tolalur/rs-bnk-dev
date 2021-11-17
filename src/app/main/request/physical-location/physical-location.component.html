@@ -6,7 +6,7 @@
 
 <div class="form" *ngIf="isShowForm && physicalLocation">
 
-  <ng-container *ngIf="catalog | async as catalogData">
+  <ng-container *ngIf="dictionaryService.dictionary$ | async as catalogData">
     <mat-form-field appearance="outline">
       <mat-label>Модель оборудования</mat-label>
       <input
@@ -14,18 +14,18 @@
         type="text"
         placeholder="Выбрать тип"
         [disabled]="isDisabledForm  || isReadonly"
-        [(ngModel)]="physicalLocation.equipmentModel"
+        [(ngModel)]="physicalLocation.machineModel"
       >
     </mat-form-field>
 
     <div class="form--row">
       <mat-form-field appearance="outline" class="dimensions">
         <mat-label>Габариты (Кол-во юнитов)</mat-label>
-        <mat-select [(value)]="physicalLocation.dimensions" [disabled]="isDisabledForm || isReadonly">
+        <mat-select [(value)]="physicalLocation.amountUnit" [disabled]="isDisabledForm || isReadonly">
           <mat-option
-            *ngFor="let item of catalogData.dimensionsUnits"
-            [value]="item.value"
-          >{{item.label}}
+            *ngFor="let item of amountUnit"
+            [value]="item"
+          >{{item}}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -49,6 +49,16 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+      <mat-label>Мнемоническое имя (hostname) оборудования</mat-label>
+      <input
+        [disabled]="isDisabledForm  || isReadonly"
+        [(ngModel)]="physicalLocation.mnemonicMachineName"
+        matInput
+        required
+        type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Инвентарный номер</mat-label>
       <input
         matInput
@@ -61,34 +71,36 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Число фаз</mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="Введите число фаз"
-        [(ngModel)]="physicalLocation.numberOfPhases"
-        [disabled]="isDisabledForm  || isReadonly"
-      >
+      <mat-select [(value)]="physicalLocation.amountPhases" [disabled]="isDisabledForm || isReadonly">
+        <mat-option
+          *ngFor="let item of amountPhases"
+          [value]="item"
+        >{{item}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Кол-во подключений</mat-label>
       <input
         matInput
-        type="text"
+        type="number"
         placeholder="Введите кол-во"
         [disabled]="isDisabledForm  || isReadonly"
-        [(ngModel)]="physicalLocation.numberOfConnections"
+        [(ngModel)]="physicalLocation.amountConnection"
       >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Тип разъемов вилок электропитания</mat-label>
-      <mat-select [(value)]="physicalLocation.powerPlugConnectorType" [disabled]="isDisabledForm  || isReadonly">
-        <mat-option
-          *ngFor="let item of catalogData.powerPlugConnectorType"
-          [value]="item.value"
-        >{{item.label}}
-        </mat-option>
+      <mat-label>Тип подключения электропитания</mat-label>
+      <mat-select [(value)]="physicalLocation.electricityConnectorType" [disabled]="isDisabledForm  || isReadonly">
+        <ng-container *ngIf="dictionaryService.dictionary$ | async as data">
+          <mat-option
+            *ngFor="let item of data.electricityConnectorTypes"
+            [value]="item.id"
+          >{{item.name}}
+          </mat-option>
+        </ng-container>
       </mat-select>
     </mat-form-field>
 

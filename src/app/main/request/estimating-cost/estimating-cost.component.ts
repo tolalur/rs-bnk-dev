@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ICost, ISearchResults} from '../../types/request.model';
+import {ICost} from '../../types/request.model';
 import {RequestService} from '../../services/request.service';
-import {filter, map} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-estimating-cost',
@@ -11,12 +11,11 @@ import {filter, map} from 'rxjs/operators';
 })
 export class EstimatingCostComponent implements OnInit {
 
-  data$: Observable<ICost | undefined>;
+  data$: Observable<ICost>;
 
-  constructor(private service: RequestService) {
+  constructor(public service: RequestService) {
     this.data$ = this.service.requestData$.pipe(
-      map(val => val?.cost),
-      filter(val => val != null)
+      map(val => ({priceKapex:  val?.priceKapex ?? '', priceOpex: val?.priceOpex ?? ''}))
     );
   }
 

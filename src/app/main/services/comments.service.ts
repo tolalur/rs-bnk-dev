@@ -20,9 +20,9 @@ export class CommentsService {
 
   addComment(data: string) {
     const comment: IComment = {
-      text: data,
-      author: 'тут должен быть индентификатор автора комментария',
-      date: new Date().toJSON()
+      body: data,
+      user: 'тут должен быть индентификатор автора комментария',
+      createdAt: new Date().toJSON()
     };
 
     const requestData = this.requestService.requestData;

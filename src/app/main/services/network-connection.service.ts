@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {INetworkConnectionModel, INetworkConnectionModelCatalog} from '../types/request.model';
-import {filter, map, tap} from 'rxjs/operators';
+import {INetworkConnectionModel} from '../types/request.model';
 import {RequestService} from './request.service';
 import {NetworkConnectionClass} from '../types/network.connection.class';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,39 +12,10 @@ export class NetworkConnectionService {
   selectedNetworkConnection: null | INetworkConnectionModel = null;
   private networkConnections: INetworkConnectionModel[] | null = null;
 
-  constructor(private requestService: RequestService) {
+  constructor(private requestService: RequestService, private http: HttpClient) {
   }
-
-  networkConnection$: Observable<INetworkConnectionModel[]> = this.requestService.requestData$.pipe(
-    filter(val => val != null),
-    filter(val => !!val?.positions),
-    map(val => val!!.positions),
-    map(val => val.map(i => i.networkConnections)),
-    tap(val => this.networkConnections = val.reduce((acc, curr) => {
-      // @ts-ignore
-      acc.push(curr);
-      return acc
-    }, [])),
-  );
 
   isReadOnly$ = this.requestService.isReadOnly$
-
-  networkConnectionsCatalog(): Observable<INetworkConnectionModelCatalog> {
-    return of({
-      segment: [{
-        label: 'Основной серверный сегмент (коммутаторы DASW)',
-        value: 'Основной серверный сегмент (коммутаторы DASW)'
-      }],
-      type: [{
-        label: 'UTP RJ45',
-        value: 'UTP RJ45'
-      }],
-      speed: [{
-        label: '100/10',
-        value: '100/10'
-      }]
-    });
-  }
 
   copyNetworkConnection(i: number) {
     if (this.networkConnections) {
@@ -90,7 +61,7 @@ export class NetworkConnectionService {
     if (requestData) {
       this.requestService.changeRequest({
         ...requestData,
-        networkConnections: data
+        ...data
       });
     }
   }
