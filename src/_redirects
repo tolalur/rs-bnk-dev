@@ -1,4 +1,2 @@
-
-/backend/api/*    https://warm-basin-54061.herokuapp.com/:splat 200!
-/api/*            https://warm-basin-54061.herokuapp.com/:splat 200
-/backend2/api/*    http://rb-cod-front.dev.btn.bz/backend/api/:splat 200!
+/backend/api/*    http://rb-cod-front.dev.btn.bz/backend/api/:splat 200!
+/*   /index.html   200
