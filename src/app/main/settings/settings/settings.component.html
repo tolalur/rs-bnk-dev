@@ -10,7 +10,7 @@
       <div class="settings--item-text">Время обработки заявки: </div>
 
       <ng-container *ngIf="!isEditedTime">
-        <div class="settings--item-value">40</div>
+        <div class="settings--item-value">{{setting?.workHours}}</div>
         <button mat-icon-button color="accent" (click)="isEditedTime = true">
           <mat-icon>edit</mat-icon>
         </button>

@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {SettingsService} from "../../services/settings.service";
 
+interface settingItem {
+  key: string;
+  value: string;
+}
+
 @UntilDestroy()
 @Component({
   selector: 'app-settings',
@@ -9,7 +14,7 @@ import {SettingsService} from "../../services/settings.service";
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  setting = [];
+  setting = {workHours: ''};
   isManualConfirmation: boolean | undefined;
   isEditedTime = false;
   isEditedAdmin = false;
@@ -24,8 +29,13 @@ export class SettingsComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((setting: object[]) => {
         // @ts-ignore
-        this.setting = setting;
-        console.log(setting);
+        setting.forEach( (item: settingItem) => {
+          console.log(item);
+          if( item.key === 'REQUEST_WORK_HOURS' ) {
+            this.setting.workHours = item.value;
+          }
+        });
+        console.log(this.setting);
       });
   }
 
