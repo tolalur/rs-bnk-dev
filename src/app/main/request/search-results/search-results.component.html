@@ -2,18 +2,20 @@
   <div class="search-result--header">
     <div class="subtitle search-result--subtitle">Результат поиска:</div>
     <div class="search-result--menu">
-      <div class="search-result--menu-item">
+      <div class="search-result--menu-item" (click)="new()">
         <span class="material-icons">add_circle_outline</span>
         Добавить
       </div>
-      <div class="search-result--menu-item">
-        <span class="material-icons">edit</span>
-        Редактировать
-      </div>
-      <div class="search-result--menu-item search-result--menu-item_red">
-        <span class="material-icons">highlight_off</span>
-        Отклонить
-      </div>
+      <ng-container *ngIf="!!selectedRowIndex">
+        <div class="search-result--menu-item" (click)="open()">
+          <span class="material-icons">edit</span>
+          Редактировать
+        </div>
+        <div class="search-result--menu-item search-result--menu-item_red" (click)="reject()">
+          <span class="material-icons">highlight_off</span>
+          Отклонить
+        </div>
+      </ng-container>
     </div>
   </div>
   <div class="table--header flex justify-center">
@@ -61,6 +63,14 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="open(row)"></tr>
+<!--    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="open(row)"></tr>-->
+    <tr
+      *matRowDef="let row, let i = index; columns: displayedColumns;"
+      [class.row_selected]="selectedRowIndex === i + 1"
+      (click)="selectRow(row, i + 1)"
+      mat-row
+    >
+
+    </tr>
   </table>
 </ng-container>

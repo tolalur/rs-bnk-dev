@@ -64,6 +64,7 @@ export interface ISearchResultsNetworkConnections {
 }
 
 export interface ISearchResults {
+  id: number;
   physicalLocation: ISearchResultsPhysicalLocation;
   networkConnections: ISearchResultsNetworkConnections;
 }

@@ -90,6 +90,7 @@ export class RequestService {
           opex: '49900'
         },
         searchResults: Array(15).fill(null).map(val => ({
+          id: 3,
           physicalLocation: {
             stand: 3232,
             engineRoom: 261,

@@ -22,6 +22,8 @@ export class SearchResultsComponent implements OnInit {
     'place',
     'networkConnections',
   ];
+  selectedRow: ISearchResults | undefined;
+  selectedRowIndex: number | undefined;
 
   dataSource = []
 
@@ -37,12 +39,32 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  open(row: ISearchResults) {
-    console.log(row)
+
+
+  open() {
+    console.log(this.selectedRow)
     this.dialog.open(SearchResultsEditComponent, {
       width: '100%',
       maxWidth: '900px',
-      data: row
+      data: this.selectedRow
+    })
+  }
+
+  selectRow(row: ISearchResults, index: number) {
+    console.log(row);
+    this.selectedRow = row;
+    this.selectedRowIndex = index;
+  }
+
+  reject() {
+    console.log(this.selectedRow?.id);
+  }
+
+  new() {
+    this.dialog.open(SearchResultsEditComponent, {
+      width: '100%',
+      maxWidth: '900px',
+      data: {}
     })
   }
 }
