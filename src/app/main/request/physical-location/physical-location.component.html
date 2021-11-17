@@ -4,7 +4,7 @@
 </div>
 
 
-<div class="form" *ngIf="isShowForm && physicalLocation">
+<form class="form" *ngIf="isShowForm && physicalLocation">
 
   <ng-container *ngIf="dictionaryService.dictionary$ | async as catalogData">
     <mat-form-field appearance="outline">
@@ -12,6 +12,8 @@
       <input
         matInput
         type="text"
+        maxlength="255"
+        name="machineModel"
         placeholder="Выбрать тип"
         [disabled]="isDisabledForm  || isReadonly"
         [(ngModel)]="physicalLocation.machineModel"
@@ -31,8 +33,16 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Глубина</mat-label>
-        <input matInput [(ngModel)]="physicalLocation.depth" type="number" [disabled]="isDisabledForm  || isReadonly">
+        <mat-label>Глубина, мм</mat-label>
+        <input
+          matInput
+          min="1"
+          max="1670"
+          name="depth"
+          type="number"
+          [(ngModel)]="physicalLocation.depth"
+          [disabled]="isDisabledForm  || isReadonly"
+        >
       </mat-form-field>
 
     </div>
@@ -42,6 +52,8 @@
       <input
         matInput
         type="text"
+        maxlength="255"
+        name="serialNumber"
         placeholder="Введите серийный номер"
         [(ngModel)]="physicalLocation.serialNumber"
         [disabled]="isDisabledForm  || isReadonly"
@@ -55,14 +67,19 @@
         [(ngModel)]="physicalLocation.mnemonicMachineName"
         matInput
         required
-        type="text">
+        type="text"
+        name="mnemonicMachineName"
+      >
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Инвентарный номер</mat-label>
       <input
         matInput
+        required
         type="text"
+        maxlength="255"
+        name="inventoryNumber"
         placeholder="Введите инвентарный номер"
         [(ngModel)]="physicalLocation.inventoryNumber"
         [disabled]="isDisabledForm  || isReadonly"
@@ -109,6 +126,7 @@
     </mat-form-field>
 
     <button
+      type="submit"
       *ngIf="isShowBtn"
       class="form--button mt-5"
       mat-raised-button
@@ -117,6 +135,6 @@
     >{{isDisabledForm ? 'Изменить' : 'Добавить'}}
     </button>
   </ng-container>
-</div>
+</form>
 
 
