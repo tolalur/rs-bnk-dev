@@ -23,7 +23,7 @@
       <th mat-header-cell *matHeaderCellDef style="width: 60px"></th>
       <td mat-cell *matCellDef="let row;">
         <div class="flex gap-4">
-          <button mat-icon-button color="primary" (click)="edit(row.id, row.name)">
+          <button mat-icon-button color="primary" (click)="edit(row.name, row.netboxName,  row.id)">
             <mat-icon>edit</mat-icon>
           </button>
         </div>

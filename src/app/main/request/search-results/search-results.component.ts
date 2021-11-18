@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {RequestService} from '../../services/request.service';
-import {filter, map, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {ISearchResults} from '../../types/request.model';
+import {ISearchResults, ISearchResultsVariants} from '../../types/request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchResultsEditComponent} from '../search-results-edit/search-results-edit.component';
+import {BehaviorSubject, Observable, pipe} from 'rxjs';
+import {filter, map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-results',
@@ -13,36 +13,44 @@ import {SearchResultsEditComponent} from '../search-results-edit/search-results-
 })
 export class SearchResultsComponent implements OnInit {
 
-  data$: Observable<ISearchResults[] | undefined>;
-
   displayedColumns = [
     'number',
     'engineRoom',
     'placeNumber',
     'place',
-    'networkConnections',
+    'networkConnections'
   ];
 
-  dataSource = []
+  dataSource = {} as ISearchResults;
+  dataTableSource = [] as ISearchResultsVariants[];
 
   constructor(private service: RequestService, public dialog: MatDialog) {
-    this.data$ = this.service.requestData$.pipe(
-      map(val => []),
-      filter(val => val != null),
-      // @ts-ignore
-      tap(val => (this.dataSource = val ?? []) )
-    );
   }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  getData() {
+    const id = this.service.requestData$.getValue()?.id;
+
+    if (id != null) {
+      this.service.getSearchResourcesResults(id)
+        .pipe(
+          filter(val => val != null && val[0] != null),
+          map(val => val[0]),
+          tap(val => this.dataSource = val)
+        )
+        .subscribe(
+          res => this.dataTableSource = res.variants);
+    }
   }
 
   open(row: ISearchResults) {
-    console.log(row)
     this.dialog.open(SearchResultsEditComponent, {
       width: '100%',
       maxWidth: '900px',
       data: row
-    })
+    });
   }
 }

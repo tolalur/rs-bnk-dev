@@ -55,7 +55,14 @@
     [disabled]="!(service.isDataValid$ | async)"
   >Сохранить
   </button>
-  <button class="search-btn" *ngIf="isSaved" mat-raised-button color="primary" (click)="search()">
+  <button
+    class="search-btn"
+    *ngIf="isSaved"
+    mat-raised-button
+    color="primary"
+    (click)="search()"
+    [disabled]="!(service.isDataValid$ | async)"
+  >
     Осуществить поиск
   </button>
 </div>
