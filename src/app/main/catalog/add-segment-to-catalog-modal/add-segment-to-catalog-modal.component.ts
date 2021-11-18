@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {CatalogService} from "../../services/catalog.service";
-import {untilDestroyed} from "@ngneat/until-destroy";
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
+@UntilDestroy()
 @Component({
   selector: 'app-add-segment-to-catalog-modal',
   templateUrl: './add-segment-to-catalog-modal.component.html',
@@ -11,7 +12,7 @@ import {untilDestroyed} from "@ngneat/until-destroy";
 export class AddSegmentToCatalogModalComponent implements OnInit {
 
   name = '';
-
+  netboxName = '';
   constructor(
     public dialogRef: MatDialogRef<AddSegmentToCatalogModalComponent>,
     private service: CatalogService,
@@ -21,6 +22,7 @@ export class AddSegmentToCatalogModalComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data);
     this.name = this.data?.name ? this.data.name : '';
+    this.netboxName = this.data?.netboxName ? this.data.netboxName : '';
   }
 
   cancel() {
@@ -30,14 +32,14 @@ export class AddSegmentToCatalogModalComponent implements OnInit {
   save() {
     console.log(this.data?.edit);
     if( this.name && this.data?.edit ) {
-      this.service.editCatalogSegment(this.data.id, this.name)
+      this.service.editCatalogSegment(this.data.id, this.name, this.netboxName)
         .pipe(untilDestroyed(this))
         .subscribe(
           value => {console.log(value)}
         );
 
     } else if ( this.name && !this.data?.edit ){
-      this.service.addCatalogSegment(this.name)
+      this.service.addCatalogSegment(this.name, this.netboxName)
         .pipe(untilDestroyed(this))
         .subscribe(
           value => {console.log(value)}
