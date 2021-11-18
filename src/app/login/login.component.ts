@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onLogin() {
+    console.log('pip');
     if (this.password.valid && this.login.valid) {
       this.userService
         .login({login: this.login.value, password: this.password.value})
