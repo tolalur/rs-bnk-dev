@@ -16,14 +16,11 @@
     </div>
     <table mat-table
            [dataSource]="dataSource"
-           matSort
-           matSortDisableClear
-           matSortActive="creationDate"
-           matSortDirection="asc"
+
            class="mt-5 table-container--table"
     >
       <ng-container matColumnDef="creationDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Дата создания заявки</th>
+        <th mat-header-cell *matHeaderCellDef>Дата создания заявки</th>
         <td mat-cell *matCellDef="let row">
           <span>{{row.createdAt | date:'shortDate':'ru'}}</span>
           <span class="date-time">{{row.createdAt | date:'mediumTime':'ru'}}</span>
