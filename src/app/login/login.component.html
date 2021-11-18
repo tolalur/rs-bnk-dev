@@ -1,5 +1,4 @@
-<div class="flex-grow flex flex-col items-center justify-center">
-
+<div class="flex-grow flex flex-col items-center justify-center" (keyup.enter)="onLogin()">
   <mat-form-field appearance="outline">
     <mat-label>Логин</mat-label>
     <input matInput [formControl]="login" required autofocus>
