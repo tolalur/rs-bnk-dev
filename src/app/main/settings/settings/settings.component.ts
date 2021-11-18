@@ -14,13 +14,13 @@ interface settingItem {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  setting = {workHours: ''};
   isManualConfirmation: boolean | undefined;
   isEditedTime = false;
   isEditedAdmin = false;
+  isSettingTimeNew = true;
+  isSettingNetAdminNew = true;
   time: string | undefined;
-  name: string | undefined;
-  email: string | undefined;
+  netAdmin: string | undefined;
 
   constructor(private service: SettingsService) { }
 
@@ -32,15 +32,60 @@ export class SettingsComponent implements OnInit {
         setting.forEach( (item: settingItem) => {
           console.log(item);
           if( item.key === 'REQUEST_WORK_HOURS' ) {
-            this.setting.workHours = item.value;
+            this.time = item.value;
+            if (this.time) {
+              this.isSettingTimeNew = false;
+            }
+          }
+          if( item.key === 'netAdmin') {
+            this.netAdmin = item.value;
+            if (this.netAdmin) {
+              this.isSettingNetAdminNew = false;
+            }
           }
         });
-        console.log(this.setting);
+
       });
   }
 
   edit(key: string, value: boolean) {
     // @ts-ignore
     this[key] = value;
+  }
+
+  changeTime() {
+    if (this.time && !this.isSettingTimeNew) {
+      console.log(this.time);
+      this.service.changeSetting('REQUEST_WORK_HOURS', this.time)
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    } else if (this.time && this.isSettingTimeNew) {
+      console.log(this.time);
+      this.service.postSetting('REQUEST_WORK_HOURS', this.time)
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    }
+  }
+
+  changeNetAdmin() {
+    if (this.netAdmin && !this.isSettingNetAdminNew) {
+      console.log(this.time);
+      this.service.changeSetting('netAdmin', this.netAdmin)
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    } else if (this.netAdmin && this.isSettingNetAdminNew) {
+      console.log(this.netAdmin);
+      this.service.postSetting('netAdmin', this.netAdmin)
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    }
   }
 }
