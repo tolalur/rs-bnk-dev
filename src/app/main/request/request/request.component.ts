@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
+import {filter, map, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
@@ -9,7 +9,6 @@ import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
 import {RequestModelStatusEnum} from '../../types/request.model';
-import {pipe} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -105,5 +104,9 @@ export class RequestComponent implements OnInit {
     this.dialog.open(TransferRequestModalComponent, {
       width: '400px'
     });
+  }
+
+  inWork() {
+
   }
 }
