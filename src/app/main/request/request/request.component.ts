@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {filter, map, tap} from 'rxjs/operators';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
@@ -76,11 +76,21 @@ export class RequestComponent implements OnInit {
   }
 
   reject() {
-    if (this.id) this.service.reject(this!!.id).pipe(untilDestroyed(this)).subscribe();
+    const id = this.id;
+    if (id != null) {
+      this.service.reject(id).pipe(
+        untilDestroyed(this)
+      ).subscribe(() => this.service.getRequestData(id));
+    }
   }
 
   complete() {
-    if (this.id) this.service.complete(this.id).pipe(untilDestroyed(this)).subscribe();
+    const id = this.id;
+    if (id) {
+      this.service.complete(id)
+        .pipe(untilDestroyed(this))
+        .subscribe(() => this.service.getRequestData(id));
+    }
   }
 
   search() {

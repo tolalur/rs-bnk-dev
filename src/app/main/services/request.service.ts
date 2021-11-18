@@ -15,7 +15,7 @@ const editUrl = (id: number) => `${baseUrl}/${id}`
 const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`
 const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`
 const rejectUrl = (id: number) => `${baseUrl}/${id}/reject`
-const completeUrl = (id: number) => `${baseUrl}/${id}/done`
+const completeUrl = (id: number) => `${baseUrl}/${id}/complete`
 
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
