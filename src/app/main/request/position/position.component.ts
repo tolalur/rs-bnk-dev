@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {RequestService} from '../../services/request.service';
+import {IRequestPosition, RequestPositionTypeEnum} from '../../types/request.model';
+import {DictionariesService} from '../../services/dictionaries.service';
 
 @Component({
   selector: 'app-position',
@@ -7,11 +9,12 @@ import {RequestService} from '../../services/request.service';
   styleUrls: ['./position.component.scss']
 })
 export class PositionComponent implements OnInit {
-  targetMachineRoom = 'one';
   isReadOnly$;
-  typePosition = 'set';
+  positionTypeEnum = RequestPositionTypeEnum;
 
-  constructor(private service: RequestService) {
+  @Input() position: IRequestPosition | undefined
+
+  constructor(private service: RequestService, public dictionaryService: DictionariesService) {
     this.isReadOnly$ = this.service.isReadOnly$
   }
 

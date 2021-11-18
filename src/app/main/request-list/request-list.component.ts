@@ -7,6 +7,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestService} from '../services/request.service';
 import {UserService} from '../../user/user.service';
+import {DictionariesService} from '../services/dictionaries.service';
 
 
 @UntilDestroy()
@@ -40,7 +41,7 @@ export class RequestListComponent implements AfterViewInit, OnInit {
     return this.userService.isUserNotAdmin;
   }
 
-  constructor(private service: RequestService, private userService: UserService,) { }
+  constructor(private service: RequestService, private userService: UserService, private dictionaryService: DictionariesService) { }
 
   ngAfterViewInit() {
     // @ts-ignore
@@ -70,6 +71,8 @@ export class RequestListComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
+    this.dictionaryService.getData();
+
     this.service
       .getListRequest(this.sortBy, this.sortDir)
       .pipe(untilDestroyed(this))
@@ -81,6 +84,7 @@ export class RequestListComponent implements AfterViewInit, OnInit {
   }
 
   StatusChanged() {
+    // todo доделать
     this.isLoadingResults = true;
     console.log('selectedStatus: ', this.selectedStatus);
     this.service.getFilterRequest(this.selectedStatus)

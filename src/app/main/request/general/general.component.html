@@ -3,65 +3,65 @@
     <mat-form-field appearance="outline">
       <mat-label>Идентификатор проекта</mat-label>
       <input
-        formControlName="idProject"
+        formControlName="projectNumber"
         matInput
         required
-        type="text">
-
-      <mat-error *ngIf="generalForm.controls['idProject'].hasError('required')">
+        type="text"
+        >
+      <mat-error *ngIf="generalForm.controls['projectNumber'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['projectNumber'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Владелец сервиса / оборудования</mat-label>
       <input
-        formControlName="owner"
+        formControlName="serviceOwner"
         matInput
         required
-        type="text">
-
-      <mat-error *ngIf="generalForm.controls['owner'].hasError('required')">
+        type="text"
+      >
+      <mat-error *ngIf="generalForm.controls['serviceOwner'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['serviceOwner'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Группа администраторов оборудования</mat-label>
       <input
-        formControlName="administratorsGroup"
+        formControlName="adminGroup"
         matInput
         required
-        type="text">
+        type="text"
+      >
 
-      <mat-error *ngIf="generalForm.controls['administratorsGroup'].hasError('required')">
+      <mat-error *ngIf="generalForm.controls['adminGroup'].hasError('required')">
         Обязательное поле
       </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Мнемоническое имя устанавливаемого оборудования</mat-label>
-      <input
-        formControlName="mnemonicName"
-        matInput
-        required
-        type="text">
-
-      <mat-error *ngIf="generalForm.controls['mnemonicName'].hasError('required')">
-        Обязательное поле
+      <mat-error *ngIf="generalForm.controls['adminGroup'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Ссылки на корректировки бюджета</mat-label>
       <input
-        formControlName="budgetLinks"
+        formControlName="correctionBudgetLink"
         matInput
         required
-        type="text">
-
-      <mat-error *ngIf="generalForm.controls['budgetLinks'].hasError('required')">
+        type="text"
+      >
+      <mat-error *ngIf="generalForm.controls['correctionBudgetLink'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['correctionBudgetLink'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
   </form>

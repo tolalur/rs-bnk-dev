@@ -26,7 +26,7 @@ export class UserService {
   }
 
   get isUserNotAdmin(): boolean {
-    return !!this.user?.roles.some(role => role.name == UserRolesEnum.USER);
+    return this.user?.roles[0].name == UserRolesEnum.USER;
   }
 
   get isUserNetAdmin(): boolean {

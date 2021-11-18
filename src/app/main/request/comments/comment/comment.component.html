@@ -1,10 +1,10 @@
 <div class="comment">
   <div class="comment--info">
-    <div class="comment--author">{{comment?.author}}</div>
+    <div class="comment--author">{{comment?.user}}</div>
     <div class="comment--date-wrap">
-      <span class="comment--time pr-2">{{comment?.date | date:'shortTime'}}</span>
-      <span class="comment--date">{{comment?.date | date:'shortDate'}}</span>
+      <span class="comment--time pr-2">{{comment?.createdAt | date:'shortTime'}}</span>
+      <span class="comment--date">{{comment?.createdAt | date:'shortDate'}}</span>
     </div>
   </div>
-  <div class="comment--text">{{comment?.text}}</div>
+  <div class="comment--text">{{comment?.body}}</div>
 </div>
