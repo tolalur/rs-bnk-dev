@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {filter, map, tap} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
@@ -8,7 +8,6 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
-import {RequestModelStatusEnum} from '../../types/request.model';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 @UntilDestroy()
