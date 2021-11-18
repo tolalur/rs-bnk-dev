@@ -1,0 +1,2 @@
+/backend/api/*    http://rb-cod-front.dev.btn.bz/backend/api/:splat 200!
+/*   /index.html   200

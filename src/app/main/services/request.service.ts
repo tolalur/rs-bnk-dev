@@ -1,18 +1,26 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of, timer} from 'rxjs';
-import {filter, map, switchMap, tap} from 'rxjs/operators';
-import {MockRequestListService} from '../../mock/mock-request-list.service';
-import {IRequestModel} from '../types/request.model';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {map, take, tap} from 'rxjs/operators';
+import {IRequestDTO, IRequestPosition} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {UserService} from '../../user/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {WarningModalComponent} from '../request/warning-modal/warning-modal.component';
+
+const baseUrl = environment.apiPrefix + '/request';
+const editUrl = (id: number) => `${baseUrl}/${id}`
+const listUrl = baseUrl + '/list';
+const itemUrl = (id: number) => `${baseUrl}/${id}`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
 
-  private _requestData: IRequestModel | null = null;
+  private _requestData: IRequestDTO | null = null;
 
   get requestData() {
     return this._requestData;
@@ -22,21 +30,20 @@ export class RequestService {
     return this._requestData?.id == null;
   }
 
-  requestData$ = new BehaviorSubject<null | IRequestModel>(null);
+  requestData$ = new BehaviorSubject<null | IRequestDTO>(null);
 
-  isReadOnly$ = this.requestData$.pipe(
-    filter(val => val != null),
-    map(val => val!!.id != null)
-  );
+  dataValidationErrors: string[] = []
 
-  constructor(private http: HttpClient) {
+  isReadOnly$: Observable<boolean> = new BehaviorSubject<boolean>(!this.userService.isUserNotAdmin)
+
+  isDataValid$ = new BehaviorSubject<boolean>(true)
+
+  constructor(private http: HttpClient, private userService: UserService, public dialog: MatDialog) {
   }
 
+
   getListRequest(sortBy: string, sortDir: string): Observable<RequestListModel[]> {
-
-    console.log('sortBy: ' + sortBy + '; sortDir: ' + sortDir);
-
-    return this.http.get<RequestListModel[]>('/api/request/list');
+    return this.http.get<RequestListModel[]>(listUrl);
   }
 
   getFilterRequest(status: string): Observable<any> {
@@ -45,66 +52,12 @@ export class RequestService {
   }
 
   getRequestData(id: number): void {
-    timer(1000).pipe(
-      switchMap(() => of<IRequestModel>({
-        id: id,
-        comments: [
-          {
-            date: 'Mon Oct 11 2021 16:56:55 GMT+0300 (Москва, стандартное время)',
-            author: 'Иванов Олег',
-            text: 'Прошу добавить в заявку еще 2 порта UTP RJ45 '
-          },
-          {
-            date: 'Wed Mar 02 2011 00:00:00 GMT+0300 (Москва, стандартное время)',
-            author: 'Администратор',
-            text: 'Для резервирования был изменен номер стойки '
-          },
-          {
-            date: 'Wed Mar 02 2011 00:00:00 GMT+0300 (Москва, стандартное время)',
-            author: 'Администратор',
-            text: 'Для резервирования был изменен номер стойки. Для резервирования \n' +
-              'был изменен номер стойки. Для резервирования был изменен номер\n' +
-              'стойки '
-          }
-        ],
-        general: {
-          idProject: 'idProject',
-          owner: 'owner',
-          administratorsGroup: 'administratorsGroup',
-          mnemonicName: 'mnemonicName',
-          budgetLinks: 'budgetLinks'
-        },
-        networkConnections: [
-          {segment: 'коммутаторы DASW 1', type: 'UTP RJ45', speed: '100/10', quantity: 2},
-          {segment: 'коммутаторы PDSW 2', type: 'UTP RJ45', speed: '100/10', quantity: 3},
-          {segment: 'коммутаторы DASW 3', type: 'UTP RJ45', speed: '100/10', quantity: 1}
-        ],
-        physicalLocation: {
-          equipmentModel: 'Модель',
-          dimensions: '2',
-          depth: 3,
-          serialNumber: '12345',
-          inventoryNumber: '54321',
-          numberOfPhases: '3',
-          numberOfConnections: '2',
-          powerPlugConnectorType: 'UTP RJ45'
-        },
-        cost: {
-          capex: '115097',
-          opex: '49900'
-        },
-        searchResults: Array(15).fill(null).map(val => ({
-          physicalLocation: {
-            stand: 3232,
-            engineRoom: 261,
-            placeNumber: 8989
-          },
-          networkConnections: {segment: 'DASW', port: 'RJ-45-3', quantity: '3'}
-        }))
-      })),
+    this.http.get<IRequestDTO>(itemUrl(id)).pipe(
       map(item => ({...item, comments: item.comments != null ? item.comments : []})),
-      tap(data => this._requestData = data)
-    ).subscribe(data => this.requestData$.next(data));
+      tap(data => this._requestData = data),
+      tap(data => this.requestData$.next(data)),
+      take(1)
+    ).subscribe();
   }
 
   addNewRequest() {
@@ -112,13 +65,43 @@ export class RequestService {
     this.requestData$.next(this._requestData);
   }
 
-  changeRequest(data: IRequestModel) {
+  changeRequest(data: IRequestDTO) {
     this._requestData = data;
     this.requestData$.next(this._requestData);
   }
 
   saveRequest() {
-    // todo сохранение запроса на бекенде
-    console.log(this._requestData);
+    console.log(JSON.stringify(this.requestData$.getValue()))
+    const id = this.requestData$.getValue()?.id
+
+    if (id != null) {
+      return this.http.put(editUrl(id), this.requestData$.getValue())
+    }
+
+    return this.http.post(baseUrl, this.requestData$.getValue())
+  }
+
+  validateData() {
+    const data = this.requestData$.getValue();
+    if (data) {
+      this.isDataValid$.next(
+        this.dataValidatorPhases(data.positions)
+      )
+    }
+  }
+
+  // если выбрано трехфазное подключение
+  dataValidatorPhases(data: IRequestPosition[]): boolean {
+    const isValid = data.every(item => +item.electricityConnectorType != 2);
+
+    if(!isValid) {
+      this.dataValidationErrors.push('Для обеспечения требуемого подключения требуется связаться с администраторами по электронной почте');
+      this.dialog.open(WarningModalComponent, {
+        width: '400px',
+        data: this.dataValidationErrors
+      });
+    }
+
+    return isValid
   }
 }

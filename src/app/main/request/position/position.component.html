@@ -1,21 +1,43 @@
-<div class="position p-4">
+<div class="position p-4" *ngIf="position">
 
   <div class="subtitle position--subtitle position--subtitle_shift">Запрос пользователя:</div>
-  <form action="" class="position--form flex flex-col">
+
+  <mat-radio-group class="mb-8" [(ngModel)]="position.type" aria-label="Select an option">
+    <mat-radio-button color="primary" [value]="positionTypeEnum.NEW_SETUP" class="mr-4" [disabled]="isReadOnly$ | async">
+      Установка
+    </mat-radio-button>
+    <mat-radio-button color="primary" [value]="positionTypeEnum.NEW_REPLACE" [disabled]="isReadOnly$ | async">
+      Замена
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <form action="" class="position--form flex flex-col mt-4" *ngIf="dictionaryService.dictionary$ | async as data">
     <mat-form-field appearance="outline">
       <mat-label>Целевой машзал</mat-label>
       <mat-select
-        [(value)]="targetMachineRoom"
+        [(value)]="position.mashzal"
         required
-        [disabled]="isReadOnly$ | async">
-        <mat-option value="one">ЦОД См22 машзал 261</mat-option>
+        [disabled]="isReadOnly$ | async"
+      >
+        <mat-option
+          *ngFor="let item of data.mashzals"
+          [value]="item.id"
+        >{{item.name}}</mat-option>
       </mat-select>
     </mat-form-field>
   </form>
 
-  <app-network-connection class="pt-4"></app-network-connection>
+  <app-network-connection
+    class="pt-4"
+    [networkConnections]="position?.networkConnections"
 
-  <app-physical-location class="pt-4"></app-physical-location>
+  >
+  </app-network-connection>
+
+  <app-physical-location
+    class="pt-4"
+    [physicalLocation]="position"
+  ></app-physical-location>
 
   <app-estimating-cost class="pt-4"></app-estimating-cost>
 

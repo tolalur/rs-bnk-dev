@@ -6,6 +6,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
 import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
+import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
+import {DictionariesService} from '../../services/dictionaries.service';
+import {WarningModalComponent} from '../warning-modal/warning-modal.component';
 
 @Component({
   selector: 'app-request',
@@ -18,23 +21,29 @@ export class RequestComponent implements OnInit {
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
   isSaved = false;
+  requestData$ = this.service.requestData$;
 
   get isAdd(): boolean {
     return this.id == null;
   }
 
-  get showLoadFile(): boolean {
-    return this.userService.isUserNotAdmin;
+  get isAdmin(): boolean {
+    return !this.userService.isUserNotAdmin;
   }
 
   constructor(
     private route: ActivatedRoute,
-    private service: RequestService,
+    public service: RequestService,
     private userService: UserService,
+    private dictionaryService: DictionariesService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    if (this.dictionaryService.dictionary$.getValue() == null) {
+      this.dictionaryService.getData();
+    }
+
     this.route.params
       .pipe(
         map(({id}) => Number(id)),
@@ -49,7 +58,7 @@ export class RequestComponent implements OnInit {
     const fileType = this.file?.nativeElement.files[0].type;
 
     if (!this.extensionFile.some(ext => fileType.includes(ext))) {
-      const dialogRef = this.dialog.open(UploadFileModalComponent, {
+      this.dialog.open(UploadFileModalComponent, {
         width: '320px',
         data: {extends: this.extensionFile}
       });
@@ -57,12 +66,20 @@ export class RequestComponent implements OnInit {
   }
 
   save() {
-    this.isSaved = true;
+    this.service.saveRequest().subscribe(data => {
+      this.isSaved = true;
+    });
   }
 
   search() {
-    const dialogRef = this.dialog.open(SearchModalComponent, {
+    this.dialog.open(SearchModalComponent, {
       width: '320px'
+    });
+  }
+
+  transfer() {
+    this.dialog.open(TransferRequestModalComponent, {
+      width: '400px'
     });
   }
 }

@@ -1,6 +1,14 @@
-<div class="head flex items-center justify-center">
-  <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
-  <ng-container *ngIf="showLoadFile">
+<div class="head middle-container">
+  <div class="flex flex-col items-start">
+    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+    <div *ngIf="isAdmin" class="head-person">
+      <div class="mr-2">Ответственный:</div>
+      <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
+      <button color="primary" mat-button (click)="transfer()">Передать</button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="!isAdmin">
     <input
       type="file"
       name="file"
@@ -23,9 +31,15 @@
   <mat-tab label="Общее">
     <app-general></app-general>
   </mat-tab>
-  <mat-tab label="Позиция 1">
-    <app-position></app-position>
-  </mat-tab>
+
+  <ng-container *ngIf="requestData$ | async as data">
+    <mat-tab [label]="'Позиция ' + (i + 1)" *ngFor="let item of data.positions; let i = index">
+      <app-position
+        [position]="item"
+      ></app-position>
+    </mat-tab>
+  </ng-container>
+
   <mat-tab label="Комментарии">
     <app-comments></app-comments>
   </mat-tab>
@@ -34,7 +48,13 @@
 <mat-divider class="pb-8"></mat-divider>
 
 <div class="flex justify-center pb-10">
-  <button mat-raised-button color="primary" (click)="save()">Сохранить</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()"
+    [disabled]="!(service.isDataValid$ | async)"
+  >Сохранить
+  </button>
   <button class="search-btn" *ngIf="isSaved" mat-raised-button color="primary" (click)="search()">
     Осуществить поиск
   </button>
