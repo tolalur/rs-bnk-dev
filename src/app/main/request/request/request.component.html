@@ -1,10 +1,22 @@
 <div class="head middle-container">
-  <div class="flex flex-col items-start">
-    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }} <strong style="color: red">{{service.requestData$.getValue()?.status}}</strong></p>
-    <div *ngIf="isAdmin" class="head-person">
+  <div class="head--wrapper">
+    <div class="head--wrapper-item">
+      <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}
+        <strong style="color: red">{{service.requestData$.getValue()?.status}}</strong>
+      </p>
+      <button *ngIf="isAdmin" class="ml-3" color="primary" mat-raised-button (click)="inWork()">Взять в работу</button>
+    </div>
+    <div *ngIf="isAdmin && isInWork" class="head-person">
       <div class="mr-2">Ответственный:</div>
-      <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
-      <button color="primary" mat-button (click)="transfer()">Передать</button>
+      <ng-container *ngIf="requestData$ | async as data">
+        <div class="font-bold flex mr-2">
+          <div *ngIf="!data.respUserId">Не назначен</div>
+          <div class="mr-2">{{data.respUserFio}}</div>
+          <div>{{data.respUserEmail}}</div>
+          <div></div>
+        </div>
+      </ng-container>
+      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>
     </div>
   </div>
 

@@ -8,8 +8,6 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
-import {RequestModelStatusEnum} from '../../types/request.model';
-import {pipe} from 'rxjs';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -27,7 +25,7 @@ export class RequestComponent implements OnInit {
   canSearch$ = this.service.canSearch$;
   disableAdminBtn$ = this.service.disableAdminBtn$;
   canSave$ = this.service.canSave$;
-
+  isInWork = false;
   get isAdd(): boolean {
     return this.id == null;
   }
@@ -110,5 +108,9 @@ export class RequestComponent implements OnInit {
     this.dialog.open(TransferRequestModalComponent, {
       width: '400px'
     });
+  }
+
+  inWork() {
+    this.isInWork = true;
   }
 }
