@@ -14,11 +14,14 @@ interface settingItem {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-  isManualConfirmation: boolean | undefined;
   isEditedTime = false;
   isEditedAdmin = false;
+
+  isSettingManualConfirmationNew: boolean | undefined;
   isSettingTimeNew = true;
   isSettingNetAdminNew = true;
+
+  isManualConfirmation = false;
   time: string | undefined;
   netAdmin: string | undefined;
 
@@ -42,6 +45,10 @@ export class SettingsComponent implements OnInit {
             if (this.netAdmin) {
               this.isSettingNetAdminNew = false;
             }
+          }
+          if ( item.key === 'ManualConfirmation') {
+            this.isSettingManualConfirmationNew = false;
+            this.isManualConfirmation = !!item.value;
           }
         });
 
@@ -82,6 +89,25 @@ export class SettingsComponent implements OnInit {
     } else if (this.netAdmin && this.isSettingNetAdminNew) {
       console.log(this.netAdmin);
       this.service.postSetting('netAdmin', this.netAdmin)
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    }
+  }
+
+  changeManualConfirmation() {
+    if (this.isSettingManualConfirmationNew) {
+      console.log('this.isSettingManualConfirmationNew', this.isSettingManualConfirmationNew);
+      this.service.postSetting('ManualConfirmation', this.isManualConfirmation.toString())
+        .pipe(untilDestroyed(this))
+        .subscribe((value) => {
+          console.log(value);
+        });
+    } else {
+      console.log('this.isSettingManualConfirmationNew', this.isSettingManualConfirmationNew);
+
+      this.service.changeSetting('ManualConfirmation', this.isManualConfirmation.toString())
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
           console.log(value);
