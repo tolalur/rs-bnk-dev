@@ -1,6 +1,6 @@
 <div class="head middle-container">
   <div class="flex flex-col items-start">
-    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
+    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }} <strong style="color: red">{{service.requestData$.getValue()?.status}}</strong></p>
     <div *ngIf="isAdmin" class="head-person">
       <div class="mr-2">Ответственный:</div>
       <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
@@ -53,7 +53,7 @@
       mat-raised-button
       color="primary"
       (click)="save()"
-      *ngIf="requestData$.getValue()?.status != requestModelStatusEnum.NEW"
+      *ngIf="canSave$ | async"
       [disabled]="!(service.isDataValid$ | async)"
     >Сохранить
     </button>
@@ -68,13 +68,11 @@
       Осуществить поиск
     </button>
   </ng-container>
-
-  <ng-container *ngIf="isAdmin">
+  <ng-container *ngIf="isAdmin && (disableAdminBtn$ | async)">
     <button
       mat-raised-button
       color="warn"
       (click)="reject()"
-      [disabled]="disableAdminBtn$ | async"
     >Отменить
     </button>
     <button
@@ -82,7 +80,6 @@
       mat-raised-button
       color="primary"
       (click)="complete()"
-      [disabled]="disableAdminBtn$ | async"
     >
       Завершить
     </button>

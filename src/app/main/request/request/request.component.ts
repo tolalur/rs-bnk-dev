@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
 import {MatDialog} from '@angular/material/dialog';
@@ -24,9 +24,9 @@ export class RequestComponent implements OnInit {
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
   requestData$ = this.service.requestData$;
-  canSearch$ = this.requestData$.pipe(map(val => val?.id != null && val.status == RequestModelStatusEnum.NEW));
-  disableAdminBtn$ = this.requestData$.pipe(map(val => val?.status != RequestModelStatusEnum.NEW));
-  requestModelStatusEnum = RequestModelStatusEnum;
+  canSearch$ = this.service.canSearch$;
+  disableAdminBtn$ = this.service.disableAdminBtn$;
+  canSave$ = this.service.canSave$;
 
   get isAdd(): boolean {
     return this.id == null;
@@ -42,6 +42,7 @@ export class RequestComponent implements OnInit {
     public service: RequestService,
     public userService: UserService,
     private dictionaryService: DictionariesService,
+    private router: Router,
     public dialog: MatDialog) {
   }
 
@@ -72,7 +73,11 @@ export class RequestComponent implements OnInit {
   }
 
   save() {
-    this.service.saveRequest().subscribe();
+    this.service.saveRequest()
+      .pipe(
+        switchMap(data => this.router.navigate(['/request/', data.id]))
+      )
+      .subscribe();
   }
 
   reject() {
@@ -96,7 +101,7 @@ export class RequestComponent implements OnInit {
   search() {
     this.service.searchResources(this.id!!).subscribe(() => {
       this.dialog.open(SearchModalComponent, {
-        width: '320px'
+        width: '320px',
       });
     });
   }

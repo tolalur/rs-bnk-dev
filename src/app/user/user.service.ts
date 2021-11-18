@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {isRoleUser, UserLogin, UserRolesEnum} from './types/user.model';
 import {UserLoginResponse} from './types/user.model';
 import {HttpClient} from '@angular/common/http';
@@ -17,13 +17,17 @@ export class UserService {
   private userStoreKey = 'user-store-data';
 
   set user(val) {
+    this.user$.next(val)
     window.sessionStorage.setItem(this.userStoreKey, JSON.stringify(val));
   }
 
   get user(): UserLoginResponse | null {
     const data = window.sessionStorage.getItem(this.userStoreKey);
-    return data ? JSON.parse(data) : data;
+    this.user$.next(data ? JSON.parse(data) : null)
+    return data ? JSON.parse(data) : null;
   }
+
+  user$ = new BehaviorSubject<UserLoginResponse | null>(null)
 
   get isUserNotAdmin(): boolean {
     return this.user?.roles[0].name == UserRolesEnum.USER;
@@ -49,12 +53,8 @@ export class UserService {
   }
 
   logout(): Observable<any> {
-    this.deleteUserData();
+    this.user = null;
     this.router.navigate(['/login']);
     return this.http.post(this.logoutUrl, {});
-  }
-
-  deleteUserData(): void {
-    window.sessionStorage.removeItem(this.userStoreKey);
   }
 }
