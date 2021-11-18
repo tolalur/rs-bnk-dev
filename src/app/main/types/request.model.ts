@@ -48,7 +48,7 @@ export interface ISearchResults {
 export type ICost = Pick<IRequestDTO, 'priceOpex' | 'priceKapex'>
 
 export enum RequestModelStatusEnum {
-  NEW = 'NEW',
+  NEW = 'NEW', REJECTED = 'REJECTED'
 }
 
 export enum RequestPositionTypeEnum {

@@ -8,7 +8,11 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
+import {RequestModelStatusEnum} from '../../types/request.model';
+import {pipe} from 'rxjs';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
@@ -19,8 +23,10 @@ export class RequestComponent implements OnInit {
   id: null | number = null;
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
-  isSaved = false;
   requestData$ = this.service.requestData$;
+  canSearch$ = this.requestData$.pipe(map(val => val?.id != null && val.status == RequestModelStatusEnum.NEW));
+  disableAdminBtn$ = this.requestData$.pipe(map(val => val?.status != RequestModelStatusEnum.NEW));
+  requestModelStatusEnum = RequestModelStatusEnum;
 
   get isAdd(): boolean {
     return this.id == null;
@@ -30,10 +36,11 @@ export class RequestComponent implements OnInit {
     return !this.userService.isUserNotAdmin;
   }
 
+
   constructor(
     private route: ActivatedRoute,
     public service: RequestService,
-    private userService: UserService,
+    public userService: UserService,
     private dictionaryService: DictionariesService,
     public dialog: MatDialog) {
   }
@@ -65,9 +72,15 @@ export class RequestComponent implements OnInit {
   }
 
   save() {
-    this.service.saveRequest().subscribe(data => {
-      this.isSaved = true;
-    });
+    this.service.saveRequest().subscribe();
+  }
+
+  reject() {
+    if (this.id) this.service.reject(this!!.id).pipe(untilDestroyed(this)).subscribe();
+  }
+
+  complete() {
+    if (this.id) this.service.complete(this.id).pipe(untilDestroyed(this)).subscribe();
   }
 
   search() {
@@ -75,7 +88,7 @@ export class RequestComponent implements OnInit {
       this.dialog.open(SearchModalComponent, {
         width: '320px'
       });
-    })
+    });
   }
 
   transfer() {

@@ -62,8 +62,6 @@ export class GeneralComponent implements OnInit {
     this.generalForm.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe(() => {
-        console.log(this.generalForm.controls['projectNumber']);
-
         this.service.changeRequest({
           ...this.service.requestData$.getValue(),
           ...this.generalForm.value

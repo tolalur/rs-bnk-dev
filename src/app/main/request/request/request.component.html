@@ -48,22 +48,44 @@
 <mat-divider class="pb-8"></mat-divider>
 
 <div class="flex justify-center pb-10">
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="save()"
-    [disabled]="!(service.isDataValid$ | async)"
-  >Сохранить
-  </button>
-  <button
-    class="search-btn"
-    *ngIf="isSaved"
-    mat-raised-button
-    color="primary"
-    (click)="search()"
-    [disabled]="!(service.isDataValid$ | async)"
-  >
-    Осуществить поиск
-  </button>
+  <ng-container *ngIf="!isAdmin">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+      *ngIf="requestData$.getValue()?.status != requestModelStatusEnum.NEW"
+      [disabled]="!(service.isDataValid$ | async)"
+    >Сохранить
+    </button>
+    <button
+      class="search-btn"
+      *ngIf="canSearch$ | async"
+      mat-raised-button
+      color="primary"
+      (click)="search()"
+      [disabled]="!(service.isDataValid$ | async)"
+    >
+      Осуществить поиск
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="isAdmin">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="reject()"
+      [disabled]="disableAdminBtn$ | async"
+    >Отменить
+    </button>
+    <button
+      class="search-btn"
+      mat-raised-button
+      color="primary"
+      (click)="complete()"
+      [disabled]="disableAdminBtn$ | async"
+    >
+      Завершить
+    </button>
+  </ng-container>
 </div>
 

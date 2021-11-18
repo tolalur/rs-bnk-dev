@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RequestService} from '../../services/request.service';
 import {IRequestPosition, RequestPositionTypeEnum} from '../../types/request.model';
 import {DictionariesService} from '../../services/dictionaries.service';
+import {UserService} from '../../../user/user.service';
 
 @Component({
   selector: 'app-position',
@@ -14,7 +15,7 @@ export class PositionComponent implements OnInit {
 
   @Input() position: IRequestPosition | undefined
 
-  constructor(private service: RequestService, public dictionaryService: DictionariesService) {
+  constructor(public service: RequestService, public dictionaryService: DictionariesService, public user: UserService) {
     this.isReadOnly$ = this.service.isReadOnly$
   }
 

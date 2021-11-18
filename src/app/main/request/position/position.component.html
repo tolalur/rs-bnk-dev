@@ -39,8 +39,8 @@
     [physicalLocation]="position"
   ></app-physical-location>
 
-  <app-estimating-cost class="pt-4"></app-estimating-cost>
-
-  <app-search-results class="pt-4"></app-search-results>
-
+  <ng-container *ngIf="user.isUserNetAdmin || user.isUserAdmin">
+    <app-estimating-cost class="pt-4"></app-estimating-cost>
+    <app-search-results class="pt-4"></app-search-results>
+  </ng-container>
 </div>

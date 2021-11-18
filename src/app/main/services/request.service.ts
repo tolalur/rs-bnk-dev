@@ -14,6 +14,9 @@ const baseUrl = environment.apiPrefix + '/request';
 const editUrl = (id: number) => `${baseUrl}/${id}`
 const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`
 const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`
+const rejectUrl = (id: number) => `${baseUrl}/${id}/reject`
+const completeUrl = (id: number) => `${baseUrl}/${id}/done`
+
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
 
@@ -81,6 +84,13 @@ export class RequestService {
     }
 
     return this.http.post(baseUrl, this.requestData$.getValue())
+  }
+
+  reject(id: number) {
+    return this.http.post(rejectUrl(id), {})
+  }
+  complete(id: number) {
+    return this.http.post(completeUrl(id), {})
   }
 
   searchResources(id: number) {
