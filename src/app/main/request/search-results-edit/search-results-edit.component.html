@@ -1,105 +1,106 @@
-<div mat-dialog-content>
-  <div class="table--header flex justify-center" style="border-bottom: 1px solid #bababa;">
-    <div class="table--header-item flex-grow">
-      Выделено физическое размещение
-    </div>
-    <div class="table--header-item flex-grow">
-      Выделено сетевые подключения
-    </div>
-  </div>
-  <div class="flex mt-4">
-    <div class="flex flex-col flex-grow mr-2">
-      <mat-form-field appearance="outline" class="dimensions mt-8">
-        <mat-label>Машзал</mat-label>
-        <mat-select [(value)]="data.physicalLocation.engineRoom">
-          <mat-option
-            [value]="data.physicalLocation.engineRoom"
-          >{{data.physicalLocation.engineRoom}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Стойка</mat-label>
-        <mat-select [(value)]="data.physicalLocation.placeNumber">
-          <mat-option
-            [value]="data.physicalLocation.placeNumber"
-          >{{data.physicalLocation.placeNumber}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Юниты</mat-label>
-        <mat-select [(value)]="data.physicalLocation.stand">
-          <mat-option
-            [value]="data.physicalLocation.stand"
-          >{{data.physicalLocation.stand}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+<!--<div mat-dialog-content>-->
+<!--  <div class="table&#45;&#45;header flex justify-center" style="border-bottom: 1px solid #bababa;">-->
+<!--    <div class="table&#45;&#45;header-item flex-grow">-->
+<!--      Выделено физическое размещение-->
+<!--    </div>-->
+<!--    <div class="table&#45;&#45;header-item flex-grow">-->
+<!--      Выделено сетевые подключения-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="flex mt-4">-->
+<!--    <div class="flex flex-col flex-grow mr-2">-->
+<!--      <mat-form-field appearance="outline" class="dimensions mt-8">-->
+<!--        <mat-label>Машзал</mat-label>-->
+<!--        <mat-select [(value)]="data.physicalLocation.engineRoom">-->
+<!--          <mat-option-->
+<!--            [value]="data.physicalLocation.engineRoom"-->
+<!--          >{{data.physicalLocation.engineRoom}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Стойка</mat-label>-->
+<!--        <mat-select [(value)]="data.physicalLocation.placeNumber">-->
+<!--          <mat-option-->
+<!--            [value]="data.physicalLocation.placeNumber"-->
+<!--          >{{data.physicalLocation.placeNumber}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Юниты</mat-label>-->
+<!--        <mat-select [(value)]="data.physicalLocation.stand">-->
+<!--          <mat-option-->
+<!--            [value]="data.physicalLocation.stand"-->
+<!--          >{{data.physicalLocation.stand}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
 
-    <div class="flex flex-col flex-grow ml-2">
-      <h4 class="mb-2">Подключение 1</h4>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Сегмент</mat-label>
-        <mat-select [(value)]="data.networkConnections.segment">
-          <mat-option
-            [value]="data.networkConnections.segment"
-          >{{data.networkConnections.segment}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Порт</mat-label>
-        <mat-select [(value)]="data.networkConnections.port">
-          <mat-option
-            [value]="data.networkConnections.port"
-          >{{data.networkConnections.port}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Количество</mat-label>
-        <mat-select [(value)]="data.networkConnections.port">
-          <mat-option
-            [value]="data.networkConnections.port"
-          >{{data.networkConnections.port}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<!--    <div class="flex flex-col flex-grow ml-2">-->
+<!--      <h4 class="mb-2">Подключение 1</h4>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Сегмент</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.segment">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.segment"-->
+<!--          >{{data.networkConnections.segment}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Порт</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.port">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.port"-->
+<!--          >{{data.networkConnections.port}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Количество</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.port">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.port"-->
+<!--          >{{data.networkConnections.port}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
 
-      <h4 class="mb-2">Подключение 2</h4>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Сегмент</mat-label>
-        <mat-select [(value)]="data.networkConnections.segment">
-          <mat-option
-            [value]="data.networkConnections.segment"
-          >{{data.networkConnections.segment}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Порт</mat-label>
-        <mat-select [(value)]="data.networkConnections.port">
-          <mat-option
-            [value]="data.networkConnections.port"
-          >{{data.networkConnections.port}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="dimensions">
-        <mat-label>Количество</mat-label>
-        <mat-select [(value)]="data.networkConnections.quantity">
-          <mat-option
-            [value]="data.networkConnections.quantity"
-          >{{data.networkConnections.quantity}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-  </div>
-</div>
+<!--      <h4 class="mb-2">Подключение 2</h4>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Сегмент</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.segment">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.segment"-->
+<!--          >{{data.networkConnections.segment}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Порт</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.port">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.port"-->
+<!--          >{{data.networkConnections.port}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field appearance="outline" class="dimensions">-->
+<!--        <mat-label>Количество</mat-label>-->
+<!--        <mat-select [(value)]="data.networkConnections.quantity">-->
+<!--          <mat-option-->
+<!--            [value]="data.networkConnections.quantity"-->
+<!--          >{{data.networkConnections.quantity}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" [mat-dialog-close]="data">Подтвердить</button>
   <button mat-raised-button color="warn" (click)="onNoClick()">Отмена</button>
 </div>
+

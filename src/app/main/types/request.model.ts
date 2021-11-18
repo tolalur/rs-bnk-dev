@@ -20,21 +20,29 @@ export interface IComment {
   body: string;
 }
 
-export interface ISearchResultsPhysicalLocation {
-  stand: number;
-  engineRoom: number;
-  placeNumber: number;
+export interface ISearchResultsVariantsNetworkConnectionResults {
+  id: number,
+  commutatorName: string,
+  commutatorPort: number
 }
 
-export interface ISearchResultsNetworkConnections {
-  segment: string;
-  port: string;
-  quantity: string;
+export interface ISearchResultsVariants {
+  id: number,
+  placementResultId: number,
+  mashzal: number,
+  stand: string,
+  unitFrom: number,
+  unitTo: number,
+  status: boolean,
+  networkConnectionResults: ISearchResultsVariantsNetworkConnectionResults[]
 }
 
 export interface ISearchResults {
-  physicalLocation: ISearchResultsPhysicalLocation;
-  networkConnections: ISearchResultsNetworkConnections;
+  id: number,
+  status: string,
+  positionId: number,
+  updatedAt?: string,
+  variants: ISearchResultsVariants[]
 }
 
 export type ICost = Pick<IRequestDTO, 'priceOpex' | 'priceKapex'>

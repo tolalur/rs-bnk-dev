@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, take, tap} from 'rxjs/operators';
-import {IRequestDTO, IRequestPosition} from '../types/request.model';
+import {IRequestDTO, IRequestPosition, ISearchResults} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
 import {HttpClient} from '@angular/common/http';
@@ -12,6 +12,8 @@ import {WarningModalComponent} from '../request/warning-modal/warning-modal.comp
 
 const baseUrl = environment.apiPrefix + '/request';
 const editUrl = (id: number) => `${baseUrl}/${id}`
+const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`
+const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
 
@@ -81,6 +83,14 @@ export class RequestService {
     return this.http.post(baseUrl, this.requestData$.getValue())
   }
 
+  searchResources(id: number) {
+    return this.http.get(searchResourcesUrl(id))
+  }
+
+  getSearchResourcesResults(id: number) {
+    return this.http.get<ISearchResults[]>(searchResourcesResultsUrl(id))
+  }
+
   validateData() {
     const data = this.requestData$.getValue();
     if (data) {
@@ -91,7 +101,7 @@ export class RequestService {
   }
 
   // если выбрано трехфазное подключение
-  dataValidatorPhases(data: IRequestPosition[]): boolean {
+  private dataValidatorPhases(data: IRequestPosition[]): boolean {
     const isValid = data.every(item => +item.electricityConnectorType != 2);
 
     if(!isValid) {

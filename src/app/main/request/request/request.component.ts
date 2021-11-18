@@ -8,7 +8,6 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
-import {WarningModalComponent} from '../warning-modal/warning-modal.component';
 
 @Component({
   selector: 'app-request',
@@ -72,9 +71,11 @@ export class RequestComponent implements OnInit {
   }
 
   search() {
-    this.dialog.open(SearchModalComponent, {
-      width: '320px'
-    });
+    this.service.searchResources(this.id!!).subscribe(() => {
+      this.dialog.open(SearchModalComponent, {
+        width: '320px'
+      });
+    })
   }
 
   transfer() {

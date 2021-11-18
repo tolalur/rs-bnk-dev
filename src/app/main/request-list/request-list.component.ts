@@ -24,7 +24,10 @@ export class RequestListComponent implements AfterViewInit, OnInit {
     'endReservationDate',
     'projectId',
     'statusChangeDate',
-    'status'];
+    // 'responsible',
+    'status',
+  ];
+
   dataSource = new MatTableDataSource([]);
   resultsLength = 0;
   isLoadingResults = false;
