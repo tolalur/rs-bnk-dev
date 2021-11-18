@@ -4,6 +4,7 @@ import {IRequestGeneral} from '../../types/request.model';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {RequestService} from '../../services/request.service';
 import {filter, throttleTime} from 'rxjs/operators';
+import {pipe} from 'rxjs';
 
 
 type GeneralControls = { [key in keyof IRequestGeneral]: AbstractControl };
@@ -20,25 +21,25 @@ export class GeneralComponent implements OnInit {
   generalForm = new FormGroup({
     projectNumber: new FormControl(null, [
       Validators.required,
-      Validators.maxLength(512),
+      Validators.maxLength(512)
     ]),
     serviceOwner: new FormControl(null, [
       Validators.required,
-      Validators.maxLength(512),
+      Validators.maxLength(512)
     ]),
     adminGroup: new FormControl(null, [
       Validators.required,
-      Validators.maxLength(512),
+      Validators.maxLength(512)
     ]),
     correctionBudgetLink: new FormControl(null, [
       Validators.required,
-      Validators.maxLength(512),
+      Validators.maxLength(512)
     ])
   } as GeneralControls) as GeneralFormGroup;
 
   isReadonly = true;
 
-  constructor(private service: RequestService) {
+  constructor(public service: RequestService) {
   }
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ export class GeneralComponent implements OnInit {
         this.service.changeRequest({
           ...this.service.requestData$.getValue(),
           ...this.generalForm.value
-        })
+        });
 
       });
   }
