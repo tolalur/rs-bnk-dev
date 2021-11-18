@@ -1,13 +1,13 @@
 <div class="head middle-container">
-  <div class="flex flex-col items-start">
-    <div class="flex items-center">
+  <div class="head--wrapper">
+    <div class="head--wrapper-item">
       <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
-      <button *ngIf="isAdmin" color="primary" mat-raised-button (click)="inWork()">Взять в работу</button>
+      <button *ngIf="isAdmin" class="ml-3" color="primary" mat-raised-button (click)="inWork()">Взять в работу</button>
     </div>
-    <div *ngIf="isAdmin" class="head-person">
+    <div *ngIf="isAdmin && isInWork" class="head-person">
       <div class="mr-2">Ответственный:</div>
       <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
-      <button color="primary" mat-button (click)="transfer()">Передать</button>
+      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>
     </div>
   </div>
 

@@ -26,7 +26,7 @@ export class RequestComponent implements OnInit {
   canSearch$ = this.requestData$.pipe(map(val => val?.id != null && val.status == RequestModelStatusEnum.NEW));
   disableAdminBtn$ = this.requestData$.pipe(map(val => val?.status != RequestModelStatusEnum.NEW));
   requestModelStatusEnum = RequestModelStatusEnum;
-
+  isInWork = false;
   get isAdd(): boolean {
     return this.id == null;
   }
@@ -107,6 +107,6 @@ export class RequestComponent implements OnInit {
   }
 
   inWork() {
-
+    this.isInWork = true;
   }
 }
