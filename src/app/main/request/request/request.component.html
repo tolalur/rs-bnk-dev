@@ -6,7 +6,14 @@
     </div>
     <div *ngIf="isAdmin && isInWork" class="head-person">
       <div class="mr-2">Ответственный:</div>
-      <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
+      <ng-container *ngIf="requestData$ | async as data">
+
+        <div class="font-bold flex mr-2">
+          <div class="mr-2">{{data.respUserFio}}</div>
+          <div>{{data.respUserEmail}}</div>
+          <div></div>
+        </div>
+      </ng-container>
       <button color="primary" mat-raised-button (click)="transfer()">Передать</button>
     </div>
   </div>
