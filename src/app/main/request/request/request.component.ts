@@ -9,6 +9,7 @@ import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {ConfirmModalComponent} from "./confirm-modal/confirm-modal.component";
 
 @UntilDestroy()
 @Component({
@@ -80,7 +81,20 @@ export class RequestComponent implements OnInit {
 
   reject() {
     const id = this.id;
-    if (id != null) {
+    let confirm = false;
+    const dialogReject = this.dialog.open(ConfirmModalComponent, {
+      width: '300px',
+    });
+
+    dialogReject.afterClosed().subscribe(result => {
+      confirm = result === 'confirm';
+      if (confirm && id) {
+        this.service.reject(id).pipe(
+          untilDestroyed(this)
+        ).subscribe(() => this.service.getRequestData(id));
+      }
+    });
+    if (confirm && id) {
       this.service.reject(id).pipe(
         untilDestroyed(this)
       ).subscribe(() => this.service.getRequestData(id));
@@ -89,11 +103,19 @@ export class RequestComponent implements OnInit {
 
   complete() {
     const id = this.id;
-    if (id) {
-      this.service.complete(id)
-        .pipe(untilDestroyed(this))
-        .subscribe(() => this.service.getRequestData(id));
-    }
+    let confirm = false;
+    const dialogComplete = this.dialog.open(ConfirmModalComponent, {
+      width: '300px',
+    });
+
+    dialogComplete.afterClosed().subscribe(result => {
+      confirm = result === 'confirm';
+      if (confirm && id != null) {
+        this.service.complete(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(() => this.service.getRequestData(id));
+      }
+    });
   }
 
   search() {
