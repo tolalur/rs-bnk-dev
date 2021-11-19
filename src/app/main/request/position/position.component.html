@@ -42,5 +42,9 @@
 
 
   <app-estimating-cost class="pt-4"></app-estimating-cost>
-  <app-search-results class="pt-4" *ngIf="user.isUserNetAdmin || user.isUserAdmin"></app-search-results>
+  <app-search-results
+    class="pt-4"
+    *ngIf="(user.isUserNotAdmin && service.requestData$.getValue()?.status == 'DONE')
+            || (user.isUserNotAdmin || user.isUserAdmin)"
+  ></app-search-results>
 </div>

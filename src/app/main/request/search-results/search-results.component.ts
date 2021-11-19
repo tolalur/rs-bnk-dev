@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {RequestService} from '../../services/request.service';
-import {ISearchResults, ISearchResultsVariants} from '../../types/request.model';
+import {ISearchResults, ISearchResultsVariants, RequestModelStatusEnum} from '../../types/request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchResultsEditComponent} from '../search-results-edit/search-results-edit.component';
 import {filter, map, tap} from 'rxjs/operators';
+import {UserService} from '../../../user/user.service';
 
 @Component({
   selector: 'app-search-results',
@@ -23,7 +24,12 @@ export class SearchResultsComponent implements OnInit {
   dataSource = {} as ISearchResults;
   dataTableSource = [] as ISearchResultsVariants[];
 
-  constructor(private service: RequestService, public dialog: MatDialog) {
+  get canClickOnRow(): boolean {
+    return !this.userService.isUserNotAdmin &&
+      this.service.requestData$.getValue()?.status == RequestModelStatusEnum.INPROCESS;
+  }
+
+  constructor(private service: RequestService, public dialog: MatDialog, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -46,10 +52,20 @@ export class SearchResultsComponent implements OnInit {
   }
 
   open(row: ISearchResults) {
-    this.dialog.open(SearchResultsEditComponent, {
-      width: '100%',
-      maxWidth: '900px',
-      data: row
-    });
+    if (this.canClickOnRow) {
+      const dialog = this.dialog.open(SearchResultsEditComponent, {
+        width: '100%',
+        maxWidth: '900px',
+        data: row
+      });
+
+      dialog.afterClosed()
+        .pipe(filter(val => val != null))
+
+        .subscribe(val => {
+          console.log(val)
+          this.service.approve(val).subscribe()
+        })
+    }
   }
 }

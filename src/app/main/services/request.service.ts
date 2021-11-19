@@ -17,6 +17,7 @@ const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`;
 const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`;
 const rejectUrl = (id: number) => `${baseUrl}/${id}/reject`;
 const completeUrl = (id: number) => `${baseUrl}/${id}/complete`;
+const approveUrl = (id: number) => `${baseUrl}/${id}/approve`;
 
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
@@ -118,6 +119,10 @@ export class RequestService {
 
   complete(id: number) {
     return this.http.post(completeUrl(id), {});
+  }
+
+  approve(id: number) {
+    return this.http.put(approveUrl(id), {})
   }
 
   searchResources(id: number) {
