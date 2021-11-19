@@ -68,7 +68,7 @@ export class RequestService {
   }
 
 
-  getListRequest(sortBy: string, sortDir: string): Observable<RequestListModel[]> {
+  getListRequest(): Observable<RequestListModel[]> {
     return this.http.get<RequestListModel[]>(listUrl);
   }
 
@@ -105,6 +105,10 @@ export class RequestService {
     }
 
     return this.http.post<IRequestDTO>(baseUrl, this.requestData$.getValue());
+  }
+
+  setResponsible(requestId: string, userId:string) {
+    return this.http.post<IRequestDTO>(`${baseUrl}/${requestId}/resp_user`, {respUserId: userId});
   }
 
   reject(id: number) {

@@ -111,6 +111,17 @@ export class RequestComponent implements OnInit {
   }
 
   inWork() {
-    this.isInWork = true;
+    const id = this.id;
+    if(id) {
+      this.service.setResponsible(id.toString(), '3')
+        .pipe(untilDestroyed(this))
+        .subscribe((val) => {
+          console.log(val);
+          if(val) {
+            this.isInWork = true;
+            this.service.getRequestData(id);
+          }
+        });
+    }
   }
 }
