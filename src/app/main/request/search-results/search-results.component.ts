@@ -47,7 +47,13 @@ export class SearchResultsComponent implements OnInit {
           tap(val => this.dataSource = val)
         )
         .subscribe(
-          res => this.dataTableSource = res.variants);
+          res => {
+            if (this.service.requestData$.getValue()?.status == RequestModelStatusEnum.DONE) {
+              this.dataTableSource = res.variants.filter(val => val.status);
+            } else {
+              this.dataTableSource = res.variants;
+            }
+          });
     }
   }
 
@@ -63,9 +69,9 @@ export class SearchResultsComponent implements OnInit {
         .pipe(filter(val => val != null))
 
         .subscribe(val => {
-          console.log(val)
-          this.service.approve(val).subscribe()
-        })
+          console.log(val);
+          this.service.approve(val).subscribe();
+        });
     }
   }
 }
