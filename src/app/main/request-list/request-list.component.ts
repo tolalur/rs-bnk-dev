@@ -20,7 +20,8 @@ export class RequestListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'creationDate',
     'applicationNumber',
-    'user',
+    'creator',
+    'respUser',
     'endReservationDate',
     'projectId',
     'statusChangeDate',
