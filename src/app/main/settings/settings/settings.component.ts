@@ -48,7 +48,7 @@ export class SettingsComponent implements OnInit {
           }
           if ( item.key === 'ManualConfirmation') {
             this.isSettingManualConfirmationNew = false;
-            this.isManualConfirmation = !!item.value;
+            this.isManualConfirmation = item.value === 'true';
           }
         });
 
@@ -62,14 +62,12 @@ export class SettingsComponent implements OnInit {
 
   changeTime() {
     if (this.time && !this.isSettingTimeNew) {
-      console.log(this.time);
       this.service.changeSetting('REQUEST_WORK_HOURS', this.time)
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
           console.log(value);
         });
     } else if (this.time && this.isSettingTimeNew) {
-      console.log(this.time);
       this.service.postSetting('REQUEST_WORK_HOURS', this.time)
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
@@ -80,14 +78,12 @@ export class SettingsComponent implements OnInit {
 
   changeNetAdmin() {
     if (this.netAdmin && !this.isSettingNetAdminNew) {
-      console.log(this.time);
       this.service.changeSetting('netAdmin', this.netAdmin)
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
           console.log(value);
         });
     } else if (this.netAdmin && this.isSettingNetAdminNew) {
-      console.log(this.netAdmin);
       this.service.postSetting('netAdmin', this.netAdmin)
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
@@ -98,15 +94,12 @@ export class SettingsComponent implements OnInit {
 
   changeManualConfirmation() {
     if (this.isSettingManualConfirmationNew) {
-      console.log('this.isSettingManualConfirmationNew', this.isSettingManualConfirmationNew);
       this.service.postSetting('ManualConfirmation', this.isManualConfirmation.toString())
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
           console.log(value);
         });
     } else {
-      console.log('this.isSettingManualConfirmationNew', this.isSettingManualConfirmationNew);
-
       this.service.changeSetting('ManualConfirmation', this.isManualConfirmation.toString())
         .pipe(untilDestroyed(this))
         .subscribe((value) => {
