@@ -10,5 +10,4 @@ export class RequestClass implements IRequestDTO {
   correctionBudgetLink = '';
 
   positions: IRequestPosition[] = [new RequestPositionClass()];
-  status = RequestModelStatusEnum.NEW;
 }
