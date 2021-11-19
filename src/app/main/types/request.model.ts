@@ -48,11 +48,15 @@ export interface ISearchResults {
 export type ICost = Pick<IRequestDTO, 'priceOpex' | 'priceKapex'>
 
 export enum RequestModelStatusEnum {
-  NEW = 'NEW'
+  NEW = 'NEW',
+  WAITING = 'WAITING',
+  INPROCESS = 'INPROCESS',
+  DONE = 'DONE',
+  REJECTED = 'REJECTED'
 }
 
 export enum RequestPositionTypeEnum {
-  NEW_SETUP = 'NEW_SETUP', NEW_REPLACE = 'NEW_REPLACE'
+  NEW_SETUP = 'NEW_SETUP', REPLACE_SETUP = 'REPLACE_SETUP'
 }
 
 export type IPhysicalLocation = Omit<IRequestPosition, 'networkConnections'>
@@ -82,7 +86,7 @@ export interface IRequestDTO extends IRequestGeneral {
   createdAt?: string,
   updatedAt?: string,
   maxResponseTime?: string,
-  status: RequestModelStatusEnum,
+  status?: RequestModelStatusEnum,
   positions: IRequestPosition[],
   user?: string,
   respUserId?: number,

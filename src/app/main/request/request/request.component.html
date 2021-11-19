@@ -1,11 +1,31 @@
 <div class="head middle-container">
-  <div class="flex flex-col items-start">
-    <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}</p>
-    <div *ngIf="isAdmin" class="head-person">
-      <div class="mr-2">Ответственный:</div>
-      <div class="font-bold mr-2">Иванов И.И. iiivanov@mail.ru</div>
-      <button color="primary" mat-button (click)="transfer()">Передать</button>
+  <div class="head--wrapper">
+
+    <div class="head--wrapper-item">
+      <p class="title">Заявка для резервирования ресурсов в ЦОД {{ id }}
+        <strong class="ml-2" style="color: red">{{service.requestData$.getValue()?.status}}</strong>
+      </p>
+      <ng-container *ngIf="requestData$ | async as data">
+        <button *ngIf="isAdmin && !data.respUserId" class="ml-3" color="primary" mat-raised-button (click)="inWork()">
+          Взять в работу
+        </button>
+      </ng-container>
     </div>
+    <div class="head-person">
+      <div class="mr-2">Ответственный:</div>
+      <ng-container *ngIf="requestData$ | async as data">
+        <div class="font-bold flex mr-2">
+          <div *ngIf="!data.respUserId">Не назначен</div>
+          <div class="mr-2">{{data.respUserFio}}</div>
+          <div>{{data.respUserEmail}}</div>
+          <div></div>
+        </div>
+      </ng-container>
+
+<!--      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>-->
+    </div>
+
+
   </div>
 
   <ng-container *ngIf="!isAdmin">
@@ -48,22 +68,41 @@
 <mat-divider class="pb-8"></mat-divider>
 
 <div class="flex justify-center pb-10">
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="save()"
-    [disabled]="!(service.isDataValid$ | async)"
-  >Сохранить
-  </button>
-  <button
-    class="search-btn"
-    *ngIf="isSaved"
-    mat-raised-button
-    color="primary"
-    (click)="search()"
-    [disabled]="!(service.isDataValid$ | async)"
-  >
-    Осуществить поиск
-  </button>
+  <ng-container *ngIf="!isAdmin">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="save()"
+      *ngIf="canSave$ | async"
+      [disabled]="!(service.isDataValid$ | async)"
+    >Сохранить
+    </button>
+    <button
+      class="search-btn"
+      *ngIf="canSearch$ | async"
+      mat-raised-button
+      color="primary"
+      (click)="search()"
+      [disabled]="!(service.isDataValid$ | async)"
+    >
+      Осуществить поиск
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isAdmin && (disableAdminBtn$ | async)">
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="reject()"
+    >Отменить
+    </button>
+    <button
+      class="search-btn"
+      mat-raised-button
+      color="primary"
+      (click)="complete()"
+    >
+      Завершить
+    </button>
+  </ng-container>
 </div>
 

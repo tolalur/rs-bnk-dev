@@ -20,7 +20,8 @@ export class RequestListComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
     'creationDate',
     'applicationNumber',
-    'user',
+    'creator',
+    'respUser',
     'endReservationDate',
     'projectId',
     'statusChangeDate',
@@ -57,7 +58,7 @@ export class RequestListComponent implements AfterViewInit, OnInit {
           this.sortDir = val.direction;
           this.isLoadingResults = true;
 
-          return this.service.getListRequest(this.sortBy, this.sortDir);
+          return this.service.getListRequest();
         }),
           untilDestroyed(this)
     )
@@ -77,7 +78,7 @@ export class RequestListComponent implements AfterViewInit, OnInit {
     this.dictionaryService.getData();
 
     this.service
-      .getListRequest(this.sortBy, this.sortDir)
+      .getListRequest()
       .pipe(untilDestroyed(this))
       .subscribe((requestList: RequestListModel[]) => {
         this.isLoadingResults = false;

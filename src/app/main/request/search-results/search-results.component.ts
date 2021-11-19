@@ -3,7 +3,6 @@ import {RequestService} from '../../services/request.service';
 import {ISearchResults, ISearchResultsVariants} from '../../types/request.model';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchResultsEditComponent} from '../search-results-edit/search-results-edit.component';
-import {BehaviorSubject, Observable, pipe} from 'rxjs';
 import {filter, map, tap} from 'rxjs/operators';
 
 @Component({

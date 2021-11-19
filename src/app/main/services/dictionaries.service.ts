@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {BehaviorSubject} from 'rxjs';
 import {IDictionaries} from '../types/request.model';
-import {take, tap} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 
 const baseUrl = environment.apiPrefix + '/dictionary';
 
