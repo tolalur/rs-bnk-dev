@@ -1,5 +1,5 @@
+<div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
 <ng-container *ngIf="dataTableSource.length > 0">
-  <div class="subtitle position--subtitle position--subtitle_shift mt-7">Результат поиска:</div>
   <div class="table--header flex justify-center">
     <div class="table--header-item flex-grow">
       Выделено физическое размещение
@@ -53,4 +53,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="open(row)"></tr>
   </table>
+</ng-container>
+
+<ng-container *ngIf="dataTableSource.length == 0">
+  <h3 class="h3">Вариантов нет</h3>
 </ng-container>
