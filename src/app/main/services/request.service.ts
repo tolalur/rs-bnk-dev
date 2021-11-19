@@ -44,7 +44,7 @@ export class RequestService {
   canSearch$ = this.requestData$.pipe(map(val => val?.id != null && val.status == RequestModelStatusEnum.NEW));
 
   disableAdminBtn$ = this.requestData$.pipe(
-    map(val => val?.status == RequestModelStatusEnum.WAITING),
+    map(val => val?.status == RequestModelStatusEnum.WAITING || val?.status == RequestModelStatusEnum.INPROCESS),
   );
 
   canSave$ = this.requestData$.pipe(
