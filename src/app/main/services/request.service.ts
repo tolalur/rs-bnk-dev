@@ -57,6 +57,7 @@ export class RequestService {
       return user == null
         || !(user.roles[0].name == UserRolesEnum.USER)
         || request?.status == RequestModelStatusEnum.WAITING
+        || request?.status == RequestModelStatusEnum.INPROCESS
         || request?.status == RequestModelStatusEnum.REJECTED
         || request?.status == RequestModelStatusEnum.DONE;
     })
