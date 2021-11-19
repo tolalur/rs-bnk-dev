@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IRequestGeneral} from '../../types/request.model';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {RequestService} from '../../services/request.service';
-import {filter, throttleTime} from 'rxjs/operators';
-import {pipe} from 'rxjs';
+import {filter, switchMap, throttleTime} from 'rxjs/operators';
+import {pipe, timer} from 'rxjs';
 
 
 type GeneralControls = { [key in keyof IRequestGeneral]: AbstractControl };
@@ -43,6 +43,15 @@ export class GeneralComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.generalForm.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        this.service.changeRequest({
+          ...this.service.requestData$.getValue(),
+          ...this.generalForm.value
+        });
+      });
+
     this.service.requestData$
       .pipe(
         filter(val => val !== null),
@@ -52,23 +61,17 @@ export class GeneralComponent implements OnInit {
       .subscribe(data => {
         Object.keys(this.generalForm.value).forEach(key => {
           // @ts-ignore
-          this.generalForm.controls[key].patchValue(data[key]);
+          this.generalForm.controls[key].setValue(data[key], { emitEvent: false });
         });
       });
 
-    this.service.isReadOnly$.subscribe(res => {
-      if (res) this.generalForm.disable();
-    });
-
-    this.generalForm.valueChanges
-      .pipe(untilDestroyed(this))
-      .subscribe(() => {
-        this.service.changeRequest({
-          ...this.service.requestData$.getValue(),
-          ...this.generalForm.value
-        });
-
-      });
+    setTimeout(() => {
+      this.service.isReadOnly$
+        .pipe(
+          filter(val => val),
+          untilDestroyed(this)
+        )
+        .subscribe(res => this.generalForm.disable());
+    })
   }
-
 }
