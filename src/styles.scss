@@ -25,6 +25,10 @@ tr.mat-header-row .mat-header-cell,
   background-color: #F2F2F2;
 }
 
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  padding: 0 6px !important;
+}
+
 .table {
   border: 1px solid #bababa;
   width: 100%;
