@@ -52,7 +52,7 @@ export enum RequestModelStatusEnum {
 }
 
 export enum RequestPositionTypeEnum {
-  NEW_SETUP = 'NEW_SETUP', NEW_REPLACE = 'NEW_REPLACE'
+  NEW_SETUP = 'NEW_SETUP', REPLACE_SETUP = 'REPLACE_SETUP'
 }
 
 export type IPhysicalLocation = Omit<IRequestPosition, 'networkConnections'>
