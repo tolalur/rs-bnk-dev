@@ -17,7 +17,7 @@ const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`;
 const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`;
 const rejectUrl = (id: number) => `${baseUrl}/${id}/reject`;
 const completeUrl = (id: number) => `${baseUrl}/${id}/complete`;
-const approveUrl = (id: number) => `${baseUrl}/${id}/approve`;
+const approveUrl = (id: number) => `${baseUrl}/result/${id}/approve`;
 
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
