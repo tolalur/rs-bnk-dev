@@ -1,20 +1,44 @@
-<!--<div mat-dialog-content>-->
-<!--  <div class="table&#45;&#45;header flex justify-center" style="border-bottom: 1px solid #bababa;">-->
-<!--    <div class="table&#45;&#45;header-item flex-grow">-->
-<!--      Выделено физическое размещение-->
-<!--    </div>-->
-<!--    <div class="table&#45;&#45;header-item flex-grow">-->
-<!--      Выделено сетевые подключения-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="flex mt-4">-->
-<!--    <div class="flex flex-col flex-grow mr-2">-->
-<!--      <mat-form-field appearance="outline" class="dimensions mt-8">-->
+<div mat-dialog-content>
+  <div class="table--header flex justify-center" style="border-bottom: 1px solid #bababa;">
+    <div class="table--header-item flex-grow">
+      Выделено физическое размещение
+    </div>
+    <div class="table--header-item flex-grow">
+      Выделено сетевые подключения
+    </div>
+  </div>
+<!--  <p>{{data | json}}</p>-->
+  <div class="flex mt-4">
+    <div class="flex flex-col flex-grow mr-2">
+      <ng-container *ngIf="data?.networkConnectionResults">
+        <div class="info">
+          <div class="info--block">
+            <div class="info--item">
+              <b>Машзал: </b> {{data?.mashzal}}
+            </div>
+            <div class="info--item">
+              <b>Стойка: </b> {{data?.stand}}
+            </div>
+          </div>
+          <div class="info--block">
+            <div class="info--item">
+              <b>Место с </b> {{data?.unitFrom}} по {{data?.unitTo}}
+            </div>
+            <div class="info--item">
+              <b>Коммутатор: </b> {{networkConnectionResults?.commutatorName}}
+            </div>
+            <div class="info--item">
+              <b>Коммутатор (порт): </b> {{networkConnectionResults?.commutatorPort}}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!--      <mat-form-field appearance="outline" class="dimensions mt-8">-->
 <!--        <mat-label>Машзал</mat-label>-->
-<!--        <mat-select [(value)]="data.physicalLocation.engineRoom">-->
+<!--        <mat-select [(value)]="data?.mashzal">-->
 <!--          <mat-option-->
-<!--            [value]="data.physicalLocation.engineRoom"-->
-<!--          >{{data.physicalLocation.engineRoom}}-->
+<!--            [value]="data?.mashzal"-->
+<!--          >{{data?.mashzal}}-->
 <!--          </mat-option>-->
 <!--        </mat-select>-->
 <!--      </mat-form-field>-->
@@ -96,9 +120,9 @@
 <!--          </mat-option>-->
 <!--        </mat-select>-->
 <!--      </mat-form-field>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+    </div>
+  </div>
+</div>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" [mat-dialog-close]="data.id">Подтвердить</button>
   <button mat-raised-button color="warn" (click)="onNoClick()">Отмена</button>

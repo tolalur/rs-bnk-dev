@@ -1,7 +1,7 @@
-<ng-container *ngIf="dataTableSource.length > 0">
-  <div class="search-result--header">
-    <div class="subtitle search-result--subtitle">Результат поиска:</div>
-    <div class="search-result--menu">
+
+<div class="search-result--header">
+  <div class="subtitle search-result--subtitle">Результат поиска:</div>
+    <div class="search-result--menu" *ngIf="dataTableSource.length > 0">
       <div class="search-result--menu-item" (click)="new()">
         <span class="material-icons">add_circle_outline</span>
         Добавить
@@ -18,6 +18,8 @@
       </ng-container>
     </div>
   </div>
+
+<ng-container class="search-result--menu" *ngIf="dataTableSource.length > 0">
   <div class="table--header flex justify-center">
     <div class="table--header-item flex-grow">
       Выделено физическое размещение
@@ -81,5 +83,5 @@
 </ng-container>
 
 <ng-container *ngIf="dataTableSource.length == 0">
-  <h3 class="h3">Вариантов нет</h3>
+  <h3 class="h3">Вариантов размещения не найдено</h3>
 </ng-container>
