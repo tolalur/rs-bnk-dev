@@ -41,7 +41,7 @@
   </ng-container>
 
   <mat-tab label="Комментарии">
-    <app-comments></app-comments>
+    <app-comments [requestId]="id ? id.toString() : ''"></app-comments>
   </mat-tab>
 </mat-tab-group>
 
