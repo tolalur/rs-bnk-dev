@@ -23,7 +23,6 @@ export class CommentsComponent implements OnInit {
   }
 
   addComment() {
-    console.log('addComment', this.newComment);
     this.service.addComment(this.requestId, this.newComment)
       .pipe(untilDestroyed(this))
       .subscribe( () => {

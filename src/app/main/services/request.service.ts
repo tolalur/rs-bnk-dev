@@ -74,14 +74,8 @@ export class RequestService {
     return this.http.get<RequestListModel[]>(listUrl);
   }
 
-  getFilterRequest(status: string): Observable<any> {
-    return of([]);
-    // return this.http.getFilter(status);
-  }
-
   getRequestData(id: number): void {
     this.http.get<IRequestDTO>(itemUrl(id)).pipe(
-      map(item => ({...item, comments: item.comments != null ? item.comments : []})),
       tap(data => this._requestData = data),
       tap(data => this.requestData$.next(data)),
       take(1)

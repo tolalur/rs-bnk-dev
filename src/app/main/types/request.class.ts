@@ -3,7 +3,6 @@ import {RequestPositionClass} from './requestPosition.class';
 
 
 export class RequestClass implements IRequestDTO {
-  comments = [] as IComment[];
   projectNumber = '';
   serviceOwner = '';
   adminGroup = '';
