@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {filter, map, tap} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+import {filter, map, switchMap, tap} from 'rxjs/operators';
 import {UploadFileModalComponent} from './upload-file-modal/upload-file-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {RequestService} from '../../services/request.service';
@@ -8,8 +8,10 @@ import {SearchModalComponent} from './search-modal/search-modal.component';
 import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
-import {WarningModalComponent} from '../warning-modal/warning-modal.component';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {ConfirmModalComponent} from "./confirm-modal/confirm-modal.component";
 
+@UntilDestroy()
 @Component({
   selector: 'app-request',
   templateUrl: './request.component.html',
@@ -20,9 +22,11 @@ export class RequestComponent implements OnInit {
   id: null | number = null;
   @ViewChild('fileInput') file: ElementRef | undefined;
   extensionFile = ['csv'];
-  isSaved = false;
   requestData$ = this.service.requestData$;
-
+  canSearch$ = this.service.canSearch$;
+  disableAdminBtn$ = this.service.disableAdminBtn$;
+  canSave$ = this.service.canSave$;
+  isInWork = false;
   get isAdd(): boolean {
     return this.id == null;
   }
@@ -31,11 +35,13 @@ export class RequestComponent implements OnInit {
     return !this.userService.isUserNotAdmin;
   }
 
+
   constructor(
     private route: ActivatedRoute,
     public service: RequestService,
-    private userService: UserService,
+    public userService: UserService,
     private dictionaryService: DictionariesService,
+    private router: Router,
     public dialog: MatDialog) {
   }
 
@@ -66,14 +72,57 @@ export class RequestComponent implements OnInit {
   }
 
   save() {
-    this.service.saveRequest().subscribe(data => {
-      this.isSaved = true;
+    this.service.saveRequest()
+      .pipe(
+        switchMap(data => this.router.navigate(['/request/', data.id]))
+      )
+      .subscribe();
+  }
+
+  reject() {
+    const id = this.id;
+    let confirm = false;
+    const dialogReject = this.dialog.open(ConfirmModalComponent, {
+      width: '300px',
+    });
+
+    dialogReject.afterClosed().subscribe(result => {
+      confirm = result === 'confirm';
+      if (confirm && id) {
+        this.service.reject(id).pipe(
+          untilDestroyed(this)
+        ).subscribe(() => this.service.getRequestData(id));
+      }
+    });
+    if (confirm && id) {
+      this.service.reject(id).pipe(
+        untilDestroyed(this)
+      ).subscribe(() => this.service.getRequestData(id));
+    }
+  }
+
+  complete() {
+    const id = this.id;
+    let confirm = false;
+    const dialogComplete = this.dialog.open(ConfirmModalComponent, {
+      width: '300px',
+    });
+
+    dialogComplete.afterClosed().subscribe(result => {
+      confirm = result === 'confirm';
+      if (confirm && id != null) {
+        this.service.complete(id)
+          .pipe(untilDestroyed(this))
+          .subscribe(() => this.service.getRequestData(id));
+      }
     });
   }
 
   search() {
-    this.dialog.open(SearchModalComponent, {
-      width: '320px'
+    this.service.searchResources(this.id!!).subscribe(() => {
+      this.dialog.open(SearchModalComponent, {
+        width: '320px',
+      });
     });
   }
 
@@ -81,5 +130,20 @@ export class RequestComponent implements OnInit {
     this.dialog.open(TransferRequestModalComponent, {
       width: '400px'
     });
+  }
+
+  inWork() {
+    const id = this.id;
+    if(id) {
+      this.service.setResponsible(id.toString(), '3')
+        .pipe(untilDestroyed(this))
+        .subscribe((val) => {
+          console.log(val);
+          if(val) {
+            this.isInWork = true;
+            this.service.getRequestData(id);
+          }
+        });
+    }
   }
 }

@@ -3,10 +3,11 @@
   <div class="subtitle position--subtitle position--subtitle_shift">Запрос пользователя:</div>
 
   <mat-radio-group class="mb-8" [(ngModel)]="position.type" aria-label="Select an option">
-    <mat-radio-button color="primary" [value]="positionTypeEnum.NEW_SETUP" class="mr-4" [disabled]="isReadOnly$ | async">
+    <mat-radio-button color="primary" [value]="positionTypeEnum.NEW_SETUP" class="mr-4"
+                      [disabled]="isReadOnly$ | async">
       Установка
     </mat-radio-button>
-    <mat-radio-button color="primary" [value]="positionTypeEnum.NEW_REPLACE" [disabled]="isReadOnly$ | async">
+    <mat-radio-button color="primary" [value]="positionTypeEnum.REPLACE_SETUP" [disabled]="isReadOnly$ | async">
       Замена
     </mat-radio-button>
   </mat-radio-group>
@@ -39,8 +40,11 @@
     [physicalLocation]="position"
   ></app-physical-location>
 
+
   <app-estimating-cost class="pt-4"></app-estimating-cost>
-
-  <app-search-results class="pt-4"></app-search-results>
-
+  <app-search-results
+    class="pt-4"
+    *ngIf="(user.isUserNotAdmin && service.requestData$.getValue()?.status == 'DONE')
+            || !user.isUserNotAdmin"
+  ></app-search-results>
 </div>

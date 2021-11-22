@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {map, take, tap} from 'rxjs/operators';
-import {IRequestDTO, IRequestPosition} from '../types/request.model';
+import {IRequestDTO, IRequestPosition, ISearchResults, RequestModelStatusEnum} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
 import {RequestClass} from '../types/request.class';
 import {HttpClient} from '@angular/common/http';
@@ -9,9 +9,16 @@ import {environment} from '../../../environments/environment';
 import {UserService} from '../../user/user.service';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningModalComponent} from '../request/warning-modal/warning-modal.component';
+import {UserRolesEnum} from '../../user/types/user.model';
 
 const baseUrl = environment.apiPrefix + '/request';
-const editUrl = (id: number) => `${baseUrl}/${id}`
+const editUrl = (id: number) => `${baseUrl}/${id}`;
+const searchResourcesUrl = (id: number) => `${baseUrl}/${id}/search-resources`;
+const searchResourcesResultsUrl = (id: number) => `${baseUrl}/${id}/results`;
+const rejectUrl = (id: number) => `${baseUrl}/${id}/reject`;
+const completeUrl = (id: number) => `${baseUrl}/${id}/complete`;
+const approveUrl = (id: number) => `${baseUrl}/result/${id}/approve`;
+
 const listUrl = baseUrl + '/list';
 const itemUrl = (id: number) => `${baseUrl}/${id}`;
 
@@ -32,17 +39,38 @@ export class RequestService {
 
   requestData$ = new BehaviorSubject<null | IRequestDTO>(null);
 
-  dataValidationErrors: string[] = []
+  dataValidationErrors: string[] = [];
 
-  isReadOnly$: Observable<boolean> = new BehaviorSubject<boolean>(!this.userService.isUserNotAdmin)
+  canSearch$ = this.requestData$.pipe(map(val => val?.id != null && val.status == RequestModelStatusEnum.NEW));
 
-  isDataValid$ = new BehaviorSubject<boolean>(true)
+  disableAdminBtn$ = this.requestData$.pipe(
+    map(val => val?.status == RequestModelStatusEnum.WAITING || val?.status == RequestModelStatusEnum.INPROCESS),
+  );
+
+  canSave$ = this.requestData$.pipe(
+    map(val => val?.status == RequestModelStatusEnum.NEW || val?.status == undefined)
+  );
+
+  isReadOnly$: Observable<boolean> = this.userService.user$.pipe(
+    map(user => {
+      const request = this.requestData$.getValue();
+
+      return user == null
+        || !(user.roles[0].name == UserRolesEnum.USER)
+        || request?.status == RequestModelStatusEnum.WAITING
+        || request?.status == RequestModelStatusEnum.INPROCESS
+        || request?.status == RequestModelStatusEnum.REJECTED
+        || request?.status == RequestModelStatusEnum.DONE;
+    })
+  );
+
+  isDataValid$ = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private userService: UserService, public dialog: MatDialog) {
   }
 
 
-  getListRequest(sortBy: string, sortDir: string): Observable<RequestListModel[]> {
+  getListRequest(): Observable<RequestListModel[]> {
     return this.http.get<RequestListModel[]>(listUrl);
   }
 
@@ -71,14 +99,38 @@ export class RequestService {
   }
 
   saveRequest() {
-    console.log(JSON.stringify(this.requestData$.getValue()))
-    const id = this.requestData$.getValue()?.id
+    console.log(JSON.stringify(this.requestData$.getValue()));
+    const id = this.requestData$.getValue()?.id;
 
     if (id != null) {
-      return this.http.put(editUrl(id), this.requestData$.getValue())
+      return this.http.put<IRequestDTO>(editUrl(id), this.requestData$.getValue());
     }
 
-    return this.http.post(baseUrl, this.requestData$.getValue())
+    return this.http.post<IRequestDTO>(baseUrl, this.requestData$.getValue());
+  }
+
+  setResponsible(requestId: string, userId:string) {
+    return this.http.post<IRequestDTO>(`${baseUrl}/${requestId}/resp_user`, {respUserId: userId});
+  }
+
+  reject(id: number) {
+    return this.http.post(rejectUrl(id), {});
+  }
+
+  complete(id: number) {
+    return this.http.post(completeUrl(id), {});
+  }
+
+  approve(id: number) {
+    return this.http.put(approveUrl(id), {})
+  }
+
+  searchResources(id: number) {
+    return this.http.get(searchResourcesUrl(id));
+  }
+
+  getSearchResourcesResults(id: number) {
+    return this.http.get<ISearchResults[]>(searchResourcesResultsUrl(id));
   }
 
   validateData() {
@@ -86,15 +138,15 @@ export class RequestService {
     if (data) {
       this.isDataValid$.next(
         this.dataValidatorPhases(data.positions)
-      )
+      );
     }
   }
 
   // если выбрано трехфазное подключение
-  dataValidatorPhases(data: IRequestPosition[]): boolean {
+  private dataValidatorPhases(data: IRequestPosition[]): boolean {
     const isValid = data.every(item => +item.electricityConnectorType != 2);
 
-    if(!isValid) {
+    if (!isValid) {
       this.dataValidationErrors.push('Для обеспечения требуемого подключения требуется связаться с администраторами по электронной почте');
       this.dialog.open(WarningModalComponent, {
         width: '400px',
@@ -102,6 +154,6 @@ export class RequestService {
       });
     }
 
-    return isValid
+    return isValid;
   }
 }

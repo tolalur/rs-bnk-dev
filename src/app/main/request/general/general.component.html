@@ -6,10 +6,13 @@
         formControlName="projectNumber"
         matInput
         required
-        type="text">
-
+        type="text"
+        >
       <mat-error *ngIf="generalForm.controls['projectNumber'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['projectNumber'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
@@ -19,10 +22,13 @@
         formControlName="serviceOwner"
         matInput
         required
-        type="text">
-
+        type="text"
+      >
       <mat-error *ngIf="generalForm.controls['serviceOwner'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['serviceOwner'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
@@ -32,10 +38,14 @@
         formControlName="adminGroup"
         matInput
         required
-        type="text">
+        type="text"
+      >
 
       <mat-error *ngIf="generalForm.controls['adminGroup'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['adminGroup'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
 
@@ -45,10 +55,13 @@
         formControlName="correctionBudgetLink"
         matInput
         required
-        type="text">
-
+        type="text"
+      >
       <mat-error *ngIf="generalForm.controls['correctionBudgetLink'].hasError('required')">
         Обязательное поле
+      </mat-error>
+      <mat-error *ngIf="generalForm.controls['correctionBudgetLink'].hasError('maxlength')">
+        Максимальное число символов 512
       </mat-error>
     </mat-form-field>
   </form>
