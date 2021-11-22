@@ -9,7 +9,8 @@ import {UserService} from '../../../user/user.service';
 import {TransferRequestModalComponent} from '../transfer-request-modal/transfer-request-modal.component';
 import {DictionariesService} from '../../services/dictionaries.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {ConfirmModalComponent} from "./confirm-modal/confirm-modal.component";
+import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
+import {RequestPositionClass} from '../../types/requestPosition.class';
 
 @UntilDestroy()
 @Component({
@@ -145,5 +146,26 @@ export class RequestComponent implements OnInit {
           }
         });
     }
+  }
+
+  copyPosition($event: MouseEvent, index: number) {
+    $event.stopImmediatePropagation();
+    const position = this.requestData$.getValue()?.positions[index];
+
+    if (position != null) {
+      delete position.id;
+
+      position.networkConnections = position.networkConnections.map(val => {
+        const {id, ...rest} = val;
+        return rest;
+      });
+
+      this.requestData$.getValue()?.positions.push({...position})
+    }
+  }
+
+  addPosition($event: MouseEvent) {
+    $event.stopImmediatePropagation()
+    this.requestData$.getValue()?.positions.push(new RequestPositionClass())
   }
 }

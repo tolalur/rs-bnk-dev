@@ -22,7 +22,7 @@
         </div>
       </ng-container>
 
-<!--      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>-->
+      <!--      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>-->
     </div>
 
 
@@ -53,7 +53,17 @@
   </mat-tab>
 
   <ng-container *ngIf="requestData$ | async as data">
-    <mat-tab [label]="'Позиция ' + (i + 1)" *ngFor="let item of data.positions; let i = index">
+    <mat-tab *ngFor="let item of data.positions; let i = index">
+      <ng-template mat-tab-label>
+        <span class="pr-4">Позиция {{i + 1}}</span>
+
+        <button mat-icon-button color="primary" class="mr-2" (click)="copyPosition($event, i)">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="addPosition($event)">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </ng-template>
       <app-position
         [position]="item"
       ></app-position>
