@@ -36,7 +36,6 @@ export class RequestComponent implements OnInit {
     return !this.userService.isUserNotAdmin;
   }
 
-
   constructor(
     private route: ActivatedRoute,
     public service: RequestService,
