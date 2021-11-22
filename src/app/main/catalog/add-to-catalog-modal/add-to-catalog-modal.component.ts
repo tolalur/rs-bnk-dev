@@ -11,6 +11,7 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 })
 export class AddToCatalogModalComponent implements OnInit {
   name = '';
+  netboxName = '';
 
   constructor(
     public dialogRef: MatDialogRef<AddToCatalogModalComponent>,
@@ -30,14 +31,14 @@ export class AddToCatalogModalComponent implements OnInit {
   save() {
     console.log(this.data?.edit);
     if( this.name && this.data?.edit ) {
-      this.service.editCatalogMashzal(this.data.id, this.name)
+      this.service.editCatalogMashzal(this.data.id, this.name, this.netboxName)
         .pipe(untilDestroyed(this))
         .subscribe(
           value => {console.log(value)}
         );
 
     } else if ( this.name && !this.data?.edit ){
-      this.service.addCatalogMashzal(this.name)
+      this.service.addCatalogMashzal(this.name, this.netboxName)
         .pipe(untilDestroyed(this))
         .subscribe(
           value => {console.log(value)}

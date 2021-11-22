@@ -20,32 +20,43 @@ export interface IComment {
   body: string;
 }
 
-export interface ISearchResultsPhysicalLocation {
-  stand: number;
-  engineRoom: number;
-  placeNumber: number;
+export interface ISearchResultsVariantsNetworkConnectionResults {
+  id: number,
+  commutatorName: string,
+  commutatorPort: number
 }
 
-export interface ISearchResultsNetworkConnections {
-  segment: string;
-  port: string;
-  quantity: string;
+export interface ISearchResultsVariants {
+  id: number,
+  placementResultId: number,
+  mashzal: number,
+  stand: string,
+  unitFrom: number,
+  unitTo: number,
+  status: boolean,
+  networkConnectionResults: ISearchResultsVariantsNetworkConnectionResults[]
 }
 
 export interface ISearchResults {
-  id: number;
-  physicalLocation: ISearchResultsPhysicalLocation;
-  networkConnections: ISearchResultsNetworkConnections;
+  id: number,
+  status: string,
+  positionId: number,
+  updatedAt?: string,
+  variants: ISearchResultsVariants[]
 }
 
 export type ICost = Pick<IRequestDTO, 'priceOpex' | 'priceKapex'>
 
 export enum RequestModelStatusEnum {
-  NEW = 'NEW'
+  NEW = 'NEW',
+  WAITING = 'WAITING',
+  INPROCESS = 'INPROCESS',
+  DONE = 'DONE',
+  REJECTED = 'REJECTED'
 }
 
 export enum RequestPositionTypeEnum {
-  NEW_SETUP = 'NEW_SETUP', NEW_REPLACE = 'NEW_REPLACE'
+  NEW_SETUP = 'NEW_SETUP', REPLACE_SETUP = 'REPLACE_SETUP'
 }
 
 export type IPhysicalLocation = Omit<IRequestPosition, 'networkConnections'>
@@ -75,7 +86,7 @@ export interface IRequestDTO extends IRequestGeneral {
   createdAt?: string,
   updatedAt?: string,
   maxResponseTime?: string,
-  status: RequestModelStatusEnum,
+  status?: RequestModelStatusEnum,
   positions: IRequestPosition[],
   user?: string,
   respUserId?: number,

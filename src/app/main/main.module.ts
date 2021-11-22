@@ -22,6 +22,7 @@ import { SearchResultsEditComponent } from './request/search-results-edit/search
 import { TransferRequestModalComponent } from './request/transfer-request-modal/transfer-request-modal.component';
 import {MatRadioModule} from "@angular/material/radio";
 import { WarningModalComponent } from './request/warning-modal/warning-modal.component';
+import { ConfirmModalComponent } from './request/request/confirm-modal/confirm-modal.component';
 
 
 
@@ -41,7 +42,8 @@ import { WarningModalComponent } from './request/warning-modal/warning-modal.com
     SearchModalComponent,
     SearchResultsEditComponent,
     TransferRequestModalComponent,
-    WarningModalComponent
+    WarningModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     CommonModule,

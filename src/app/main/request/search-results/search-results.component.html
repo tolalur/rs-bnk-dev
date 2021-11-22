@@ -1,4 +1,4 @@
-<ng-container *ngIf="data$ | async as data">
+<ng-container *ngIf="dataTableSource.length > 0">
   <div class="search-result--header">
     <div class="subtitle search-result--subtitle">Результат поиска:</div>
     <div class="search-result--menu">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <table mat-table
-         [dataSource]="dataSource"
+         [dataSource]="dataTableSource"
          class="table table-container--table"
   >
     <ng-container matColumnDef="number">
@@ -39,25 +39,30 @@
 
     <ng-container matColumnDef="engineRoom">
       <th mat-header-cell *matHeaderCellDef>Машзал</th>
-      <td mat-cell *matCellDef="let row"> {{row.physicalLocation.engineRoom}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.mashzal}} </td>
     </ng-container>
 
     <ng-container matColumnDef="placeNumber">
       <th mat-header-cell *matHeaderCellDef>Стойка</th>
-      <td mat-cell *matCellDef="let row"> {{row.physicalLocation.placeNumber}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.stand}} </td>
     </ng-container>
 
     <ng-container matColumnDef="place">
       <th mat-header-cell *matHeaderCellDef>Место</th>
-      <td mat-cell *matCellDef="let row">Место</td>
+      <td mat-cell *matCellDef="let row">
+        <div class="flex flex-col">
+          <span>С {{row.unitFrom}}</span>
+          <span>По {{row.unitTo}}</span>
+        </div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="networkConnections">
       <th mat-header-cell *matHeaderCellDef>Коммутатор</th>
       <td mat-cell *matCellDef="let row">
-        <div class="flex flex-col">
-          <span>{{row.networkConnections.segment}}</span>
-          <span>Порт {{row.networkConnections.port}}</span>
+        <div class="flex flex-col mt-4" *ngFor="let item of row.networkConnectionResults">
+          <span>{{item.commutatorName}}</span>
+          <span>Порт {{item.commutatorPort}}</span>
         </div>
       </td>
     </ng-container>
@@ -73,4 +78,8 @@
 
     </tr>
   </table>
+</ng-container>
+
+<ng-container *ngIf="dataTableSource.length == 0">
+  <h3 class="h3">Вариантов нет</h3>
 </ng-container>

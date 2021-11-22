@@ -42,10 +42,10 @@ export class SegmentsComponent implements OnInit {
     });
   }
 
-  edit(id: string, name: string) {
+  edit(id: string, name: string, netboxName: string) {
     this.dialog.open(AddSegmentToCatalogModalComponent, {
       width: '320px',
-      data: {name: name, edit: true}
+      data: {name: name, netboxName: netboxName, edit: true, id: id}
     });
   }
 

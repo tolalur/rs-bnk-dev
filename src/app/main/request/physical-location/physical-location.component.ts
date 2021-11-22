@@ -4,7 +4,6 @@ import {UntilDestroy} from '@ngneat/until-destroy';
 import {ActivatedRoute} from '@angular/router';
 import {DictionariesService} from '../../services/dictionaries.service';
 import {RequestService} from '../../services/request.service';
-import {WarningModalComponent} from '../warning-modal/warning-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 
 @UntilDestroy()

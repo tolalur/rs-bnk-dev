@@ -10,6 +10,6 @@
 
   <div class="subtitle">Список комментариев:</div>
   <div class="comments--container">
-    <app-comment *ngFor="let item of comments$ | async" [comment]="item"></app-comment>
+    <app-comment *ngFor="let item of comments" [comment]="item"></app-comment>
   </div>
 </div>
