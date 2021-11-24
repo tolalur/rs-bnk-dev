@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {map, take, tap} from 'rxjs/operators';
 import {IRequestDTO, IRequestPosition, ISearchResults, RequestModelStatusEnum} from '../types/request.model';
 import {RequestListModel} from '../types/request-list.model';
@@ -93,7 +93,6 @@ export class RequestService {
   }
 
   saveRequest() {
-    console.log(JSON.stringify(this.requestData$.getValue()));
     const id = this.requestData$.getValue()?.id;
 
     if (id != null) {
@@ -103,8 +102,8 @@ export class RequestService {
     return this.http.post<IRequestDTO>(baseUrl, this.requestData$.getValue());
   }
 
-  setResponsible(requestId: string, userId:string) {
-    return this.http.post<IRequestDTO>(`${baseUrl}/${requestId}/resp_user`, {respUserId: userId});
+  setResponsible(requestId: string, userId: number) {
+    return this.http.post<IRequestDTO>(`${baseUrl}/${requestId}/take`, {respUserId: userId});
   }
 
   reject(id: number) {

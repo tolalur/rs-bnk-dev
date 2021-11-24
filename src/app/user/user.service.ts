@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {isRoleUser, UserLogin, UserRolesEnum} from './types/user.model';
+import {UserLogin, UserRolesEnum} from './types/user.model';
 import {UserLoginResponse} from './types/user.model';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
@@ -43,6 +43,10 @@ export class UserService {
 
   get token() {
     return this.user?.token
+  }
+
+  get id() {
+    return this.user?.userId;
   }
 
   constructor(private http: HttpClient, private router: Router) {
