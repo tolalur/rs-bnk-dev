@@ -12,13 +12,15 @@ import {MaterialModule} from './material/material.module';
 import {AuthInterceptor} from '../_interceptors/auth-interceptor';
 import {ErrorInterceptor} from '../_interceptors/error-interceptor';
 import {DataInterceptor} from '../_interceptors/data-interceptor';
+import { GeneralDialogComponent } from './general-dialog/general-dialog.component';
 
 registerLocaleData(localeRu, 'ru');
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminMenuComponent
+    AdminMenuComponent,
+    GeneralDialogComponent
   ],
   imports: [
     BrowserModule,
