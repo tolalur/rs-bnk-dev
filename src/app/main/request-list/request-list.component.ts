@@ -91,12 +91,5 @@ export class RequestListComponent implements AfterViewInit, OnInit {
     // todo доделать
     this.isLoadingResults = true;
     console.log('selectedStatus: ', this.selectedStatus);
-    this.service.getFilterRequest(this.selectedStatus)
-      .pipe(untilDestroyed(this))
-      .subscribe((requestList: RequestListModel[]) => {
-        this.isLoadingResults = false;
-        // @ts-ignore
-        this.dataSource = requestList;
-      });
   }
 }

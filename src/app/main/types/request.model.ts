@@ -80,7 +80,6 @@ export interface IRequestPosition {
 
 export interface IRequestDTO extends IRequestGeneral {
   id?: number;
-  comments: IComment[],
   priceOpex?: string,
   priceKapex?: string,
   createdAt?: string,

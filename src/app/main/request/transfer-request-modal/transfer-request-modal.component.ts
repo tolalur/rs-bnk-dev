@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
+import {UsersService} from "../../services/users.service";
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import {User} from "../../types/users.model";
 
+@UntilDestroy()
 @Component({
   selector: 'app-transfer-request-modal',
   templateUrl: './transfer-request-modal.component.html',
@@ -8,37 +12,31 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class TransferRequestModalComponent implements OnInit {
   selectedId: number | undefined;
-  // ToDo: получение данных с бэка
-  data = [
-    {
-      name: 'Петров Петр Петрович',
-      email: 'pppetrov@gmail.ru',
-      id: 4
-    },
-    {
-      name: 'Петров Петр Петрович',
-      email: 'pppetrov@gmail.ru',
-      id: 3
-    },
-    {
-      name: 'Петров Петр Петрович',
-      email: 'pppetrov@gmail.ru',
-      id: 7
-    }
-  ];
+  data: User[] | undefined;
 
-  constructor(public dialogRef: MatDialogRef<TransferRequestModalComponent>) { }
+  constructor(public dialogRef: MatDialogRef<TransferRequestModalComponent>,
+              private service: UsersService) { }
 
   ngOnInit(): void {
-    this.selectedId = this.data[0].id;
+    this.service.getUsers()
+      .pipe(untilDestroyed(this))
+      .subscribe( (users: User[]) => {
+        this.data = users;
+        this.selectedId = this.data[0].id;
+      });
   }
 
-  selectPerson(id: number) {
+  selectPerson(id: number | undefined) {
     this.selectedId = id;
   }
 
   transfer() {
-    // ToDo: отправка выбранного сотрудника
-    this.dialogRef.close();
+    if(this.selectedId) {
+      this.service.setResponsibleUser(this.selectedId).pipe(untilDestroyed(this))
+        .subscribe( (resp) => {
+          console.log(resp);
+        });
+      this.dialogRef.close();
+    }
   }
 }

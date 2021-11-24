@@ -1,16 +1,16 @@
 <ng-container *ngIf="data$ | async as const">
-  <ng-container *ngIf="const.priceOpex != '' && const.priceKapex != ''">
     <div class="subtitle position--subtitle position--subtitle_shift mt-7">Оценка стоимости резервируемых ресурсов:</div>
     <div class="border position--wrap flex flex-col">
       <div class="flex justify-between">
         <span>Итого CAPEX</span>
-        <span> {{const.priceKapex | number}} руб.</span>
+        <span *ngIf="const.priceKapex"> {{const.priceKapex | number}} руб.</span>
+        <span *ngIf="!const.priceKapex"> <span class="pr-3">&mdash;</span> руб.</span>
       </div>
 
       <div class="flex justify-between mt-2">
         <span>Итого OPEX</span>
-        <span> {{const.priceOpex | number}} руб.</span>
+        <span *ngIf="const.priceOpex"> {{const.priceOpex | number}} руб.</span>
+        <span *ngIf="!const.priceOpex"> <span class="pr-3">&mdash;</span> руб.</span>
       </div>
     </div>
-  </ng-container>
 </ng-container>
