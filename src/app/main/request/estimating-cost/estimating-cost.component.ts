@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {ICost} from '../../types/request.model';
 import {RequestService} from '../../services/request.service';
-import {map} from 'rxjs/operators';
+import {map, throttle, throttleTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-estimating-cost',
@@ -15,6 +15,7 @@ export class EstimatingCostComponent implements OnInit {
 
   constructor(public service: RequestService) {
     this.data$ = this.service.requestData$.pipe(
+      throttleTime(1000),
       map(val => ({priceKapex:  val?.priceKapex ?? '', priceOpex: val?.priceOpex ?? ''}))
     );
   }

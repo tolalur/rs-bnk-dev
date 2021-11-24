@@ -1,6 +1,15 @@
-table {
-  width: 100%;
-  td {
-    cursor: pointer;
+.search-results {
+  &__table-wrapper {
+    max-height: 500px;
+    max-width: 920px;
+    overflow: auto;
+  }
+
+  table {
+    width: 100%;
+
+    td {
+      cursor: pointer;
+    }
   }
 }

@@ -70,7 +70,10 @@
   </ng-container>
 
   <mat-tab label="Комментарии" [disabled]="id == null">
-    <app-comments [requestId]="id ? id.toString() : ''"></app-comments>
+    <app-comments
+      *ngIf="id != null"
+      [requestId]="id.toString()"
+    ></app-comments>
   </mat-tab>
 </mat-tab-group>
 
@@ -98,11 +101,12 @@
     </button>
   </ng-container>
 
-  <ng-container *ngIf="isAdmin && (disableAdminBtn$ | async)">
+  <ng-container *ngIf="isAdmin">
     <button
       mat-raised-button
       color="warn"
       (click)="reject()"
+
     >Отменить
     </button>
     <button
@@ -110,6 +114,7 @@
       mat-raised-button
       color="primary"
       (click)="complete()"
+
     >
       Завершить
     </button>
