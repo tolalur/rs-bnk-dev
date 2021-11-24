@@ -11,6 +11,7 @@
         </button>
       </ng-container>
     </div>
+
     <div class="head-person">
       <div class="mr-2">Ответственный:</div>
       <ng-container *ngIf="requestData$ | async as data">
@@ -18,11 +19,11 @@
           <div *ngIf="!data.respUserId">Не назначен</div>
           <div class="mr-2">{{data.respUserFio}}</div>
           <div>{{data.respUserEmail}}</div>
-          <div></div>
         </div>
+        <button *ngIf="isAdmin && data.respUserId" color="primary" mat-raised-button (click)="transfer()">
+          Передать
+        </button>
       </ng-container>
-
-      <button color="primary" mat-raised-button (click)="transfer()">Передать</button>
     </div>
   </div>
 
