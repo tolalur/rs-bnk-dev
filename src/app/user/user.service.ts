@@ -53,8 +53,7 @@ export class UserService {
   }
 
   login(data: UserLogin): Observable<UserLoginResponse> {
-    return this.http.post<UserLoginResponse>(this.loginUrl, data).pipe(tap((val) => {this.user = val; console.log(this.user);
-    }));
+    return this.http.post<UserLoginResponse>(this.loginUrl, data).pipe(tap((val) => (this.user = val)));
   }
 
   logout(): Observable<any> {

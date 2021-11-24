@@ -93,7 +93,6 @@ export class RequestService {
   }
 
   saveRequest() {
-    console.log(JSON.stringify(this.requestData$.getValue()));
     const id = this.requestData$.getValue()?.id;
 
     if (id != null) {
