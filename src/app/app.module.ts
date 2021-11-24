@@ -11,6 +11,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MaterialModule} from './material/material.module';
 import {AuthInterceptor} from '../_interceptors/auth-interceptor';
 import {ErrorInterceptor} from '../_interceptors/error-interceptor';
+import {DataInterceptor} from '../_interceptors/data-interceptor';
 
 registerLocaleData(localeRu, 'ru');
 
@@ -31,6 +32,11 @@ registerLocaleData(localeRu, 'ru');
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: DataInterceptor,
       multi: true
     },
     {
