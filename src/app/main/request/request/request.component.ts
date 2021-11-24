@@ -11,6 +11,7 @@ import {DictionariesService} from '../../services/dictionaries.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {ConfirmModalComponent} from './confirm-modal/confirm-modal.component';
 import {RequestPositionClass} from '../../types/requestPosition.class';
+import {SearchResultsService} from '../../services/search-results.service';
 
 @UntilDestroy()
 @Component({
@@ -39,6 +40,7 @@ export class RequestComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public service: RequestService,
+    public searchResultsService: SearchResultsService,
     public userService: UserService,
     private dictionaryService: DictionariesService,
     private router: Router,
@@ -119,7 +121,7 @@ export class RequestComponent implements OnInit {
   }
 
   search() {
-    this.service.searchResources(this.id!!).subscribe(() => {
+    this.searchResultsService.searchResources(this.id!!).subscribe(() => {
       this.dialog.open(SearchModalComponent, {
         width: '320px',
       });

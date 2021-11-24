@@ -21,26 +21,26 @@ export interface IComment {
 }
 
 export interface ISearchResultsVariantsNetworkConnectionResults {
-  id: number,
+  id?: number,
   commutatorName: string,
-  commutatorPort: number
+  commutatorPort: string
 }
 
 export interface ISearchResultsVariants {
-  id: number,
-  placementResultId: number,
+  id?: number,
+  placementResultId?: number,
   mashzal: number,
   stand: string,
   unitFrom: number,
   unitTo: number,
-  status: boolean,
+  status?: boolean,
   networkConnectionResults: ISearchResultsVariantsNetworkConnectionResults[]
 }
 
 export interface ISearchResults {
-  id: number,
+  id?: number,
   status: string,
-  positionId: number,
+  positionId?: number,
   updatedAt?: string,
   variants: ISearchResultsVariants[]
 }
