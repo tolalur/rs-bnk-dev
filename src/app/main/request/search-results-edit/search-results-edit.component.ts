@@ -1,9 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {
-  ISearchResultsVariants,
-  ISearchResultsVariantsNetworkConnectionResults
-} from '../../types/request.model';
+import {ISearchResultsVariants, ISearchResultsVariantsNetworkConnectionResults} from '../../types/request.model';
+import {DictionariesService} from '../../services/dictionaries.service';
 
 @Component({
   selector: 'app-search-results-edit',
@@ -11,17 +9,25 @@ import {
   styleUrls: ['./search-results-edit.component.scss']
 })
 export class SearchResultsEditComponent implements OnInit {
-  networkConnectionResults: ISearchResultsVariantsNetworkConnectionResults | undefined;
+
   constructor(public dialogRef: MatDialogRef<SearchResultsEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ISearchResultsVariants,) { }
+              @Inject(MAT_DIALOG_DATA) public data: ISearchResultsVariants,
+              public dictionaryService: DictionariesService
+              ) { }
 
   ngOnInit(): void {
-    if (this.data.networkConnectionResults) {
-      this.networkConnectionResults = this.data.networkConnectionResults[0];
-    }
   }
 
   onNoClick() {
     this.dialogRef.close();
+  }
+
+  addNetworkConnection() {
+    const networkConnection: ISearchResultsVariantsNetworkConnectionResults = {
+      commutatorName: '',
+      commutatorPort: ''
+    }
+
+    this.data.networkConnectionResults.push(networkConnection)
   }
 }

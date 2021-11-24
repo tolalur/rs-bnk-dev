@@ -7,13 +7,13 @@
         Добавить
       </div>
       <ng-container *ngIf="!!selectedRowIndex">
-        <div class="search-result--menu-item" (click)="open()">
+        <div class="search-result--menu-item" (click)="edit()">
           <span class="material-icons">edit</span>
           Редактировать
         </div>
-        <div class="search-result--menu-item search-result--menu-item_red" (click)="reject()">
-          <span class="material-icons">highlight_off</span>
-          Отклонить
+        <div class="search-result--menu-item" (click)="approve()">
+          <span class="material-icons">done_outline</span>
+          Подтвердить
         </div>
       </ng-container>
     </div>
@@ -28,7 +28,7 @@
       Выделено сетевые подключения
     </div>
   </div>
-  <div class="search-results__table-wrapper">
+  <div class="search-result__table-wrapper">
     <table mat-table
          [dataSource]="dataTableSource"
          class="table table-container--table"

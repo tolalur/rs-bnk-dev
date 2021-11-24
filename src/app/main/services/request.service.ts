@@ -114,18 +114,6 @@ export class RequestService {
     return this.http.post(completeUrl(id), {});
   }
 
-  approve(id: number) {
-    return this.http.put(approveUrl(id), {})
-  }
-
-  searchResources(id: number) {
-    return this.http.get(searchResourcesUrl(id));
-  }
-
-  getSearchResourcesResults(id: number) {
-    return this.http.get<ISearchResults[]>(searchResourcesResultsUrl(id));
-  }
-
   validateData() {
     const data = this.requestData$.getValue();
     if (data) {
