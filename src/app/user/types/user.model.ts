@@ -13,6 +13,7 @@ export type UserLoginResponse = {
   refresh: string
   roles: Record<'name', UserRolesEnum>[]
   token: string
+  userId: number
 };
 
 export enum UserRolesEnum  {

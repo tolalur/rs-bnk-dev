@@ -134,11 +134,10 @@ export class RequestComponent implements OnInit {
 
   inWork() {
     const id = this.id;
-    if(id) {
-      this.service.setResponsible(id.toString(), '3')
+    if(id && this.userService.id) {
+      this.service.setResponsible(id.toString(), this.userService.id)
         .pipe(untilDestroyed(this))
         .subscribe((val) => {
-          console.log(val);
           if(val) {
             this.isInWork = true;
             this.service.getRequestData(id);
