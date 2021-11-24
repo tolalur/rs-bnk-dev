@@ -1,4 +1,9 @@
 .search-result {
+  &__table-wrapper {
+    max-height: 500px;
+    max-width: 920px;
+    overflow: auto;
+  }
   &--header {
     display: flex;
     align-items: center;

@@ -69,7 +69,10 @@
   </ng-container>
 
   <mat-tab label="Комментарии" [disabled]="id == null">
-    <app-comments [requestId]="id ? id.toString() : ''"></app-comments>
+    <app-comments
+      *ngIf="id != null"
+      [requestId]="id.toString()"
+    ></app-comments>
   </mat-tab>
 </mat-tab-group>
 
